@@ -1,20 +1,27 @@
 @import "tailwindcss";
 
+/* Future Gadget Labs brand kit (same family as PolyEdge, FG-Collect and CryptoLabs): Slab Navy surfaces,
+   Barlow Semi Condensed for headings and the wordmark, Source Sans 3 for everything else.
+   Watchtower's band colour is magenta (#A21CAF; #C572CD is its tint for navy backgrounds, per the kit).
+   Scan cyan and nixie amber stay as the dashboard's own accents. */
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Source Sans 3", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Barlow Semi Condensed", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --color-void: #05070b;
-  --color-panel: #0b1018;
-  --color-panel-2: #101722;
-  --color-line: #1c2633;
-  --color-line-2: #283445;
-  --color-ink: #dbe3ec;
-  --color-ink-2: #9aa7b6;
-  --color-ink-3: #6b7888;
+  --color-navy: #0e2340;
+  --color-void: #0b1626;
+  --color-panel: #12233a;
+  --color-panel-2: #172b46;
+  --color-line: #22385a;
+  --color-line-2: #2a4266;
+  --color-ink: #e6ecf3;
+  --color-ink-2: #9aa8ba;
+  --color-ink-3: #8494aa;
 
   --color-nixie: #ff9f1c;
   --color-scan: #3dd6c6;
+  --color-band: #c572cd; /* the slab's label band, in Watchtower's colour (see scripts/brand/README.md) */
 
   /* Status: reserved for state, never used as a series color. Always shown with a label. */
   --color-ok: #3ddc84;
@@ -30,8 +37,8 @@ html {
 body {
   margin: 0;
   background:
-    radial-gradient(1200px 600px at 80% -10%, rgb(61 214 198 / 0.06), transparent 60%),
-    radial-gradient(900px 500px at -10% 10%, rgb(255 159 28 / 0.05), transparent 60%),
+    radial-gradient(1200px 600px at 80% -10%, rgb(61 214 198 / 0.05), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, rgb(37 99 201 / 0.08), transparent 60%),
     var(--color-void);
   color: var(--color-ink);
   font-family: var(--font-sans);
@@ -82,7 +89,7 @@ body::before {
 }
 
 /* rendered architecture markdown */
-.prose-wt h1 { font-size: 1.6rem; font-weight: 600; margin: 0 0 0.75rem; }
+.prose-wt h1 { font-family: var(--font-display); font-size: 1.9rem; font-weight: 600; letter-spacing: 0.01em; margin: 0 0 0.75rem; }
 .prose-wt h2 {
   font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--color-scan); margin: 2.25rem 0 0.9rem; padding-top: 1.25rem; border-top: 1px solid var(--color-line);

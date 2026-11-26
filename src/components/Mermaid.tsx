@@ -11,25 +11,25 @@ function loadMermaid() {
       fontFamily: 'JetBrains Mono, ui-monospace, monospace',
       themeVariables: {
         darkMode: true,
-        background: '#0b1018',
-        primaryColor: '#101722',
+        background: '#0b1626',
+        primaryColor: '#172b46',
         primaryBorderColor: '#3dd6c6',
-        primaryTextColor: '#dbe3ec',
+        primaryTextColor: '#e6ecf3',
         secondaryColor: '#140b02',
-        tertiaryColor: '#0b1018',
-        lineColor: '#6b7888',
-        textColor: '#dbe3ec',
-        clusterBkg: '#0a0f16',
-        clusterBorder: '#283445',
-        edgeLabelBackground: '#0b1018',
-        actorBkg: '#101722',
+        tertiaryColor: '#12233a',
+        lineColor: '#8494aa',
+        textColor: '#e6ecf3',
+        clusterBkg: '#0e1d33',
+        clusterBorder: '#2a4266',
+        edgeLabelBackground: '#12233a',
+        actorBkg: '#172b46',
         actorBorder: '#ff9f1c',
-        actorTextColor: '#dbe3ec',
-        signalColor: '#9aa7b6',
-        signalTextColor: '#dbe3ec',
+        actorTextColor: '#e6ecf3',
+        signalColor: '#9aa8ba',
+        signalTextColor: '#e6ecf3',
         noteBkgColor: '#140b02',
         noteBorderColor: '#ff9f1c',
-        noteTextColor: '#dbe3ec',
+        noteTextColor: '#e6ecf3',
         fontSize: '13px',
       },
     })
@@ -69,7 +69,7 @@ export function Mermaid({ code, title }: { code: string; title?: string }) {
   const btn = 'rounded-md border border-line px-2 py-0.5 font-mono text-xs text-ink-2 hover:border-line-2 hover:text-ink'
   const frame = full
     ? 'fixed inset-3 z-50 flex flex-col rounded-xl border border-line-2 bg-panel shadow-2xl'
-    : 'relative flex flex-col rounded-xl border border-line bg-[#080c12]'
+    : 'relative flex flex-col rounded-xl border border-line bg-[#0e1d33]'
 
   return (
     <>

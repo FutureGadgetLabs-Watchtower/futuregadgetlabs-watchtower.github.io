@@ -15,18 +15,15 @@ export function Header({ route, now }: { route: RouteId; now: number }) {
   const stale = state === 'CACHED'
   const stamp = utcStamp(newest.at)
   return (
-    <header className="sticky top-0 z-30 border-b border-line bg-void/85 backdrop-blur-md">
+    <header className="sticky top-0 z-30 border-t-3 border-b border-t-band border-b-line bg-void/85 backdrop-blur-md">
       <div className="mx-auto flex max-w-[1400px] flex-wrap items-center gap-x-6 gap-y-3 px-4 py-3">
         <a href="#/health" className="flex items-center gap-3">
-          <svg viewBox="0 0 32 32" className="h-8 w-8" aria-hidden>
-            <circle cx="16" cy="16" r="11" fill="none" stroke="var(--color-nixie)" strokeWidth="1.6" />
-            <circle cx="16" cy="16" r="6" fill="none" stroke="var(--color-line-2)" strokeWidth="1" />
-            <circle cx="16" cy="16" r="2.4" fill="var(--color-nixie)" />
-            <path d="M16 1v6M16 25v6M1 16h6M25 16h6" stroke="var(--color-scan)" strokeWidth="1.6" />
-          </svg>
-          <div className="leading-tight">
-            <div className="font-mono text-sm font-semibold tracking-[0.2em] text-ink">FGL WATCHTOWER</div>
-            <div className="label !text-[0.6rem]">futuregadgetlabs.com // orbital ops</div>
+          <img src={`${import.meta.env.BASE_URL}mark-dark.svg`} alt="" className="h-10 w-auto" width={27} height={40} />
+          <div className="leading-none">
+            <div className="font-display text-[0.68rem] font-medium tracking-[0.18em] text-ink-2 uppercase">
+              Future Gadget Labs
+            </div>
+            <div className="mt-1 font-display text-2xl font-semibold tracking-[0.01em] text-white">Watchtower</div>
           </div>
         </a>
 
