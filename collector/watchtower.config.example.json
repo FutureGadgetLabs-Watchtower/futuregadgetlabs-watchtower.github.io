@@ -1,0 +1,59 @@
+{
+  "_comment": "Copy to watchtower.config.json (gitignored). 'target' values are private: they are used for checks and never written to data/*.json. Only name, host_label and public_url are published.",
+  "orgs": [
+    { "id": "FG-CollectShop", "name": "FG-CollectShop", "color": "#e76624", "description": "TCG shop: catalog, pricing agents, admin and storefront" },
+    { "id": "FG-CryptoLabs", "name": "FG-CryptoLabs", "color": "#9887ef", "description": "Crypto portfolio tooling and the legacy org hub" },
+    { "id": "FG-PolyLabs", "name": "FG-PolyLabs", "color": "#00a888", "description": "Prediction-market research and trading bots" },
+    { "id": "FGL-Services", "name": "FGL-Services", "color": "#338ced", "description": "Back-office services (COGS subledger)" },
+    { "id": "FutureGadgetLabs-Watchtower", "name": "FutureGadgetLabs-Watchtower", "color": "#e24d8b", "description": "This dashboard and its collector" }
+  ],
+  "projects": [
+    { "id": "fg-collect-core", "repo": "FG-CollectShop/fg-collect-core", "publish_releases": true },
+    { "id": "fg-collect-admin", "repo": "FG-CollectShop/fg-collect-admin", "publish_releases": true },
+    { "id": "fg-collect-infra", "repo": "FG-CollectShop/fg-collect-infra", "publish_releases": false },
+    { "id": "fg-price-scout", "repo": "FG-CollectShop/fg-price-scout", "publish_releases": true },
+    { "id": "fg-crypto-portfolio", "repo": "FG-CryptoLabs/fg-crypto-portfolio", "publish_releases": true },
+    { "id": "fg-labs-hub", "repo": "FG-CryptoLabs/fg-labs-hub", "publish_releases": true },
+    { "id": "polyedge", "repo": "FG-PolyLabs/polyedge", "publish_releases": true },
+    { "id": "polyweather", "repo": "FG-PolyLabs/polyweather", "publish_releases": true },
+    { "id": "polyesports", "repo": "FG-PolyLabs/polyesports", "publish_releases": true },
+    { "id": "tcg-cogs-subledger", "repo": "FGL-Services/tcg-cogs-subledger", "publish_releases": false },
+    { "id": "fgl-watchtower", "repo": "FutureGadgetLabs-Watchtower/futuregadgetlabs-watchtower.github.io", "publish_releases": true }
+  ],
+  "bot_logins": ["dependabot", "github-actions", "renovate"],
+  "roadmap_label": "watchtower:roadmap",
+  "nodes": [
+    { "id": "pve-01", "role": "primary compute", "cpu": "set me" },
+    { "id": "pve-02", "role": "agents + storage", "cpu": "set me" }
+  ],
+  "services": [
+    { "id": "pve-01", "name": "Proxmox node pve-01", "org": "FutureGadgetLabs-Watchtower", "kind": "node", "host_label": "pve-01", "check": "ping", "target": "pve-01.lan" },
+    { "id": "polyedge", "name": "PolyEdge API + UI", "org": "FG-PolyLabs", "project": "polyedge", "kind": "lxc", "host_label": "CT 118", "check": "http", "target": "http://ct118.lan:8000/healthz" },
+    { "id": "polyweather", "name": "PolyWeather", "org": "FG-PolyLabs", "project": "polyweather", "kind": "lxc", "host_label": "CT 127", "check": "http", "target": "http://ct127.lan:8000/healthz" },
+    { "id": "cogs", "name": "COGS subledger", "org": "FGL-Services", "project": "tcg-cogs-subledger", "kind": "lxc", "host_label": "CT 117", "check": "http", "target": "http://ct117.lan:8000/healthz" },
+    { "id": "agent1-worker", "name": "Agent worker agent1 (3 slots)", "org": "FutureGadgetLabs-Watchtower", "kind": "worker", "host_label": "agent1", "check": "tcp", "target": "agent1.lan:22" },
+    { "id": "fg-labs-hub", "name": "fg-labs-hub status page", "org": "FG-CryptoLabs", "project": "fg-labs-hub", "kind": "pages", "host_label": "GitHub Pages", "check": "http", "target": "https://fg-cryptolabs.github.io/fg-labs-hub/", "public_url": "https://fg-cryptolabs.github.io/fg-labs-hub/" },
+    { "id": "fg-price-scout", "name": "fg-price-scout cron", "org": "FG-CollectShop", "project": "fg-price-scout", "kind": "lxc", "host_label": "CT 110", "check": "heartbeat", "target": "/mnt/ct110/var/run/price-scout.done", "max_age_minutes": 240 }
+  ],
+  "ai": {
+    "worker_log_globs": ["/mnt/agents/*/worker-jobs/*.jsonl"],
+    "agent_transcript_dirs": [
+      { "label": "Claude Code (agent1)", "path": "/mnt/agents/agent1/claude-projects", "kind": "cloud" },
+      { "label": "Claude Code (agent2)", "path": "/mnt/agents/agent2/claude-projects", "kind": "cloud" }
+    ],
+    "cwd_project_map": {
+      "fg-collect-core": "fg-collect-core",
+      "fg-collect-admin": "fg-collect-admin",
+      "polymarket-research": "polyedge",
+      "polyweather": "polyweather",
+      "polyesports": "polyesports",
+      "tcg-cogs-subledger": "tcg-cogs-subledger",
+      "fg-crypto-portfolio": "fg-crypto-portfolio",
+      "fgl-watchtower": "fgl-watchtower",
+      "futuregadgetlabs-watchtower.github.io": "fgl-watchtower"
+    },
+    "metered_cost_per_mtok": {},
+    "engineering_manual_totals": { "prs_opened_with_ai": 0, "prs_reviewed_by_ai": 0, "commits_co_authored": 0 },
+    "highlights": []
+  }
+}

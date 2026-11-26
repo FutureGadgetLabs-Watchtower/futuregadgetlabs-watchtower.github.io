@@ -1,0 +1,568 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-26T14:00:00Z",
+  "collector": {
+    "host": "pve-01",
+    "version": "0.1.0",
+    "run_id": "2026-11-26T14:00Z-mock",
+    "duration_ms": 8421,
+    "mock": true
+  },
+  "period": {
+    "from": "2026-10-28",
+    "to": "2026-11-26"
+  },
+  "production": {
+    "note": "Apps queue jobs on the shared worker pool; no app server holds an LLM key.",
+    "totals": {
+      "api_calls": 46766,
+      "tokens_in": 104461423,
+      "tokens_out": 16677508,
+      "pipeline_runs": 2553,
+      "failed_runs": 37,
+      "est_cost_usd": 41.8
+    },
+    "by_model": [
+      {
+        "model": "claude-sonnet-5-5",
+        "provider": "Anthropic (worker subscription)",
+        "api_calls": 21512,
+        "tokens_in": 48052254,
+        "tokens_out": 7671653
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "provider": "Anthropic (worker subscription)",
+        "api_calls": 14497,
+        "tokens_in": 32383041,
+        "tokens_out": 5170027
+      },
+      {
+        "model": "openrouter :free pool",
+        "provider": "OpenRouter",
+        "api_calls": 7950,
+        "tokens_in": 17758441,
+        "tokens_out": 2835176
+      },
+      {
+        "model": "qwen3-coder 30B (local)",
+        "provider": "Ollama on agent1",
+        "api_calls": 2805,
+        "tokens_in": 6267685,
+        "tokens_out": 1000650
+      }
+    ],
+    "by_app": [
+      {
+        "project": "fg-collect-core",
+        "api_calls": 17771,
+        "tokens": 46032793,
+        "pipeline_runs": 970,
+        "top_jobs": [
+          "price-scout extraction",
+          "receipt OCR to JSON",
+          "listing copy"
+        ]
+      },
+      {
+        "project": "polyedge",
+        "api_calls": 12626,
+        "tokens": 32707511,
+        "pipeline_runs": 689,
+        "top_jobs": [
+          "market summarization",
+          "arb candidate scoring"
+        ]
+      },
+      {
+        "project": "polyweather",
+        "api_calls": 6547,
+        "tokens": 16959450,
+        "pipeline_runs": 357,
+        "top_jobs": [
+          "forecast rationale"
+        ]
+      },
+      {
+        "project": "fg-crypto-portfolio",
+        "api_calls": 4208,
+        "tokens": 10902503,
+        "pipeline_runs": 229,
+        "top_jobs": [
+          "transaction classification"
+        ]
+      },
+      {
+        "project": "tcg-cogs-subledger",
+        "api_calls": 3273,
+        "tokens": 8479725,
+        "pipeline_runs": 178,
+        "top_jobs": [
+          "invoice line matching"
+        ]
+      },
+      {
+        "project": "polyesports",
+        "api_calls": 2338,
+        "tokens": 6056946,
+        "pipeline_runs": 127,
+        "top_jobs": [
+          "match preview extraction"
+        ]
+      }
+    ],
+    "daily": [
+      {
+        "date": "2026-10-28",
+        "api_calls": 2003,
+        "tokens_in": 5119668,
+        "tokens_out": 829242,
+        "pipeline_runs": 62
+      },
+      {
+        "date": "2026-10-29",
+        "api_calls": 1924,
+        "tokens_in": 4765748,
+        "tokens_out": 704184,
+        "pipeline_runs": 109
+      },
+      {
+        "date": "2026-10-30",
+        "api_calls": 1481,
+        "tokens_in": 2898317,
+        "tokens_out": 475401,
+        "pipeline_runs": 71
+      },
+      {
+        "date": "2026-10-31",
+        "api_calls": 1199,
+        "tokens_in": 3008291,
+        "tokens_out": 386078,
+        "pipeline_runs": 106
+      },
+      {
+        "date": "2026-11-01",
+        "api_calls": 1190,
+        "tokens_in": 2965480,
+        "tokens_out": 404600,
+        "pipeline_runs": 88
+      },
+      {
+        "date": "2026-11-02",
+        "api_calls": 1786,
+        "tokens_in": 4331050,
+        "tokens_out": 628672,
+        "pipeline_runs": 108
+      },
+      {
+        "date": "2026-11-03",
+        "api_calls": 1697,
+        "tokens_in": 3981162,
+        "tokens_out": 578677,
+        "pipeline_runs": 79
+      },
+      {
+        "date": "2026-11-04",
+        "api_calls": 1459,
+        "tokens_in": 3326520,
+        "tokens_out": 480011,
+        "pipeline_runs": 83
+      },
+      {
+        "date": "2026-11-05",
+        "api_calls": 1575,
+        "tokens_in": 3545325,
+        "tokens_out": 626850,
+        "pipeline_runs": 109
+      },
+      {
+        "date": "2026-11-06",
+        "api_calls": 1442,
+        "tokens_in": 3010896,
+        "tokens_out": 543634,
+        "pipeline_runs": 92
+      },
+      {
+        "date": "2026-11-07",
+        "api_calls": 835,
+        "tokens_in": 1673340,
+        "tokens_out": 263025,
+        "pipeline_runs": 76
+      },
+      {
+        "date": "2026-11-08",
+        "api_calls": 1301,
+        "tokens_in": 2410753,
+        "tokens_out": 524303,
+        "pipeline_runs": 83
+      },
+      {
+        "date": "2026-11-09",
+        "api_calls": 1603,
+        "tokens_in": 3731784,
+        "tokens_out": 498533,
+        "pipeline_runs": 78
+      },
+      {
+        "date": "2026-11-10",
+        "api_calls": 1665,
+        "tokens_in": 3138525,
+        "tokens_out": 534465,
+        "pipeline_runs": 77
+      },
+      {
+        "date": "2026-11-11",
+        "api_calls": 1449,
+        "tokens_in": 3255903,
+        "tokens_out": 439047,
+        "pipeline_runs": 74
+      },
+      {
+        "date": "2026-11-12",
+        "api_calls": 1782,
+        "tokens_in": 4029102,
+        "tokens_out": 657558,
+        "pipeline_runs": 61
+      },
+      {
+        "date": "2026-11-13",
+        "api_calls": 1509,
+        "tokens_in": 3292638,
+        "tokens_out": 513060,
+        "pipeline_runs": 84
+      },
+      {
+        "date": "2026-11-14",
+        "api_calls": 1512,
+        "tokens_in": 2847096,
+        "tokens_out": 567000,
+        "pipeline_runs": 74
+      },
+      {
+        "date": "2026-11-15",
+        "api_calls": 1900,
+        "tokens_in": 4808900,
+        "tokens_out": 693500,
+        "pipeline_runs": 110
+      },
+      {
+        "date": "2026-11-16",
+        "api_calls": 1789,
+        "tokens_in": 3486761,
+        "tokens_out": 563535,
+        "pipeline_runs": 62
+      },
+      {
+        "date": "2026-11-17",
+        "api_calls": 1604,
+        "tokens_in": 4029248,
+        "tokens_out": 505260,
+        "pipeline_runs": 108
+      },
+      {
+        "date": "2026-11-18",
+        "api_calls": 2102,
+        "tokens_in": 5301244,
+        "tokens_out": 840800,
+        "pipeline_runs": 88
+      },
+      {
+        "date": "2026-11-19",
+        "api_calls": 1341,
+        "tokens_in": 2439279,
+        "tokens_out": 462645,
+        "pipeline_runs": 73
+      },
+      {
+        "date": "2026-11-20",
+        "api_calls": 1382,
+        "tokens_in": 2699046,
+        "tokens_out": 580440,
+        "pipeline_runs": 106
+      },
+      {
+        "date": "2026-11-21",
+        "api_calls": 1221,
+        "tokens_in": 3167274,
+        "tokens_out": 431013,
+        "pipeline_runs": 75
+      },
+      {
+        "date": "2026-11-22",
+        "api_calls": 1254,
+        "tokens_in": 2643432,
+        "tokens_out": 389994,
+        "pipeline_runs": 63
+      },
+      {
+        "date": "2026-11-23",
+        "api_calls": 1722,
+        "tokens_in": 4196514,
+        "tokens_out": 683634,
+        "pipeline_runs": 64
+      },
+      {
+        "date": "2026-11-24",
+        "api_calls": 2013,
+        "tokens_in": 3850869,
+        "tokens_out": 819291,
+        "pipeline_runs": 98
+      },
+      {
+        "date": "2026-11-25",
+        "api_calls": 1396,
+        "tokens_in": 3333648,
+        "tokens_out": 476036,
+        "pipeline_runs": 105
+      },
+      {
+        "date": "2026-11-26",
+        "api_calls": 1630,
+        "tokens_in": 3173610,
+        "tokens_out": 577020,
+        "pipeline_runs": 87
+      }
+    ]
+  },
+  "engineering": {
+    "note": "Sessions counted from Claude Code transcripts and Ollama logs on each host; hours are wall-clock session time.",
+    "totals": {
+      "sessions": 433,
+      "hours": 293.0,
+      "prs_opened_with_ai": 118,
+      "prs_reviewed_by_ai": 164,
+      "commits_co_authored": 742
+    },
+    "by_agent": [
+      {
+        "agent": "Claude Code (agent1)",
+        "kind": "cloud",
+        "sessions": 212,
+        "hours": 164.5,
+        "tokens": 48200000
+      },
+      {
+        "agent": "Claude Code (agent2)",
+        "kind": "cloud",
+        "sessions": 71,
+        "hours": 49.0,
+        "tokens": 15900000
+      },
+      {
+        "agent": "Claude Code (laptop)",
+        "kind": "cloud",
+        "sessions": 96,
+        "hours": 58.5,
+        "tokens": 19300000
+      },
+      {
+        "agent": "Local LLM (Ollama, qwen3-coder)",
+        "kind": "local",
+        "sessions": 54,
+        "hours": 21.0,
+        "tokens": 6100000
+      }
+    ],
+    "by_project": [
+      {
+        "project": "fg-collect-core",
+        "share": 0.27
+      },
+      {
+        "project": "polyedge",
+        "share": 0.19
+      },
+      {
+        "project": "fg-collect-admin",
+        "share": 0.13
+      },
+      {
+        "project": "polyweather",
+        "share": 0.11
+      },
+      {
+        "project": "tcg-cogs-subledger",
+        "share": 0.09
+      },
+      {
+        "project": "fg-crypto-portfolio",
+        "share": 0.08
+      },
+      {
+        "project": "polyesports",
+        "share": 0.06
+      },
+      {
+        "project": "fgl-watchtower",
+        "share": 0.05
+      },
+      {
+        "project": "fg-collect-infra",
+        "share": 0.02
+      }
+    ],
+    "weekly": [
+      {
+        "week_start": "2026-09-07",
+        "sessions": 45,
+        "by_category": {
+          "code generation": 17,
+          "refactor": 6,
+          "tests": 5,
+          "pr review": 8,
+          "docs + diagrams": 3,
+          "debugging": 5,
+          "ops / deploy": 1
+        }
+      },
+      {
+        "week_start": "2026-09-14",
+        "sessions": 49,
+        "by_category": {
+          "code generation": 21,
+          "refactor": 2,
+          "tests": 5,
+          "pr review": 8,
+          "docs + diagrams": 3,
+          "debugging": 8,
+          "ops / deploy": 2
+        }
+      },
+      {
+        "week_start": "2026-09-21",
+        "sessions": 43,
+        "by_category": {
+          "code generation": 10,
+          "refactor": 7,
+          "tests": 6,
+          "pr review": 6,
+          "docs + diagrams": 4,
+          "debugging": 8,
+          "ops / deploy": 2
+        }
+      },
+      {
+        "week_start": "2026-09-28",
+        "sessions": 44,
+        "by_category": {
+          "code generation": 12,
+          "refactor": 3,
+          "tests": 5,
+          "pr review": 10,
+          "docs + diagrams": 4,
+          "debugging": 6,
+          "ops / deploy": 4
+        }
+      },
+      {
+        "week_start": "2026-10-05",
+        "sessions": 52,
+        "by_category": {
+          "code generation": 17,
+          "refactor": 3,
+          "tests": 9,
+          "pr review": 8,
+          "docs + diagrams": 4,
+          "debugging": 9,
+          "ops / deploy": 2
+        }
+      },
+      {
+        "week_start": "2026-10-12",
+        "sessions": 39,
+        "by_category": {
+          "code generation": 4,
+          "refactor": 7,
+          "tests": 7,
+          "pr review": 10,
+          "docs + diagrams": 1,
+          "debugging": 7,
+          "ops / deploy": 3
+        }
+      },
+      {
+        "week_start": "2026-10-19",
+        "sessions": 41,
+        "by_category": {
+          "code generation": 7,
+          "refactor": 7,
+          "tests": 6,
+          "pr review": 9,
+          "docs + diagrams": 3,
+          "debugging": 6,
+          "ops / deploy": 3
+        }
+      },
+      {
+        "week_start": "2026-10-26",
+        "sessions": 41,
+        "by_category": {
+          "code generation": 12,
+          "refactor": 5,
+          "tests": 5,
+          "pr review": 9,
+          "docs + diagrams": 2,
+          "debugging": 5,
+          "ops / deploy": 3
+        }
+      },
+      {
+        "week_start": "2026-11-02",
+        "sessions": 57,
+        "by_category": {
+          "code generation": 17,
+          "refactor": 5,
+          "tests": 8,
+          "pr review": 12,
+          "docs + diagrams": 2,
+          "debugging": 11,
+          "ops / deploy": 2
+        }
+      },
+      {
+        "week_start": "2026-11-09",
+        "sessions": 50,
+        "by_category": {
+          "code generation": 15,
+          "refactor": 4,
+          "tests": 8,
+          "pr review": 10,
+          "docs + diagrams": 3,
+          "debugging": 7,
+          "ops / deploy": 3
+        }
+      },
+      {
+        "week_start": "2026-11-16",
+        "sessions": 47,
+        "by_category": {
+          "code generation": 12,
+          "refactor": 7,
+          "tests": 3,
+          "pr review": 10,
+          "docs + diagrams": 4,
+          "debugging": 10,
+          "ops / deploy": 1
+        }
+      },
+      {
+        "week_start": "2026-11-23",
+        "sessions": 48,
+        "by_category": {
+          "code generation": 16,
+          "refactor": 8,
+          "tests": 5,
+          "pr review": 5,
+          "docs + diagrams": 4,
+          "debugging": 8,
+          "ops / deploy": 2
+        }
+      }
+    ],
+    "highlights": [
+      "Mermaid architecture diagram in /data regenerated by an agent after each infra change",
+      "PR review pass runs on every FG-CollectShop PR before merge",
+      "Scaffolded fg-crypto-portfolio and fgl-watchtower from kickoff prompts"
+    ]
+  }
+}

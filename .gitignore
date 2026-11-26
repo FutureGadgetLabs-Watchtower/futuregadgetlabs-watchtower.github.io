@@ -9,3 +9,8 @@ dist/
 build/
 *.log
 .DS_Store
+
+# collector: secrets, real targets (LAN addresses) and rolling state stay on the node
+collector/.env
+collector/watchtower.config.json
+collector/state/

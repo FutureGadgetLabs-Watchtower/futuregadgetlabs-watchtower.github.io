@@ -1,0 +1,1278 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-26T14:00:00Z",
+  "collector": {
+    "host": "pve-01",
+    "version": "0.1.0",
+    "run_id": "2026-11-26T14:00Z-mock",
+    "duration_ms": 8421,
+    "mock": true
+  },
+  "method": {
+    "est_hours": "0.55 h per commit + 1.5 h per merged PR + 1 h per 900 lines changed. A rough proxy, not a timesheet.",
+    "sources": "GitHub GraphQL contributionsCollection + REST pulls per org; default branches only; bots excluded"
+  },
+  "orgs": [
+    {
+      "id": "FG-CollectShop",
+      "name": "FG-CollectShop",
+      "color": "#e76624",
+      "description": "TCG shop: catalog, pricing agents, admin and storefront"
+    },
+    {
+      "id": "FG-CryptoLabs",
+      "name": "FG-CryptoLabs",
+      "color": "#9887ef",
+      "description": "Crypto portfolio tooling and the legacy org hub"
+    },
+    {
+      "id": "FG-PolyLabs",
+      "name": "FG-PolyLabs",
+      "color": "#00a888",
+      "description": "Prediction-market research and trading bots"
+    },
+    {
+      "id": "FGL-Services",
+      "name": "FGL-Services",
+      "color": "#338ced",
+      "description": "Back-office services (COGS subledger)"
+    },
+    {
+      "id": "FutureGadgetLabs-Watchtower",
+      "name": "FutureGadgetLabs-Watchtower",
+      "color": "#e24d8b",
+      "description": "This dashboard and its collector"
+    }
+  ],
+  "projects": [
+    {
+      "id": "fg-collect-core",
+      "org": "FG-CollectShop",
+      "repo": "FG-CollectShop/fg-collect-core"
+    },
+    {
+      "id": "fg-collect-admin",
+      "org": "FG-CollectShop",
+      "repo": "FG-CollectShop/fg-collect-admin"
+    },
+    {
+      "id": "fg-collect-infra",
+      "org": "FG-CollectShop",
+      "repo": "FG-CollectShop/fg-collect-infra"
+    },
+    {
+      "id": "fg-price-scout",
+      "org": "FG-CollectShop",
+      "repo": "FG-CollectShop/fg-price-scout"
+    },
+    {
+      "id": "fg-crypto-portfolio",
+      "org": "FG-CryptoLabs",
+      "repo": "FG-CryptoLabs/fg-crypto-portfolio"
+    },
+    {
+      "id": "fg-labs-hub",
+      "org": "FG-CryptoLabs",
+      "repo": "FG-CryptoLabs/fg-labs-hub"
+    },
+    {
+      "id": "polyedge",
+      "org": "FG-PolyLabs",
+      "repo": "FG-PolyLabs/polyedge"
+    },
+    {
+      "id": "polyweather",
+      "org": "FG-PolyLabs",
+      "repo": "FG-PolyLabs/polyweather"
+    },
+    {
+      "id": "polyesports",
+      "org": "FG-PolyLabs",
+      "repo": "FG-PolyLabs/polyesports"
+    },
+    {
+      "id": "tcg-cogs-subledger",
+      "org": "FGL-Services",
+      "repo": "FGL-Services/tcg-cogs-subledger"
+    },
+    {
+      "id": "fgl-watchtower",
+      "org": "FutureGadgetLabs-Watchtower",
+      "repo": "FutureGadgetLabs-Watchtower/futuregadgetlabs-watchtower.github.io"
+    }
+  ],
+  "weeks": [
+    {
+      "week_start": "2026-09-07",
+      "by_project": {
+        "fg-collect-core": {
+          "commits": 19,
+          "prs_merged": 3,
+          "additions": 1725,
+          "deletions": 670,
+          "active_repos": 1,
+          "est_hours": 17.6
+        },
+        "fg-collect-admin": {
+          "commits": 26,
+          "prs_merged": 4,
+          "additions": 1527,
+          "deletions": 421,
+          "active_repos": 1,
+          "est_hours": 22.5
+        },
+        "fg-collect-infra": {
+          "commits": 2,
+          "prs_merged": 0,
+          "additions": 103,
+          "deletions": 52,
+          "active_repos": 1,
+          "est_hours": 1.3
+        },
+        "fg-price-scout": {
+          "commits": 5,
+          "prs_merged": 0,
+          "additions": 386,
+          "deletions": 198,
+          "active_repos": 1,
+          "est_hours": 3.4
+        },
+        "fg-crypto-portfolio": {
+          "commits": 13,
+          "prs_merged": 2,
+          "additions": 1619,
+          "deletions": 699,
+          "active_repos": 1,
+          "est_hours": 12.7
+        },
+        "fg-labs-hub": {
+          "commits": 3,
+          "prs_merged": 0,
+          "additions": 381,
+          "deletions": 144,
+          "active_repos": 1,
+          "est_hours": 2.2
+        },
+        "polyedge": {
+          "commits": 14,
+          "prs_merged": 2,
+          "additions": 1131,
+          "deletions": 648,
+          "active_repos": 1,
+          "est_hours": 12.7
+        },
+        "polyweather": {
+          "commits": 15,
+          "prs_merged": 2,
+          "additions": 2072,
+          "deletions": 612,
+          "active_repos": 1,
+          "est_hours": 14.2
+        },
+        "polyesports": {
+          "commits": 0,
+          "prs_merged": 0,
+          "additions": 0,
+          "deletions": 0,
+          "active_repos": 0,
+          "est_hours": 0.0
+        },
+        "tcg-cogs-subledger": {
+          "commits": 14,
+          "prs_merged": 2,
+          "additions": 1137,
+          "deletions": 676,
+          "active_repos": 1,
+          "est_hours": 12.7
+        },
+        "fgl-watchtower": {
+          "commits": 5,
+          "prs_merged": 1,
+          "additions": 683,
+          "deletions": 171,
+          "active_repos": 1,
+          "est_hours": 5.2
+        }
+      }
+    },
+    {
+      "week_start": "2026-09-14",
+      "by_project": {
+        "fg-collect-core": {
+          "commits": 12,
+          "prs_merged": 1,
+          "additions": 918,
+          "deletions": 220,
+          "active_repos": 1,
+          "est_hours": 9.4
+        },
+        "fg-collect-admin": {
+          "commits": 19,
+          "prs_merged": 2,
+          "additions": 882,
+          "deletions": 227,
+          "active_repos": 1,
+          "est_hours": 14.7
+        },
+        "fg-collect-infra": {
+          "commits": 5,
+          "prs_merged": 0,
+          "additions": 685,
+          "deletions": 157,
+          "active_repos": 1,
+          "est_hours": 3.7
+        },
+        "fg-price-scout": {
+          "commits": 9,
+          "prs_merged": 1,
+          "additions": 744,
+          "deletions": 172,
+          "active_repos": 1,
+          "est_hours": 7.5
+        },
+        "fg-crypto-portfolio": {
+          "commits": 9,
+          "prs_merged": 1,
+          "additions": 981,
+          "deletions": 405,
+          "active_repos": 1,
+          "est_hours": 8.0
+        },
+        "fg-labs-hub": {
+          "commits": 5,
+          "prs_merged": 0,
+          "additions": 456,
+          "deletions": 189,
+          "active_repos": 1,
+          "est_hours": 3.5
+        },
+        "polyedge": {
+          "commits": 17,
+          "prs_merged": 2,
+          "additions": 1144,
+          "deletions": 541,
+          "active_repos": 1,
+          "est_hours": 14.2
+        },
+        "polyweather": {
+          "commits": 14,
+          "prs_merged": 3,
+          "additions": 1931,
+          "deletions": 973,
+          "active_repos": 1,
+          "est_hours": 15.4
+        },
+        "polyesports": {
+          "commits": 3,
+          "prs_merged": 0,
+          "additions": 163,
+          "deletions": 43,
+          "active_repos": 1,
+          "est_hours": 1.9
+        },
+        "tcg-cogs-subledger": {
+          "commits": 9,
+          "prs_merged": 1,
+          "additions": 452,
+          "deletions": 155,
+          "active_repos": 1,
+          "est_hours": 7.1
+        },
+        "fgl-watchtower": {
+          "commits": 4,
+          "prs_merged": 0,
+          "additions": 272,
+          "deletions": 99,
+          "active_repos": 1,
+          "est_hours": 2.6
+        }
+      }
+    },
+    {
+      "week_start": "2026-09-21",
+      "by_project": {
+        "fg-collect-core": {
+          "commits": 20,
+          "prs_merged": 4,
+          "additions": 2058,
+          "deletions": 726,
+          "active_repos": 1,
+          "est_hours": 20.1
+        },
+        "fg-collect-admin": {
+          "commits": 14,
+          "prs_merged": 2,
+          "additions": 1291,
+          "deletions": 559,
+          "active_repos": 1,
+          "est_hours": 12.8
+        },
+        "fg-collect-infra": {
+          "commits": 7,
+          "prs_merged": 1,
+          "additions": 758,
+          "deletions": 424,
+          "active_repos": 1,
+          "est_hours": 6.7
+        },
+        "fg-price-scout": {
+          "commits": 13,
+          "prs_merged": 2,
+          "additions": 940,
+          "deletions": 393,
+          "active_repos": 1,
+          "est_hours": 11.6
+        },
+        "fg-crypto-portfolio": {
+          "commits": 23,
+          "prs_merged": 3,
+          "additions": 1688,
+          "deletions": 987,
+          "active_repos": 1,
+          "est_hours": 20.1
+        },
+        "fg-labs-hub": {
+          "commits": 5,
+          "prs_merged": 0,
+          "additions": 441,
+          "deletions": 141,
+          "active_repos": 1,
+          "est_hours": 3.4
+        },
+        "polyedge": {
+          "commits": 32,
+          "prs_merged": 7,
+          "additions": 2599,
+          "deletions": 892,
+          "active_repos": 1,
+          "est_hours": 32.0
+        },
+        "polyweather": {
+          "commits": 15,
+          "prs_merged": 3,
+          "additions": 1671,
+          "deletions": 348,
+          "active_repos": 1,
+          "est_hours": 15.0
+        },
+        "polyesports": {
+          "commits": 2,
+          "prs_merged": 0,
+          "additions": 254,
+          "deletions": 129,
+          "active_repos": 1,
+          "est_hours": 1.5
+        },
+        "tcg-cogs-subledger": {
+          "commits": 6,
+          "prs_merged": 0,
+          "additions": 789,
+          "deletions": 392,
+          "active_repos": 1,
+          "est_hours": 4.6
+        },
+        "fgl-watchtower": {
+          "commits": 6,
+          "prs_merged": 0,
+          "additions": 401,
+          "deletions": 208,
+          "active_repos": 1,
+          "est_hours": 4.0
+        }
+      }
+    },
+    {
+      "week_start": "2026-09-28",
+      "by_project": {
+        "fg-collect-core": {
+          "commits": 8,
+          "prs_merged": 1,
+          "additions": 504,
+          "deletions": 151,
+          "active_repos": 1,
+          "est_hours": 6.6
+        },
+        "fg-collect-admin": {
+          "commits": 17,
+          "prs_merged": 2,
+          "additions": 985,
+          "deletions": 235,
+          "active_repos": 1,
+          "est_hours": 13.7
+        },
+        "fg-collect-infra": {
+          "commits": 1,
+          "prs_merged": 0,
+          "additions": 48,
+          "deletions": 24,
+          "active_repos": 1,
+          "est_hours": 0.6
+        },
+        "fg-price-scout": {
+          "commits": 11,
+          "prs_merged": 2,
+          "additions": 1445,
+          "deletions": 477,
+          "active_repos": 1,
+          "est_hours": 11.2
+        },
+        "fg-crypto-portfolio": {
+          "commits": 14,
+          "prs_merged": 2,
+          "additions": 897,
+          "deletions": 461,
+          "active_repos": 1,
+          "est_hours": 12.2
+        },
+        "fg-labs-hub": {
+          "commits": 4,
+          "prs_merged": 0,
+          "additions": 283,
+          "deletions": 75,
+          "active_repos": 1,
+          "est_hours": 2.6
+        },
+        "polyedge": {
+          "commits": 15,
+          "prs_merged": 2,
+          "additions": 2020,
+          "deletions": 1185,
+          "active_repos": 1,
+          "est_hours": 14.8
+        },
+        "polyweather": {
+          "commits": 12,
+          "prs_merged": 1,
+          "additions": 1073,
+          "deletions": 246,
+          "active_repos": 1,
+          "est_hours": 9.6
+        },
+        "polyesports": {
+          "commits": 5,
+          "prs_merged": 0,
+          "additions": 332,
+          "deletions": 156,
+          "active_repos": 1,
+          "est_hours": 3.3
+        },
+        "tcg-cogs-subledger": {
+          "commits": 8,
+          "prs_merged": 1,
+          "additions": 783,
+          "deletions": 184,
+          "active_repos": 1,
+          "est_hours": 7.0
+        },
+        "fgl-watchtower": {
+          "commits": 2,
+          "prs_merged": 0,
+          "additions": 140,
+          "deletions": 34,
+          "active_repos": 1,
+          "est_hours": 1.3
+        }
+      }
+    },
+    {
+      "week_start": "2026-10-05",
+      "by_project": {
+        "fg-collect-core": {
+          "commits": 14,
+          "prs_merged": 2,
+          "additions": 1136,
+          "deletions": 517,
+          "active_repos": 1,
+          "est_hours": 12.5
+        },
+        "fg-collect-admin": {
+          "commits": 24,
+          "prs_merged": 4,
+          "additions": 2618,
+          "deletions": 1017,
+          "active_repos": 1,
+          "est_hours": 23.2
+        },
+        "fg-collect-infra": {
+          "commits": 1,
+          "prs_merged": 0,
+          "additions": 102,
+          "deletions": 46,
+          "active_repos": 1,
+          "est_hours": 0.7
+        },
+        "fg-price-scout": {
+          "commits": 3,
+          "prs_merged": 0,
+          "additions": 267,
+          "deletions": 128,
+          "active_repos": 1,
+          "est_hours": 2.1
+        },
+        "fg-crypto-portfolio": {
+          "commits": 11,
+          "prs_merged": 2,
+          "additions": 533,
+          "deletions": 318,
+          "active_repos": 1,
+          "est_hours": 10.0
+        },
+        "fg-labs-hub": {
+          "commits": 2,
+          "prs_merged": 0,
+          "additions": 134,
+          "deletions": 55,
+          "active_repos": 1,
+          "est_hours": 1.3
+        },
+        "polyedge": {
+          "commits": 15,
+          "prs_merged": 2,
+          "additions": 1667,
+          "deletions": 693,
+          "active_repos": 1,
+          "est_hours": 13.9
+        },
+        "polyweather": {
+          "commits": 18,
+          "prs_merged": 3,
+          "additions": 2052,
+          "deletions": 1137,
+          "active_repos": 1,
+          "est_hours": 17.9
+        },
+        "polyesports": {
+          "commits": 6,
+          "prs_merged": 1,
+          "additions": 805,
+          "deletions": 251,
+          "active_repos": 1,
+          "est_hours": 6.0
+        },
+        "tcg-cogs-subledger": {
+          "commits": 4,
+          "prs_merged": 0,
+          "additions": 262,
+          "deletions": 99,
+          "active_repos": 1,
+          "est_hours": 2.6
+        },
+        "fgl-watchtower": {
+          "commits": 4,
+          "prs_merged": 0,
+          "additions": 319,
+          "deletions": 178,
+          "active_repos": 1,
+          "est_hours": 2.8
+        }
+      }
+    },
+    {
+      "week_start": "2026-10-12",
+      "by_project": {
+        "fg-collect-core": {
+          "commits": 28,
+          "prs_merged": 4,
+          "additions": 1421,
+          "deletions": 441,
+          "active_repos": 1,
+          "est_hours": 23.5
+        },
+        "fg-collect-admin": {
+          "commits": 31,
+          "prs_merged": 4,
+          "additions": 1664,
+          "deletions": 473,
+          "active_repos": 1,
+          "est_hours": 25.4
+        },
+        "fg-collect-infra": {
+          "commits": 5,
+          "prs_merged": 0,
+          "additions": 686,
+          "deletions": 151,
+          "active_repos": 1,
+          "est_hours": 3.7
+        },
+        "fg-price-scout": {
+          "commits": 3,
+          "prs_merged": 0,
+          "additions": 193,
+          "deletions": 102,
+          "active_repos": 1,
+          "est_hours": 2.0
+        },
+        "fg-crypto-portfolio": {
+          "commits": 25,
+          "prs_merged": 4,
+          "additions": 2517,
+          "deletions": 1321,
+          "active_repos": 1,
+          "est_hours": 24.0
+        },
+        "fg-labs-hub": {
+          "commits": 3,
+          "prs_merged": 0,
+          "additions": 304,
+          "deletions": 94,
+          "active_repos": 1,
+          "est_hours": 2.1
+        },
+        "polyedge": {
+          "commits": 30,
+          "prs_merged": 4,
+          "additions": 4164,
+          "deletions": 1732,
+          "active_repos": 1,
+          "est_hours": 29.1
+        },
+        "polyweather": {
+          "commits": 16,
+          "prs_merged": 2,
+          "additions": 920,
+          "deletions": 315,
+          "active_repos": 1,
+          "est_hours": 13.2
+        },
+        "polyesports": {
+          "commits": 9,
+          "prs_merged": 1,
+          "additions": 908,
+          "deletions": 187,
+          "active_repos": 1,
+          "est_hours": 7.7
+        },
+        "tcg-cogs-subledger": {
+          "commits": 9,
+          "prs_merged": 1,
+          "additions": 502,
+          "deletions": 113,
+          "active_repos": 1,
+          "est_hours": 7.1
+        },
+        "fgl-watchtower": {
+          "commits": 5,
+          "prs_merged": 0,
+          "additions": 396,
+          "deletions": 173,
+          "active_repos": 1,
+          "est_hours": 3.4
+        }
+      }
+    },
+    {
+      "week_start": "2026-10-19",
+      "by_project": {
+        "fg-collect-core": {
+          "commits": 17,
+          "prs_merged": 2,
+          "additions": 1939,
+          "deletions": 1092,
+          "active_repos": 1,
+          "est_hours": 15.7
+        },
+        "fg-collect-admin": {
+          "commits": 18,
+          "prs_merged": 3,
+          "additions": 1325,
+          "deletions": 605,
+          "active_repos": 1,
+          "est_hours": 16.5
+        },
+        "fg-collect-infra": {
+          "commits": 16,
+          "prs_merged": 2,
+          "additions": 1367,
+          "deletions": 332,
+          "active_repos": 1,
+          "est_hours": 13.7
+        },
+        "fg-price-scout": {
+          "commits": 11,
+          "prs_merged": 1,
+          "additions": 958,
+          "deletions": 536,
+          "active_repos": 1,
+          "est_hours": 9.2
+        },
+        "fg-crypto-portfolio": {
+          "commits": 12,
+          "prs_merged": 2,
+          "additions": 1251,
+          "deletions": 543,
+          "active_repos": 1,
+          "est_hours": 11.6
+        },
+        "fg-labs-hub": {
+          "commits": 4,
+          "prs_merged": 0,
+          "additions": 324,
+          "deletions": 142,
+          "active_repos": 1,
+          "est_hours": 2.7
+        },
+        "polyedge": {
+          "commits": 17,
+          "prs_merged": 3,
+          "additions": 2045,
+          "deletions": 502,
+          "active_repos": 1,
+          "est_hours": 16.7
+        },
+        "polyweather": {
+          "commits": 21,
+          "prs_merged": 3,
+          "additions": 2696,
+          "deletions": 1133,
+          "active_repos": 1,
+          "est_hours": 20.3
+        },
+        "polyesports": {
+          "commits": 13,
+          "prs_merged": 1,
+          "additions": 1096,
+          "deletions": 581,
+          "active_repos": 1,
+          "est_hours": 10.5
+        },
+        "tcg-cogs-subledger": {
+          "commits": 6,
+          "prs_merged": 1,
+          "additions": 685,
+          "deletions": 222,
+          "active_repos": 1,
+          "est_hours": 5.8
+        },
+        "fgl-watchtower": {
+          "commits": 3,
+          "prs_merged": 0,
+          "additions": 330,
+          "deletions": 128,
+          "active_repos": 1,
+          "est_hours": 2.2
+        }
+      }
+    },
+    {
+      "week_start": "2026-10-26",
+      "by_project": {
+        "fg-collect-core": {
+          "commits": 26,
+          "prs_merged": 6,
+          "additions": 1380,
+          "deletions": 514,
+          "active_repos": 1,
+          "est_hours": 25.4
+        },
+        "fg-collect-admin": {
+          "commits": 17,
+          "prs_merged": 3,
+          "additions": 861,
+          "deletions": 501,
+          "active_repos": 1,
+          "est_hours": 15.4
+        },
+        "fg-collect-infra": {
+          "commits": 3,
+          "prs_merged": 0,
+          "additions": 325,
+          "deletions": 118,
+          "active_repos": 1,
+          "est_hours": 2.1
+        },
+        "fg-price-scout": {
+          "commits": 14,
+          "prs_merged": 2,
+          "additions": 1848,
+          "deletions": 407,
+          "active_repos": 1,
+          "est_hours": 13.2
+        },
+        "fg-crypto-portfolio": {
+          "commits": 5,
+          "prs_merged": 1,
+          "additions": 373,
+          "deletions": 90,
+          "active_repos": 1,
+          "est_hours": 4.8
+        },
+        "fg-labs-hub": {
+          "commits": 2,
+          "prs_merged": 0,
+          "additions": 250,
+          "deletions": 85,
+          "active_repos": 1,
+          "est_hours": 1.5
+        },
+        "polyedge": {
+          "commits": 19,
+          "prs_merged": 3,
+          "additions": 1062,
+          "deletions": 330,
+          "active_repos": 1,
+          "est_hours": 16.5
+        },
+        "polyweather": {
+          "commits": 16,
+          "prs_merged": 2,
+          "additions": 1886,
+          "deletions": 846,
+          "active_repos": 1,
+          "est_hours": 14.8
+        },
+        "polyesports": {
+          "commits": 15,
+          "prs_merged": 2,
+          "additions": 1468,
+          "deletions": 651,
+          "active_repos": 1,
+          "est_hours": 13.6
+        },
+        "tcg-cogs-subledger": {
+          "commits": 6,
+          "prs_merged": 1,
+          "additions": 425,
+          "deletions": 214,
+          "active_repos": 1,
+          "est_hours": 5.5
+        },
+        "fgl-watchtower": {
+          "commits": 1,
+          "prs_merged": 0,
+          "additions": 78,
+          "deletions": 21,
+          "active_repos": 1,
+          "est_hours": 0.7
+        }
+      }
+    },
+    {
+      "week_start": "2026-11-02",
+      "by_project": {
+        "fg-collect-core": {
+          "commits": 28,
+          "prs_merged": 6,
+          "additions": 3230,
+          "deletions": 1901,
+          "active_repos": 1,
+          "est_hours": 30.1
+        },
+        "fg-collect-admin": {
+          "commits": 24,
+          "prs_merged": 5,
+          "additions": 2289,
+          "deletions": 802,
+          "active_repos": 1,
+          "est_hours": 24.1
+        },
+        "fg-collect-infra": {
+          "commits": 5,
+          "prs_merged": 1,
+          "additions": 379,
+          "deletions": 218,
+          "active_repos": 1,
+          "est_hours": 4.9
+        },
+        "fg-price-scout": {
+          "commits": 9,
+          "prs_merged": 1,
+          "additions": 1160,
+          "deletions": 304,
+          "active_repos": 1,
+          "est_hours": 8.1
+        },
+        "fg-crypto-portfolio": {
+          "commits": 13,
+          "prs_merged": 3,
+          "additions": 1132,
+          "deletions": 418,
+          "active_repos": 1,
+          "est_hours": 13.4
+        },
+        "fg-labs-hub": {
+          "commits": 2,
+          "prs_merged": 0,
+          "additions": 168,
+          "deletions": 48,
+          "active_repos": 1,
+          "est_hours": 1.3
+        },
+        "polyedge": {
+          "commits": 13,
+          "prs_merged": 3,
+          "additions": 1422,
+          "deletions": 621,
+          "active_repos": 1,
+          "est_hours": 13.9
+        },
+        "polyweather": {
+          "commits": 15,
+          "prs_merged": 2,
+          "additions": 1114,
+          "deletions": 321,
+          "active_repos": 1,
+          "est_hours": 12.8
+        },
+        "polyesports": {
+          "commits": 12,
+          "prs_merged": 2,
+          "additions": 1617,
+          "deletions": 819,
+          "active_repos": 1,
+          "est_hours": 12.3
+        },
+        "tcg-cogs-subledger": {
+          "commits": 9,
+          "prs_merged": 1,
+          "additions": 652,
+          "deletions": 161,
+          "active_repos": 1,
+          "est_hours": 7.4
+        },
+        "fgl-watchtower": {
+          "commits": 2,
+          "prs_merged": 0,
+          "additions": 191,
+          "deletions": 55,
+          "active_repos": 1,
+          "est_hours": 1.4
+        }
+      }
+    },
+    {
+      "week_start": "2026-11-09",
+      "by_project": {
+        "fg-collect-core": {
+          "commits": 22,
+          "prs_merged": 3,
+          "additions": 2386,
+          "deletions": 815,
+          "active_repos": 1,
+          "est_hours": 20.2
+        },
+        "fg-collect-admin": {
+          "commits": 9,
+          "prs_merged": 1,
+          "additions": 798,
+          "deletions": 184,
+          "active_repos": 1,
+          "est_hours": 7.5
+        },
+        "fg-collect-infra": {
+          "commits": 9,
+          "prs_merged": 1,
+          "additions": 772,
+          "deletions": 279,
+          "active_repos": 1,
+          "est_hours": 7.6
+        },
+        "fg-price-scout": {
+          "commits": 7,
+          "prs_merged": 1,
+          "additions": 957,
+          "deletions": 257,
+          "active_repos": 1,
+          "est_hours": 6.7
+        },
+        "fg-crypto-portfolio": {
+          "commits": 10,
+          "prs_merged": 1,
+          "additions": 887,
+          "deletions": 422,
+          "active_repos": 1,
+          "est_hours": 8.5
+        },
+        "fg-labs-hub": {
+          "commits": 1,
+          "prs_merged": 0,
+          "additions": 86,
+          "deletions": 30,
+          "active_repos": 1,
+          "est_hours": 0.7
+        },
+        "polyedge": {
+          "commits": 25,
+          "prs_merged": 5,
+          "additions": 3192,
+          "deletions": 1590,
+          "active_repos": 1,
+          "est_hours": 26.6
+        },
+        "polyweather": {
+          "commits": 17,
+          "prs_merged": 4,
+          "additions": 1787,
+          "deletions": 736,
+          "active_repos": 1,
+          "est_hours": 18.2
+        },
+        "polyesports": {
+          "commits": 17,
+          "prs_merged": 3,
+          "additions": 2018,
+          "deletions": 687,
+          "active_repos": 1,
+          "est_hours": 16.9
+        },
+        "tcg-cogs-subledger": {
+          "commits": 15,
+          "prs_merged": 3,
+          "additions": 821,
+          "deletions": 248,
+          "active_repos": 1,
+          "est_hours": 13.9
+        },
+        "fgl-watchtower": {
+          "commits": 3,
+          "prs_merged": 0,
+          "additions": 178,
+          "deletions": 89,
+          "active_repos": 1,
+          "est_hours": 1.9
+        }
+      }
+    },
+    {
+      "week_start": "2026-11-16",
+      "by_project": {
+        "fg-collect-core": {
+          "commits": 37,
+          "prs_merged": 6,
+          "additions": 3295,
+          "deletions": 1402,
+          "active_repos": 1,
+          "est_hours": 34.6
+        },
+        "fg-collect-admin": {
+          "commits": 24,
+          "prs_merged": 4,
+          "additions": 2632,
+          "deletions": 1455,
+          "active_repos": 1,
+          "est_hours": 23.7
+        },
+        "fg-collect-infra": {
+          "commits": 1,
+          "prs_merged": 0,
+          "additions": 137,
+          "deletions": 44,
+          "active_repos": 1,
+          "est_hours": 0.8
+        },
+        "fg-price-scout": {
+          "commits": 0,
+          "prs_merged": 0,
+          "additions": 0,
+          "deletions": 0,
+          "active_repos": 0,
+          "est_hours": 0.0
+        },
+        "fg-crypto-portfolio": {
+          "commits": 14,
+          "prs_merged": 2,
+          "additions": 728,
+          "deletions": 280,
+          "active_repos": 1,
+          "est_hours": 11.8
+        },
+        "fg-labs-hub": {
+          "commits": 0,
+          "prs_merged": 0,
+          "additions": 0,
+          "deletions": 0,
+          "active_repos": 0,
+          "est_hours": 0.0
+        },
+        "polyedge": {
+          "commits": 8,
+          "prs_merged": 1,
+          "additions": 811,
+          "deletions": 286,
+          "active_repos": 1,
+          "est_hours": 7.1
+        },
+        "polyweather": {
+          "commits": 4,
+          "prs_merged": 0,
+          "additions": 542,
+          "deletions": 268,
+          "active_repos": 1,
+          "est_hours": 3.1
+        },
+        "polyesports": {
+          "commits": 19,
+          "prs_merged": 3,
+          "additions": 1194,
+          "deletions": 527,
+          "active_repos": 1,
+          "est_hours": 16.9
+        },
+        "tcg-cogs-subledger": {
+          "commits": 11,
+          "prs_merged": 1,
+          "additions": 1495,
+          "deletions": 568,
+          "active_repos": 1,
+          "est_hours": 9.8
+        },
+        "fgl-watchtower": {
+          "commits": 5,
+          "prs_merged": 0,
+          "additions": 265,
+          "deletions": 121,
+          "active_repos": 1,
+          "est_hours": 3.2
+        }
+      }
+    },
+    {
+      "week_start": "2026-11-23",
+      "by_project": {
+        "fg-collect-core": {
+          "commits": 9,
+          "prs_merged": 2,
+          "additions": 1010,
+          "deletions": 602,
+          "active_repos": 1,
+          "est_hours": 9.7
+        },
+        "fg-collect-admin": {
+          "commits": 9,
+          "prs_merged": 1,
+          "additions": 1189,
+          "deletions": 422,
+          "active_repos": 1,
+          "est_hours": 8.2
+        },
+        "fg-collect-infra": {
+          "commits": 6,
+          "prs_merged": 0,
+          "additions": 656,
+          "deletions": 144,
+          "active_repos": 1,
+          "est_hours": 4.2
+        },
+        "fg-price-scout": {
+          "commits": 6,
+          "prs_merged": 1,
+          "additions": 588,
+          "deletions": 208,
+          "active_repos": 1,
+          "est_hours": 5.7
+        },
+        "fg-crypto-portfolio": {
+          "commits": 10,
+          "prs_merged": 2,
+          "additions": 1258,
+          "deletions": 736,
+          "active_repos": 1,
+          "est_hours": 10.7
+        },
+        "fg-labs-hub": {
+          "commits": 2,
+          "prs_merged": 0,
+          "additions": 216,
+          "deletions": 122,
+          "active_repos": 1,
+          "est_hours": 1.5
+        },
+        "polyedge": {
+          "commits": 17,
+          "prs_merged": 3,
+          "additions": 1824,
+          "deletions": 847,
+          "active_repos": 1,
+          "est_hours": 16.8
+        },
+        "polyweather": {
+          "commits": 21,
+          "prs_merged": 4,
+          "additions": 2060,
+          "deletions": 942,
+          "active_repos": 1,
+          "est_hours": 20.9
+        },
+        "polyesports": {
+          "commits": 15,
+          "prs_merged": 3,
+          "additions": 857,
+          "deletions": 412,
+          "active_repos": 1,
+          "est_hours": 14.2
+        },
+        "tcg-cogs-subledger": {
+          "commits": 21,
+          "prs_merged": 3,
+          "additions": 1131,
+          "deletions": 529,
+          "active_repos": 1,
+          "est_hours": 17.9
+        },
+        "fgl-watchtower": {
+          "commits": 4,
+          "prs_merged": 0,
+          "additions": 186,
+          "deletions": 60,
+          "active_repos": 1,
+          "est_hours": 2.5
+        }
+      }
+    }
+  ],
+  "sprints": [
+    {
+      "name": "S21",
+      "start": "2026-09-07",
+      "end": "2026-09-20",
+      "goal": "Pricing agents on worker pool",
+      "points_committed": 31,
+      "points_done": 26,
+      "status": "closed"
+    },
+    {
+      "name": "S22",
+      "start": "2026-09-21",
+      "end": "2026-10-04",
+      "goal": "Admin orders + receipts",
+      "points_committed": 40,
+      "points_done": 33,
+      "status": "closed"
+    },
+    {
+      "name": "S23",
+      "start": "2026-10-05",
+      "end": "2026-10-18",
+      "goal": "PolyEdge live arbs",
+      "points_committed": 31,
+      "points_done": 28,
+      "status": "closed"
+    },
+    {
+      "name": "S24",
+      "start": "2026-10-19",
+      "end": "2026-11-01",
+      "goal": "COGS month-end close",
+      "points_committed": 30,
+      "points_done": 28,
+      "status": "closed"
+    },
+    {
+      "name": "S25",
+      "start": "2026-11-02",
+      "end": "2026-11-15",
+      "goal": "PolyWeather calibration",
+      "points_committed": 29,
+      "points_done": 25,
+      "status": "closed"
+    },
+    {
+      "name": "S26",
+      "start": "2026-11-16",
+      "end": "2026-11-29",
+      "goal": "Watchtower v0.1 + collector",
+      "points_committed": 40,
+      "points_done": 22,
+      "status": "active"
+    }
+  ]
+}

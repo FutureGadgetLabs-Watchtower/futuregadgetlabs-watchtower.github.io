@@ -1,0 +1,16 @@
+[Unit]
+Description=FGL Watchtower collector: refresh data/*.json and push to GitHub
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+# Runs as root so `pvesh` works without an API token. With PVE_TOKEN_* set, use a plain user instead.
+User=root
+WorkingDirectory=/opt/fgl-watchtower
+ExecStart=/usr/bin/python3 /opt/fgl-watchtower/collector/sync_watchtower.py
+StateDirectory=fgl-watchtower
+TimeoutStartSec=10min
+Nice=10
+# The deploy key used for `git push`
+Environment=GIT_SSH_COMMAND="ssh -i /root/.ssh/fgl_watchtower_deploy -o IdentitiesOnly=yes"

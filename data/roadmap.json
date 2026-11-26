@@ -1,0 +1,313 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-26T14:00:00Z",
+  "collector": {
+    "host": "pve-01",
+    "version": "0.1.0",
+    "run_id": "2026-11-26T14:00Z-mock",
+    "duration_ms": 8421,
+    "mock": true
+  },
+  "orgs": [
+    {
+      "id": "FG-CollectShop",
+      "name": "FG-CollectShop",
+      "color": "#e76624",
+      "description": "TCG shop: catalog, pricing agents, admin and storefront"
+    },
+    {
+      "id": "FG-CryptoLabs",
+      "name": "FG-CryptoLabs",
+      "color": "#9887ef",
+      "description": "Crypto portfolio tooling and the legacy org hub"
+    },
+    {
+      "id": "FG-PolyLabs",
+      "name": "FG-PolyLabs",
+      "color": "#00a888",
+      "description": "Prediction-market research and trading bots"
+    },
+    {
+      "id": "FGL-Services",
+      "name": "FGL-Services",
+      "color": "#338ced",
+      "description": "Back-office services (COGS subledger)"
+    },
+    {
+      "id": "FutureGadgetLabs-Watchtower",
+      "name": "FutureGadgetLabs-Watchtower",
+      "color": "#e24d8b",
+      "description": "This dashboard and its collector"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "m-2026q4",
+      "title": "2026 Q4: one pane of glass",
+      "target": "2026-12-31"
+    },
+    {
+      "id": "m-2027q1",
+      "title": "2027 Q1: pre-prod and polish",
+      "target": "2027-03-31"
+    }
+  ],
+  "items": [
+    {
+      "id": "watchtower-collector",
+      "title": "Collector running on pve-01 via systemd timer",
+      "project": "fgl-watchtower",
+      "org": "FutureGadgetLabs-Watchtower",
+      "status": "in_progress",
+      "milestone": "m-2026q4",
+      "priority": "P0",
+      "target": "2026-12-05",
+      "progress": 60,
+      "tags": [
+        "collector",
+        "proxmox"
+      ],
+      "url": "https://github.com/FutureGadgetLabs-Watchtower/futuregadgetlabs-watchtower.github.io/issues"
+    },
+    {
+      "id": "watchtower-hub",
+      "title": "Absorb fg-labs-hub registry into Watchtower",
+      "project": "fgl-watchtower",
+      "org": "FutureGadgetLabs-Watchtower",
+      "status": "planned",
+      "milestone": "m-2026q4",
+      "priority": "P1",
+      "target": "2026-12-15",
+      "progress": 0,
+      "tags": [
+        "registry"
+      ],
+      "url": "https://github.com/FutureGadgetLabs-Watchtower/futuregadgetlabs-watchtower.github.io/issues"
+    },
+    {
+      "id": "watchtower-ai-logs",
+      "title": "Parse worker pool job logs into ai_usage.json",
+      "project": "fgl-watchtower",
+      "org": "FutureGadgetLabs-Watchtower",
+      "status": "in_progress",
+      "milestone": "m-2026q4",
+      "priority": "P1",
+      "target": "2026-12-10",
+      "progress": 35,
+      "tags": [
+        "ai"
+      ],
+      "url": "https://github.com/FutureGadgetLabs-Watchtower/futuregadgetlabs-watchtower.github.io/issues"
+    },
+    {
+      "id": "agent2-sources",
+      "title": "Add WORKER_SOURCES to agent2 (fg-collect, fg-crypto)",
+      "project": "fg-collect-core",
+      "org": "FG-CollectShop",
+      "status": "planned",
+      "milestone": "m-2026q4",
+      "priority": "P1",
+      "target": "2026-12-01",
+      "progress": 0,
+      "tags": [
+        "workers"
+      ],
+      "url": "https://github.com/FG-CollectShop/fg-collect-core/issues"
+    },
+    {
+      "id": "receipts-v2",
+      "title": "Receipt ingestion v2 with vendor templates",
+      "project": "fg-collect-core",
+      "org": "FG-CollectShop",
+      "status": "in_progress",
+      "milestone": "m-2026q4",
+      "priority": "P1",
+      "target": "2026-12-12",
+      "progress": 70,
+      "tags": [
+        "ingestion"
+      ],
+      "url": "https://github.com/FG-CollectShop/fg-collect-core/issues"
+    },
+    {
+      "id": "preprod",
+      "title": "Pre-prod environment for FG-CollectShop",
+      "project": "fg-collect-infra",
+      "org": "FG-CollectShop",
+      "status": "planned",
+      "milestone": "m-2027q1",
+      "priority": "P2",
+      "target": "2027-01-20",
+      "progress": 10,
+      "tags": [
+        "infra"
+      ],
+      "url": "https://github.com/FG-CollectShop/fg-collect-infra/issues"
+    },
+    {
+      "id": "polyedge-live",
+      "title": "PolyEdge live trading with risk limits",
+      "project": "polyedge",
+      "org": "FG-PolyLabs",
+      "status": "in_progress",
+      "milestone": "m-2026q4",
+      "priority": "P0",
+      "target": "2026-12-20",
+      "progress": 55,
+      "tags": [
+        "trading"
+      ],
+      "url": "https://github.com/FG-PolyLabs/polyedge/issues"
+    },
+    {
+      "id": "polyweather-cal",
+      "title": "Calibration dashboard for weather models",
+      "project": "polyweather",
+      "org": "FG-PolyLabs",
+      "status": "planned",
+      "milestone": "m-2027q1",
+      "priority": "P2",
+      "target": "2027-01-31",
+      "progress": 0,
+      "tags": [
+        "ml"
+      ],
+      "url": "https://github.com/FG-PolyLabs/polyweather/issues"
+    },
+    {
+      "id": "polyesports-mvp",
+      "title": "PolyEsports MVP back online after migration",
+      "project": "polyesports",
+      "org": "FG-PolyLabs",
+      "status": "in_progress",
+      "milestone": "m-2026q4",
+      "priority": "P1",
+      "target": "2026-11-30",
+      "progress": 80,
+      "tags": [
+        "migration"
+      ],
+      "url": "https://github.com/FG-PolyLabs/polyesports/issues"
+    },
+    {
+      "id": "cogs-tax",
+      "title": "Quarterly tax export from COGS",
+      "project": "tcg-cogs-subledger",
+      "org": "FGL-Services",
+      "status": "planned",
+      "milestone": "m-2027q1",
+      "priority": "P2",
+      "target": "2027-01-10",
+      "progress": 0,
+      "tags": [
+        "finance"
+      ],
+      "url": "https://github.com/FGL-Services/tcg-cogs-subledger/issues"
+    },
+    {
+      "id": "crypto-alerts",
+      "title": "Price and drawdown alerts",
+      "project": "fg-crypto-portfolio",
+      "org": "FG-CryptoLabs",
+      "status": "planned",
+      "milestone": "m-2027q1",
+      "priority": "P3",
+      "target": "2027-02-15",
+      "progress": 0,
+      "tags": [
+        "alerts"
+      ],
+      "url": "https://github.com/FG-CryptoLabs/fg-crypto-portfolio/issues"
+    },
+    {
+      "id": "cogs-close",
+      "title": "Month-end close report",
+      "project": "tcg-cogs-subledger",
+      "org": "FGL-Services",
+      "status": "shipped",
+      "milestone": "m-2026q4",
+      "priority": "P1",
+      "target": "2026-11-22",
+      "progress": 100,
+      "tags": [
+        "finance"
+      ],
+      "url": "https://github.com/FGL-Services/tcg-cogs-subledger/issues"
+    },
+    {
+      "id": "arb-workers",
+      "title": "Arb scanner on worker pool",
+      "project": "polyedge",
+      "org": "FG-PolyLabs",
+      "status": "shipped",
+      "milestone": "m-2026q4",
+      "priority": "P1",
+      "target": "2026-11-24",
+      "progress": 100,
+      "tags": [
+        "workers"
+      ],
+      "url": "https://github.com/FG-PolyLabs/polyedge/issues"
+    },
+    {
+      "id": "orders-board",
+      "title": "Admin orders board",
+      "project": "fg-collect-admin",
+      "org": "FG-CollectShop",
+      "status": "shipped",
+      "milestone": "m-2026q4",
+      "priority": "P2",
+      "target": "2026-11-19",
+      "progress": 100,
+      "tags": [
+        "admin"
+      ],
+      "url": "https://github.com/FG-CollectShop/fg-collect-admin/issues"
+    },
+    {
+      "id": "crypto-deploy",
+      "title": "fg-crypto-portfolio first homelab deploy",
+      "project": "fg-crypto-portfolio",
+      "org": "FG-CryptoLabs",
+      "status": "shipped",
+      "milestone": "m-2026q4",
+      "priority": "P1",
+      "target": "2026-10-22",
+      "progress": 100,
+      "tags": [
+        "deploy"
+      ],
+      "url": "https://github.com/FG-CryptoLabs/fg-crypto-portfolio/issues"
+    },
+    {
+      "id": "tunnel-tf",
+      "title": "Cloudflare tunnel routes in Terraform",
+      "project": "fg-collect-infra",
+      "org": "FG-CollectShop",
+      "status": "shipped",
+      "milestone": "m-2026q4",
+      "priority": "P2",
+      "target": "2026-11-18",
+      "progress": 100,
+      "tags": [
+        "infra"
+      ],
+      "url": "https://github.com/FG-CollectShop/fg-collect-infra/issues"
+    },
+    {
+      "id": "backups",
+      "title": "Nightly vzdump to pve-02",
+      "project": "fg-collect-infra",
+      "org": "FG-CollectShop",
+      "status": "shipped",
+      "milestone": "m-2026q4",
+      "priority": "P1",
+      "target": "2026-10-27",
+      "progress": 100,
+      "tags": [
+        "infra"
+      ],
+      "url": "https://github.com/FG-CollectShop/fg-collect-infra/issues"
+    }
+  ]
+}
