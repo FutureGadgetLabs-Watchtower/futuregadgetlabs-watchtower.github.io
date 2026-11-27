@@ -1,11 +1,11 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-27T17:34:24Z",
+  "generated_at": "2026-11-27T17:41:48Z",
   "collector": {
     "host": "agent1",
     "version": "0.2.0",
-    "run_id": "2026-11-27T17:34:24Z",
-    "duration_ms": 29577,
+    "run_id": "2026-11-27T17:41:48Z",
+    "duration_ms": 29274,
     "mock": false
   },
   "method": {
@@ -39,7 +39,7 @@
     }
   },
   "excluded": {
-    "merge_commits": 1008,
+    "merge_commits": 1009,
     "bot_commits": 186,
     "automated_commits": 130,
     "repos": [
@@ -13667,7 +13667,7 @@
           "senior_high": 79.5,
           "judged": 3,
           "written": 2831,
-          "reworked": 312
+          "reworked": 316
         },
         "FG-CollectLabs/grading-predictor-frontend": {
           "commits": 2,
@@ -13812,7 +13812,7 @@
           "additions": 4217,
           "deletions": 1048,
           "claude": 10,
-          "hours": 2.19,
+          "hours": 2.16,
           "prs": 7,
           "code": 4112,
           "docs": 1063,
@@ -13831,7 +13831,7 @@
           "additions": 720,
           "deletions": 472,
           "claude": 2,
-          "hours": 0.44,
+          "hours": 0.43,
           "prs": 2,
           "code": 565,
           "docs": 117,
@@ -13850,7 +13850,7 @@
           "additions": 6211,
           "deletions": 13,
           "claude": 4,
-          "hours": 1.09,
+          "hours": 1.08,
           "prs": 4,
           "code": 1603,
           "docs": 124,
@@ -13865,14 +13865,14 @@
           "reworked": 7
         },
         "FutureGadgetLabs-Watchtower/futuregadgetlabs-watchtower.github.io": {
-          "commits": 4,
-          "additions": 7804,
-          "deletions": 1663,
-          "claude": 4,
-          "hours": 0.88,
-          "prs": 3,
-          "code": 914,
-          "docs": 52,
+          "commits": 5,
+          "additions": 12804,
+          "deletions": 2357,
+          "claude": 5,
+          "hours": 1.08,
+          "prs": 4,
+          "code": 1692,
+          "docs": 87,
           "tests": 0,
           "sets": 1,
           "unclassified": 0,
@@ -13880,15 +13880,15 @@
           "senior_low": 0.0,
           "senior_high": 0.0,
           "judged": 0,
-          "written": 716,
-          "reworked": 21
+          "written": 1350,
+          "reworked": 28
         },
         "FG-PolyLabs/polyresearch": {
           "commits": 2,
           "additions": 1255,
           "deletions": 0,
           "claude": 2,
-          "hours": 0.44,
+          "hours": 0.43,
           "prs": 1,
           "code": 1009,
           "docs": 61,
