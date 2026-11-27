@@ -112,7 +112,15 @@ export interface VelocityData extends Envelope {
     senior_hours: string
     sources: string
   }
-  judge: { prompt_version: string; models: string[]; judged_sets: number; total_sets: number; first_judged_date: string | null } | null
+  judge: {
+    prompt_version: string
+    models: string[]
+    judged_sets: number
+    total_sets: number
+    first_judged_date: string | null
+    /** how the judge was checked against the owner's own estimates */
+    calibration: { date: string; pairs: number; inside_range: number; judge_over_you: number | null; blind: boolean } | null
+  } | null
   /** share of counted commits with per-file stats (code lines are complete at 1) */
   file_coverage: number
   excluded: { merge_commits: number; bot_commits: number; automated_commits: number; repos: string[] }

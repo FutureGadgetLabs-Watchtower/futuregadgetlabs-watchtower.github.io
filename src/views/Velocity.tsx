@@ -164,8 +164,8 @@ export function Velocity() {
     <div>
       <PageHead code="02" title="Engineering velocity">
         Every commit across the orgs the Watchtower GitHub App can read, counted per day in {tz.replace('_', ' ')} time. "Your
-        hours" is time spent directing the work, from commit sessions. Senior-engineer-equivalent hours arrive with the weekly
-        judge.
+        hours" is time spent directing the work, from commit sessions. Senior-engineer-equivalent hours come from a judge
+        that reads each change and estimates what it would have taken one senior engineer before AI.
       </PageHead>
 
       <div className="mb-3 grid gap-3 md:grid-cols-3">
@@ -369,6 +369,8 @@ export function Velocity() {
           {velocity.method.senior_hours}
           {velocity.judge &&
             ` Judged so far: ${num(velocity.judge.judged_sets)} of ${num(velocity.judge.total_sets)} change sets (scoring guide ${velocity.judge.prompt_version}). * = some of that repo's change sets aren't judged yet.`}
+          {velocity.judge?.calibration &&
+            ` Checked against my own estimates on ${velocity.judge.calibration.pairs} change sets (${velocity.judge.calibration.blind ? 'scored blind' : 'reviewed after seeing the judge\'s number, so not blind'}): ${velocity.judge.calibration.inside_range} of ${velocity.judge.calibration.pairs} inside the judge's range; judge total ÷ mine = ${velocity.judge.calibration.judge_over_you?.toFixed(2)}. A ballpark, not a timesheet.`}
         </p>
         <p>
           <span className="label mr-2">change sets</span>

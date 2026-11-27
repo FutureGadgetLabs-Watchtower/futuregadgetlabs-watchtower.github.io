@@ -1,11 +1,11 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-27T15:38:40Z",
+  "generated_at": "2026-11-27T16:52:16Z",
   "collector": {
     "host": "agent1",
     "version": "0.2.0",
-    "run_id": "2026-11-27T15:38:40Z",
-    "duration_ms": 29049,
+    "run_id": "2026-11-27T16:52:16Z",
+    "duration_ms": 32399,
     "mock": false
   },
   "method": {
@@ -18,9 +18,26 @@
     "sources": "Default-branch history of every repo the Watchtower GitHub App can read; merge, bot and automated data commits excluded; merged PRs from GitHub search."
   },
   "file_coverage": 1.0,
-  "judge": null,
+  "judge": {
+    "prompt_version": "2026-11-27.1",
+    "models": [
+      "claude-haiku-5-5",
+      "claude-sonnet-5-5"
+    ],
+    "judged_sets": 85,
+    "total_sets": 994,
+    "first_judged_date": "2026-09-20",
+    "calibration": {
+      "prompt_version": "2026-11-27.1",
+      "date": "2026-11-27",
+      "pairs": 18,
+      "inside_range": 18,
+      "judge_over_you": 1.0,
+      "blind": false
+    }
+  },
   "excluded": {
-    "merge_commits": 997,
+    "merge_commits": 1003,
     "bot_commits": 186,
     "automated_commits": 130,
     "repos": [
@@ -675,6 +692,13 @@
       "id": "FG-PolyLabs/polykit",
       "org": "FG-PolyLabs",
       "name": "polykit",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-PolyLabs/polyresearch",
+      "org": "FG-PolyLabs",
+      "name": "polyresearch",
       "private": true,
       "archived": false
     },
@@ -5977,10 +6001,10 @@
           "docs": 0,
           "sets": 3,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 5.0,
+          "senior_low": 3.0,
+          "senior_high": 8.0,
+          "judged": 1
         },
         "FG-Liquidator/infra": {
           "commits": 3,
@@ -6247,10 +6271,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 3.0,
+          "senior_low": 1.5,
+          "senior_high": 5.0,
+          "judged": 1
         },
         "FG-Liquidator/lot-eval": {
           "commits": 1,
@@ -6900,10 +6924,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 0.3,
+          "senior_low": 0.15,
+          "senior_high": 0.75,
+          "judged": 1
         },
         "FG-CollectShop/fg-collect-storefront": {
           "commits": 0,
@@ -7054,10 +7078,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 2.5,
+          "senior_low": 1.5,
+          "senior_high": 4.0,
+          "judged": 1
         },
         "FG-CollectShop/fg-collect-infra": {
           "commits": 2,
@@ -7086,10 +7110,10 @@
           "docs": 0,
           "sets": 2,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 1.25,
+          "senior_low": 0.5,
+          "senior_high": 3.0,
+          "judged": 1
         },
         "FG-CollectShop/fg-collect-core": {
           "commits": 1,
@@ -7522,10 +7546,10 @@
           "docs": 0,
           "sets": 2,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 2.5,
+          "senior_low": 1.5,
+          "senior_high": 4.5,
+          "judged": 1
         }
       }
     },
@@ -8160,10 +8184,10 @@
           "docs": 0,
           "sets": 2,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 1.0,
+          "senior_low": 0.6,
+          "senior_high": 2.0,
+          "judged": 1
         },
         "FG-Kitchen/kitchen": {
           "commits": 2,
@@ -8176,10 +8200,10 @@
           "docs": 12,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 30.0,
+          "senior_low": 20.0,
+          "senior_high": 45.0,
+          "judged": 1
         },
         "FG-Kitchen/infra": {
           "commits": 1,
@@ -8229,10 +8253,10 @@
           "docs": 4,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 9.0,
+          "senior_low": 6.0,
+          "senior_high": 14.0,
+          "judged": 1
         },
         "FG-InvestmentLabs/infra": {
           "commits": 1,
@@ -8596,10 +8620,10 @@
           "docs": 51,
           "sets": 2,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 17.0,
+          "senior_low": 11.0,
+          "senior_high": 26.0,
+          "judged": 1
         },
         "FG-Kitchen/infra": {
           "commits": 7,
@@ -9032,10 +9056,10 @@
           "docs": 0,
           "sets": 4,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 8.0,
+          "senior_low": 5.0,
+          "senior_high": 12.0,
+          "judged": 1
         },
         "FG-Kitchen/kitchen": {
           "commits": 3,
@@ -9128,10 +9152,10 @@
           "docs": 199,
           "sets": 3,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 16.0,
+          "senior_low": 10.0,
+          "senior_high": 26.0,
+          "judged": 1
         },
         "FG-CollectShop/fg-collect-admin": {
           "commits": 4,
@@ -9628,10 +9652,10 @@
           "docs": 0,
           "sets": 3,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 5.0,
+          "senior_low": 3.0,
+          "senior_high": 8.0,
+          "judged": 1
         }
       }
     },
@@ -10670,10 +10694,10 @@
           "docs": 0,
           "sets": 3,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 4.5,
+          "senior_low": 3.0,
+          "senior_high": 7.0,
+          "judged": 1
         },
         "FG-CollectLabs/grading-predictor-frontend": {
           "commits": 2,
@@ -11010,10 +11034,10 @@
           "docs": 0,
           "sets": 2,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 4.0,
+          "senior_low": 2.5,
+          "senior_high": 6.5,
+          "judged": 1
         },
         "FG-CollectLabs/market-tracker-frontend": {
           "commits": 3,
@@ -11042,10 +11066,10 @@
           "docs": 0,
           "sets": 3,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 1.5,
+          "senior_low": 0.5,
+          "senior_high": 4.0,
+          "judged": 1
         },
         "FG-CollectLabs/grading-predictor-frontend": {
           "commits": 1,
@@ -11074,10 +11098,10 @@
           "docs": 178,
           "sets": 2,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 0.2,
+          "senior_low": 0.1,
+          "senior_high": 0.5,
+          "judged": 1
         },
         "FG-InvestmentLabs/backtester": {
           "commits": 4,
@@ -11090,10 +11114,10 @@
           "docs": 2,
           "sets": 2,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 12.0,
+          "senior_low": 8.0,
+          "senior_high": 18.0,
+          "judged": 1
         },
         "FG-CryptoLabs/fg-crypto-portfolio": {
           "commits": 0,
@@ -11127,10 +11151,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 32.0,
+          "senior_low": 22.0,
+          "senior_high": 48.0,
+          "judged": 1
         },
         "FG-InvestmentLabs/infra": {
           "commits": 6,
@@ -11143,10 +11167,10 @@
           "docs": 136,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 3.0,
+          "senior_low": 1.5,
+          "senior_high": 5.0,
+          "judged": 1
         },
         "FG-CollectLabs/grading-predictor-frontend": {
           "commits": 3,
@@ -11159,10 +11183,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 7.0,
+          "senior_low": 4.0,
+          "senior_high": 11.0,
+          "judged": 1
         },
         "FG-CollectShop/fg-collect-admin": {
           "commits": 3,
@@ -11175,10 +11199,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 5.0,
+          "senior_low": 3.0,
+          "senior_high": 8.0,
+          "judged": 1
         },
         "FG-CollectLabs/market-tracker-frontend": {
           "commits": 2,
@@ -11191,10 +11215,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 3.5,
+          "senior_low": 2.0,
+          "senior_high": 6.0,
+          "judged": 1
         },
         "FG-CollectLabs/market-tracker-backend": {
           "commits": 3,
@@ -11207,10 +11231,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 13.0,
+          "senior_low": 8.0,
+          "senior_high": 20.0,
+          "judged": 1
         },
         "FG-CollectShop/fg-collect-core": {
           "commits": 3,
@@ -11223,10 +11247,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 14.0,
+          "senior_low": 9.0,
+          "senior_high": 22.0,
+          "judged": 1
         },
         "FG-CollectLabs/grading-predictor-backend": {
           "commits": 2,
@@ -11239,10 +11263,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 10.0,
+          "senior_low": 6.0,
+          "senior_high": 16.0,
+          "judged": 1
         }
       }
     },
@@ -11260,10 +11284,10 @@
           "docs": 0,
           "sets": 2,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 8.0,
+          "senior_low": 5.0,
+          "senior_high": 13.0,
+          "judged": 2
         },
         "FG-CollectLabs/market-tracker-backend": {
           "commits": 4,
@@ -11276,10 +11300,10 @@
           "docs": 0,
           "sets": 2,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 22.5,
+          "senior_low": 14.0,
+          "senior_high": 36.0,
+          "judged": 2
         },
         "FG-CollectLabs/grading-predictor-backend": {
           "commits": 3,
@@ -11292,10 +11316,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 7.0,
+          "senior_low": 4.0,
+          "senior_high": 11.0,
+          "judged": 1
         },
         "FG-CollectLabs/grading-predictor-frontend": {
           "commits": 3,
@@ -11308,10 +11332,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 8.0,
+          "senior_low": 5.0,
+          "senior_high": 12.0,
+          "judged": 1
         },
         "FG-CryptoLabs/fg-crypto-portfolio": {
           "commits": 4,
@@ -11324,10 +11348,10 @@
           "docs": 3953,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 400.0,
+          "senior_low": 250.0,
+          "senior_high": 650.0,
+          "judged": 1
         },
         "FG-CollectShop/fg-collect-admin": {
           "commits": 2,
@@ -11340,10 +11364,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 5.5,
+          "senior_low": 3.5,
+          "senior_high": 8.5,
+          "judged": 1
         },
         "FG-CollectShop/fg-collect-core": {
           "commits": 1,
@@ -11356,10 +11380,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 4.0,
+          "senior_low": 2.5,
+          "senior_high": 6.5,
+          "judged": 1
         }
       }
     },
@@ -11377,10 +11401,10 @@
           "docs": 85,
           "sets": 3,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 98.0,
+          "senior_low": 64.0,
+          "senior_high": 148.0,
+          "judged": 3
         },
         "FG-CollectLabs/grading-predictor-backend": {
           "commits": 3,
@@ -11393,10 +11417,10 @@
           "docs": 0,
           "sets": 2,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 4.5,
+          "senior_low": 2.5,
+          "senior_high": 8.0,
+          "judged": 2
         },
         "FG-CollectLabs/market-tracker-backend": {
           "commits": 5,
@@ -11409,10 +11433,10 @@
           "docs": 0,
           "sets": 3,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 21.5,
+          "senior_low": 13.5,
+          "senior_high": 33.5,
+          "judged": 3
         },
         "FG-CollectLabs/grading-predictor-frontend": {
           "commits": 2,
@@ -11425,10 +11449,10 @@
           "docs": 0,
           "sets": 2,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 5.5,
+          "senior_low": 3.25,
+          "senior_high": 9.5,
+          "judged": 2
         },
         "FG-CollectLabs/market-tracker-frontend": {
           "commits": 4,
@@ -11441,10 +11465,10 @@
           "docs": 0,
           "sets": 3,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 9.25,
+          "senior_low": 5.5,
+          "senior_high": 15.5,
+          "judged": 3
         },
         "FG-PolyLabs/polyedge": {
           "commits": 3,
@@ -11457,10 +11481,10 @@
           "docs": 21,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 16.0,
+          "senior_low": 10.0,
+          "senior_high": 26.0,
+          "judged": 1
         },
         "FG-CollectShop/fg-collect-admin": {
           "commits": 0,
@@ -11494,10 +11518,10 @@
           "docs": 207,
           "sets": 3,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 88.5,
+          "senior_low": 57.5,
+          "senior_high": 138.0,
+          "judged": 3
         },
         "FG-PolyLabs/polyweather-bot": {
           "commits": 4,
@@ -11510,10 +11534,10 @@
           "docs": 765,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 14.0,
+          "senior_low": 9.0,
+          "senior_high": 22.0,
+          "judged": 1
         },
         "FG-PolyLabs/polyweather": {
           "commits": 3,
@@ -11526,10 +11550,10 @@
           "docs": 55,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 6.5,
+          "senior_low": 4.0,
+          "senior_high": 10.0,
+          "judged": 1
         },
         "FG-CollectLabs/market-tracker-frontend": {
           "commits": 1,
@@ -11542,10 +11566,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 0.4,
+          "senior_low": 0.2,
+          "senior_high": 0.8,
+          "judged": 1
         },
         "FG-CollectLabs/market-tracker-backend": {
           "commits": 1,
@@ -11558,10 +11582,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 3.5,
+          "senior_low": 2.0,
+          "senior_high": 6.0,
+          "judged": 1
         },
         "FG-CryptoLabs/fg-crypto-portfolio": {
           "commits": 0,
@@ -11595,10 +11619,10 @@
           "docs": 0,
           "sets": 3,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 33.0,
+          "senior_low": 20.5,
+          "senior_high": 50.5,
+          "judged": 3
         },
         "FG-CollectLabs/grading-predictor-frontend": {
           "commits": 2,
@@ -11611,10 +11635,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 6.5,
+          "senior_low": 4.0,
+          "senior_high": 10.0,
+          "judged": 1
         },
         "FG-CollectLabs/market-tracker-frontend": {
           "commits": 15,
@@ -11627,10 +11651,10 @@
           "docs": 0,
           "sets": 3,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 29.0,
+          "senior_low": 19.0,
+          "senior_high": 45.5,
+          "judged": 3
         },
         "FG-CollectLabs/grading-predictor-backend": {
           "commits": 6,
@@ -11643,10 +11667,10 @@
           "docs": 0,
           "sets": 2,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 19.5,
+          "senior_low": 12.0,
+          "senior_high": 32.0,
+          "judged": 2
         },
         "FG-PolyLabs/polyedge": {
           "commits": 3,
@@ -11659,10 +11683,10 @@
           "docs": 22,
           "sets": 2,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 10.08,
+          "senior_low": 6.03,
+          "senior_high": 16.2,
+          "judged": 2
         },
         "FG-PolyLabs/polyweather": {
           "commits": 1,
@@ -11675,10 +11699,10 @@
           "docs": 43,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 6.0,
+          "senior_low": 3.5,
+          "senior_high": 10.0,
+          "judged": 1
         },
         "FG-PolyLabs/polyweather-bot": {
           "commits": 1,
@@ -11691,10 +11715,10 @@
           "docs": 100,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 14.0,
+          "senior_low": 9.0,
+          "senior_high": 22.0,
+          "judged": 1
         }
       }
     },
@@ -11712,10 +11736,10 @@
           "docs": 244,
           "sets": 3,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 52.0,
+          "senior_low": 33.0,
+          "senior_high": 79.5,
+          "judged": 3
         },
         "FG-CollectLabs/grading-predictor-frontend": {
           "commits": 2,
@@ -11728,10 +11752,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 2.5,
+          "senior_low": 1.5,
+          "senior_high": 4.0,
+          "judged": 1
         },
         "FG-CollectLabs/grading-predictor-backend": {
           "commits": 1,
@@ -11744,10 +11768,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 13.0,
+          "senior_low": 8.0,
+          "senior_high": 20.0,
+          "judged": 1
         },
         "FG-CollectLabs/market-tracker-backend": {
           "commits": 1,
@@ -11760,10 +11784,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 2.5,
+          "senior_low": 1.5,
+          "senior_high": 4.0,
+          "judged": 1
         },
         "FG-CollectLabs/market-tracker-frontend": {
           "commits": 1,
@@ -11776,10 +11800,10 @@
           "docs": 0,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 4.0,
+          "senior_low": 2.5,
+          "senior_high": 6.5,
+          "judged": 1
         },
         "FG-PolyLabs/polyedge": {
           "commits": 11,
@@ -11792,10 +11816,10 @@
           "docs": 102,
           "sets": 2,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 30.5,
+          "senior_low": 19.5,
+          "senior_high": 46.5,
+          "judged": 2
         },
         "FG-PolyLabs/polyweather": {
           "commits": 16,
@@ -11808,10 +11832,10 @@
           "docs": 1444,
           "sets": 3,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 113.0,
+          "senior_low": 73.0,
+          "senior_high": 174.0,
+          "judged": 3
         },
         "FG-PolyLabs/polyweather-bot": {
           "commits": 13,
@@ -11824,10 +11848,10 @@
           "docs": 785,
           "sets": 3,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0
+          "senior": 122.0,
+          "senior_low": 80.0,
+          "senior_high": 190.0,
+          "judged": 3
         }
       }
     },
@@ -11835,14 +11859,14 @@
       "date": "2026-11-27",
       "by_project": {
         "FG-PolyLabs/polyweather": {
-          "commits": 6,
-          "additions": 3460,
+          "commits": 7,
+          "additions": 3599,
           "deletions": 29,
-          "claude": 6,
-          "hours": 1.9,
-          "prs": 3,
+          "claude": 7,
+          "hours": 1.46,
+          "prs": 4,
           "code": 2546,
-          "docs": 875,
+          "docs": 1014,
           "sets": 1,
           "unclassified": 0,
           "senior": 0.0,
@@ -11855,10 +11879,26 @@
           "additions": 720,
           "deletions": 472,
           "claude": 2,
-          "hours": 0.63,
+          "hours": 0.42,
           "prs": 2,
           "code": 565,
           "docs": 117,
+          "sets": 1,
+          "unclassified": 0,
+          "senior": 5.0,
+          "senior_low": 3.0,
+          "senior_high": 8.0,
+          "judged": 1
+        },
+        "FG-PolyLabs/polykit": {
+          "commits": 5,
+          "additions": 6211,
+          "deletions": 13,
+          "claude": 4,
+          "hours": 1.04,
+          "prs": 4,
+          "code": 1603,
+          "docs": 124,
           "sets": 1,
           "unclassified": 0,
           "senior": 0.0,
@@ -11866,15 +11906,31 @@
           "senior_high": 0.0,
           "judged": 0
         },
-        "FG-PolyLabs/polykit": {
+        "FutureGadgetLabs-Watchtower/futuregadgetlabs-watchtower.github.io": {
           "commits": 2,
-          "additions": 3922,
-          "deletions": 1,
+          "additions": 7380,
+          "deletions": 1388,
+          "claude": 2,
+          "hours": 0.42,
+          "prs": 2,
+          "code": 794,
+          "docs": 39,
+          "sets": 1,
+          "unclassified": 0,
+          "senior": 0.0,
+          "senior_low": 0.0,
+          "senior_high": 0.0,
+          "judged": 0
+        },
+        "FG-PolyLabs/polyresearch": {
+          "commits": 1,
+          "additions": 50,
+          "deletions": 0,
           "claude": 1,
-          "hours": 0.63,
-          "prs": 1,
-          "code": 843,
-          "docs": 79,
+          "hours": 0.21,
+          "prs": 0,
+          "code": 7,
+          "docs": 43,
           "sets": 1,
           "unclassified": 0,
           "senior": 0.0,

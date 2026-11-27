@@ -365,6 +365,12 @@ def cmd_calibration_report(cfg: wt.Config, args: argparse.Namespace) -> int:
     you, judge = sum(p[0] for p in pairs), sum(p[1] for p in pairs)
     inside = sum(1 for y, _, lo, hi, _ in pairs if lo <= y <= hi)
     ratios = sorted(j / y for y, j, *_ in pairs if y > 0)
+    # A short, publishable summary (counts only) for the site's method notes.
+    wt.write_json_atomic(inp.store / "calibration_summary.json", {
+        "prompt_version": PROMPT_VERSION, "date": wt.now_utc().date().isoformat(), "pairs": len(pairs),
+        "inside_range": inside, "judge_over_you": round(judge / you, 3) if you else None,
+        "blind": not any("non-blind" in (r.get("notes") or "") for r in rows if r["your_hours"].strip()),
+    })
     print(f"{len(pairs)} pairs · your total {you:.1f} h · judge total {judge:.1f} h · judge/you = {judge / you:.2f}")
     print(f"median per-set ratio {ratios[len(ratios) // 2]:.2f} · your number inside the judge's 80% range: {inside}/{len(pairs)}")
     for y, j, lo, hi, i in pairs:
