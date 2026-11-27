@@ -21,6 +21,7 @@ const files = {
   'changelog.json': ['orgs', 'entries'],
   'roadmap.json': ['orgs', 'milestones', 'items'],
   'ai_usage.json': ['period', 'production', 'engineering'],
+  'agents.json': ['method', 'hosts', 'days'],
 }
 const SCHEMA = { 'velocity.json': 2 }
 for (const [f, keys] of Object.entries(files)) {

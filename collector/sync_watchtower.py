@@ -402,8 +402,9 @@ def file_classifier(vcfg: dict) -> Callable[[str], str]:
 ORG_PALETTE = ["#338ced", "#e76624", "#00a888", "#d28e05", "#e24d8b", "#0aac23", "#9887ef",
                "#5ab4c4", "#c46a3a", "#8fa83a", "#b45fb0", "#6f86d6"]
 EMPTY_DAY = {"commits": 0, "additions": 0, "deletions": 0, "claude": 0, "hours": 0.0, "prs": 0,
-             "code": 0, "docs": 0, "sets": 0, "unclassified": 0,
-             "senior": 0.0, "senior_low": 0.0, "senior_high": 0.0, "judged": 0}
+             "code": 0, "docs": 0, "tests": 0, "sets": 0, "unclassified": 0,
+             "senior": 0.0, "senior_low": 0.0, "senior_high": 0.0, "judged": 0,
+             "written": 0, "reworked": 0}
 CLAUDE_TRAILER = re.compile(r"^co-authored-by:\s*claude\b", re.I | re.M)
 
 
@@ -590,6 +591,67 @@ def commit_lines_by_category(files: list, classify: Callable[[str], str]) -> dic
     return out
 
 
+REWORK_WINDOW_DAYS = 21
+TRIVIAL_LINE = re.compile(r"^[\s{}()\[\];,.:'\"`<>/*#=+-]*$|^(else|end|fi|done|pass|return|break|continue)\W*$|^(\}|\)|\])\s*(else|catch|finally)?\W*$")
+
+
+def _diff_lines(patch: str) -> tuple[list[str], list[str]]:
+    """(added, deleted) non-trivial lines of a unified-diff patch, whitespace-normalised."""
+    added, deleted = [], []
+    for line in patch.splitlines():
+        if not line or line.startswith(("+++", "---", "@@", "\\")):
+            continue
+        sign, text = line[0], " ".join(line[1:].split())
+        if sign not in "+-" or len(text) < 4 or TRIVIAL_LINE.match(text):
+            continue
+        (added if sign == "+" else deleted).append(text)
+    return added, deleted
+
+
+def rework_by_day(cfg: Config, work: list[dict], files: dict[str, list], classify: Callable[[str], str],
+                  tz: ZoneInfo) -> dict[tuple[str, str], list[int]]:
+    """{(local day written, project): [lines written, lines reworked]}.
+
+    A line counts as written when it is added in a code, test or config file. It counts as reworked when an
+    identical line is deleted from the same file within REWORK_WINDOW_DAYS by a later commit: code that was
+    replaced or thrown away soon after it was written. Uses the stored diff text, so it measures only what the
+    (truncated) patches show, for both the written and the reworked side.
+    """
+    import gzip
+    from collections import deque
+    store = cfg.state_dir / "velocity" / "diffs"
+    window = dt.timedelta(days=REWORK_WINDOW_DAYS)
+    out: dict[tuple[str, str], list[int]] = defaultdict(lambda: [0, 0])
+    by_project: dict[str, list[dict]] = defaultdict(list)
+    for c in work:
+        by_project[c["project"]].append(c)
+    for proj, commits in by_project.items():
+        pending: dict[tuple[str, str], deque] = defaultdict(deque)  # (path, line) -> deque[(time, day)]
+        for c in commits:  # already in time order
+            p = store / proj.replace("/", "__") / f"{c['oid']}.json.gz"
+            if not p.exists():
+                continue
+            stats = {f[0]: f for f in files.get(c["oid"], [])}
+            patches = json.loads(gzip.decompress(p.read_bytes()))
+            day = c["_t"].astimezone(tz).date().isoformat()
+            for path, patch in patches.items():
+                st = stats.get(path)
+                if not st or classify_change(path, st[2], st[3], classify) not in CODE_CATS:
+                    continue
+                added, deleted = _diff_lines(patch)
+                for text in deleted:
+                    q = pending.get((path, text))
+                    while q and c["_t"] - q[0][0] > window:
+                        q.popleft()
+                    if q:
+                        _t, d0 = q.popleft()
+                        out[(d0, proj)][1] += 1
+                for text in added:
+                    pending[(path, text)].append((c["_t"], day))
+                    out[(day, proj)][0] += 1
+    return out
+
+
 def collect_velocity(cfg: Config, started: float, full: bool = False, backfill_files: bool = False) -> dict:
     if not cfg.app.enabled:
         raise RuntimeError("velocity needs the GitHub App: set GITHUB_APP_ID and GITHUB_APP_KEY")
@@ -650,9 +712,16 @@ def collect_velocity(cfg: Config, started: float, full: bool = False, backfill_f
         if c["_cats"] is not None:
             code = sum(sum(c["_cats"].get(k, [0, 0])) for k in CODE_CATS)
             m["code"] += min(code, cap)
+            m["tests"] += min(sum(c["_cats"].get("test", [0, 0])), cap)
             m["docs"] += min(sum(c["_cats"].get("docs", [0, 0])), cap)
         else:
             m["unclassified"] += 1
+
+    # Rework: code written, and how much of it was deleted again within REWORK_WINDOW_DAYS.
+    for (d, proj), (written, reworked) in rework_by_day(cfg, work, files, classify, tz).items():
+        m = days[d].setdefault(proj, dict(EMPTY_DAY))
+        m["written"] += written
+        m["reworked"] += reworked
 
     # Change sets: one repo's commits within one working session, roughly what a person would ship as one PR.
     # This is the unit the senior-hours judge scores. Written to the collector host only (subjects are private).
@@ -741,6 +810,10 @@ def collect_velocity(cfg: Config, started: float, full: bool = False, backfill_f
                            f"{DATA_FILE_LINES:,}+ lines or any file changing by {GENERATED_FILE_LINES:,}+ lines in one commit; "
                            "docs are counted separately."),
             "change_sets": "A change set is one repo's commits within one working session: the unit the senior-hours judge scores.",
+            "rework": (f"Rework: of the non-trivial code, test and config lines written on a day, the share deleted again from the "
+                       f"same file within {REWORK_WINDOW_DAYS} days (matched line by line in the diffs). Days younger than "
+                       f"{REWORK_WINDOW_DAYS} days are still open and left out of the rate. Lower is better: code that stays."),
+            "rework_window_days": REWORK_WINDOW_DAYS,
             "senior_hours": ("Senior-engineer-equivalent hours: for each change set, Claude reads the commit messages, file list and "
                              "code diff and estimates how long one senior engineer, familiar with the codebase, would have needed "
                              "before AI coding tools (design, code, tests, debugging; not meetings or waiting). The median is shown "
@@ -1183,6 +1256,136 @@ def collect_ai_usage(cfg: Config, started: float) -> dict:
 
 
 # ---------------------------------------------------------------------------------------------
+# Agent sessions: Claude Code transcripts on each coding/worker host (collector/agents_scan.py runs there)
+# ---------------------------------------------------------------------------------------------
+
+AGENTS_DEFAULTS: dict[str, Any] = {
+    "hosts": [{"name": "agent1", "ssh": ""}],  # ssh: "" = this host, else an ssh alias
+    "idle_minutes": 15,
+    "attention_cap_minutes": 10,
+    "project_aliases": {},  # scanner label -> project id, e.g. "local:FGL-Watchtower" -> "Org/repo"
+}
+
+
+def scan_agent_host(cfg: Config, acfg: dict, tz: str, host: dict) -> dict:
+    """Run agents_scan.py on one host; fall back to that host's last good result if it can't be reached."""
+    cache = cfg.state_dir / "agents" / f"{host['name']}.json"
+    args = ["--tz", tz, "--host", host["name"], "--idle-min", str(acfg["idle_minutes"]),
+            "--attention-cap-min", str(acfg["attention_cap_minutes"])]
+    script = HERE / "agents_scan.py"
+    if host.get("ssh"):
+        cmd, stdin = ["ssh", "-o", "BatchMode=yes", "-o", "ConnectTimeout=8", host["ssh"], "python3", "-", *args], script.read_text()
+    else:
+        cmd, stdin = [sys.executable, "-I", str(script), *args], None
+    try:
+        p = subprocess.run(cmd, input=stdin, capture_output=True, text=True, timeout=900)
+        if p.returncode != 0:
+            raise RuntimeError(p.stderr.strip()[-300:])
+        res = json.loads(p.stdout)
+        write_json_atomic(cache, res)
+        return res
+    except Exception as e:  # noqa: BLE001
+        log.warning("agents: %s unreachable, using its last scan: %s", host["name"], e)
+        return read_json(cache, {}) or {}
+
+
+def collect_agents(cfg: Config, started: float) -> dict:
+    acfg = {**AGENTS_DEFAULTS, **cfg.targets.get("agents", {})}
+    vcfg = {**VELOCITY_DEFAULTS, **cfg.targets.get("velocity", {})}
+    tz_name = vcfg["timezone"]
+    tz = ZoneInfo(tz_name)
+    alias = acfg["project_aliases"]
+    hosts, days = [], defaultdict(lambda: {"interactive": {}, "automated": {}, "models": Counter()})
+    intervals: list[tuple[int, int]] = []
+    attention: list[tuple[int, int]] = []
+    for h in acfg["hosts"]:
+        res = scan_agent_host(cfg, acfg, tz_name, h)
+        if not res:
+            continue
+        hosts.append({"name": h["name"], "scanned_at": res.get("scanned_at"), "files": res.get("files", 0)})
+        for day, modes in res.get("days", {}).items():
+            for mode, by in modes.items():
+                for proj, m in by.items():
+                    proj = alias.get(proj, proj)
+                    agg = days[day][mode].setdefault(proj, {})
+                    for k, v in m.items():
+                        if k.startswith("model:"):
+                            days[day]["models"][k[6:]] += v
+                        else:
+                            agg[k] = agg.get(k, 0) + v
+        intervals += [(int(s), int(e)) for s, e, *_ in res.get("intervals", []) if e > s]
+        attention += [(int(s), int(e)) for s, e in res.get("attention", []) if e > s]
+
+    # Parallelism: overlay every interactive busy span (all hosts, subagents included) and sweep through time.
+    par = defaultdict(lambda: {"any_s": 0.0, "sum_s": 0.0, "peak": 0})
+    events = sorted([(s, 1) for s, _ in intervals] + [(e, -1) for _, e in intervals])
+    running, last = 0, None
+    for t, step in events:
+        if last is not None and running > 0 and t > last:
+            d = dt.datetime.fromtimestamp(last, tz).date().isoformat()
+            par[d]["any_s"] += t - last
+            par[d]["sum_s"] += (t - last) * running
+        running += step
+        last = t
+        if running > 0:
+            d = dt.datetime.fromtimestamp(t, tz).date().isoformat()
+            par[d]["peak"] = max(par[d]["peak"], running)
+
+    # Your attention, counted once: you can't read three waiting sessions at the same moment, so overlapping
+    # attention spans across sessions and hosts collapse into one timeline (the per-project numbers are summed).
+    you = defaultdict(float)
+    cur_s = cur_e = None
+    for s, e in sorted(attention):
+        if cur_e is not None and s <= cur_e:
+            cur_e = max(cur_e, e)
+            continue
+        if cur_e is not None:
+            you[dt.datetime.fromtimestamp(cur_s, tz).date().isoformat()] += cur_e - cur_s
+        cur_s, cur_e = s, e
+    if cur_e is not None:
+        you[dt.datetime.fromtimestamp(cur_s, tz).date().isoformat()] += cur_e - cur_s
+
+    def tidy(by: dict) -> dict:
+        out = {}
+        for proj, m in by.items():
+            out[proj] = {"sessions": m.get("sessions", 0), "prompts": m.get("prompts", 0), "responses": m.get("responses", 0),
+                         "attention_h": round(m.get("attention_s", 0) / 3600, 2), "busy_h": round(m.get("busy_s", 0) / 3600, 2),
+                         "tokens_in": m.get("tokens_in", 0), "cache_read": m.get("cache_read", 0), "tokens_out": m.get("tokens_out", 0)}
+        return out
+
+    out_days = []
+    for d in sorted(days):
+        p = par.get(d)
+        out_days.append({
+            "date": d, "interactive": tidy(days[d]["interactive"]), "automated": tidy(days[d]["automated"]),
+            "attention_h": round(you.get(d, 0) / 3600, 2),
+            "parallel": {"any_busy_h": round(p["any_s"] / 3600, 2), "agent_busy_h": round(p["sum_s"] / 3600, 2), "peak": p["peak"]}
+            if p else {"any_busy_h": 0, "agent_busy_h": 0, "peak": 0},
+            "models": dict(days[d]["models"]),
+        })
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "generated_at": iso(now_utc()),
+        "collector": collector_meta(cfg, started),
+        "method": {
+            "timezone": tz_name,
+            "sources": ("Claude Code session transcripts on each agent host, read in place by collector/agents_scan.py. Only "
+                        "timings, counts and token totals leave the host, never prompt text. Daily totals are kept, so history "
+                        "outlives Claude Code deleting transcripts after 30 days."),
+            "attention": (f"Your attention: time from an agent finishing to your next prompt, capped at {acfg['attention_cap_minutes']} "
+                          "min per prompt (beyond that you were away), counted once across sessions and hosts: overlapping waits "
+                          "are one stretch of your time. Per-project figures are per session, so they add up to more."),
+            "busy": (f"Agent working time: from your prompt through the agent's last activity, with gaps over {acfg['idle_minutes']} "
+                     "min cut out. Subagents count as their own agents."),
+            "parallel": "Parallel agents: the average number of agents working at once while at least one was, across all hosts.",
+            "automated": "Automated: sessions started by apps through `claude -p` / the SDK (worker jobs), not by you.",
+        },
+        "hosts": hosts,
+        "days": out_days,
+    }
+
+
+# ---------------------------------------------------------------------------------------------
 # Git publish
 # ---------------------------------------------------------------------------------------------
 
@@ -1202,6 +1405,25 @@ def strip_volatile(obj: Any) -> Any:
     return obj
 
 
+# Same rules as scripts/validate-data.mjs. data/ is public and so is its git history, so this runs before every
+# commit: a file that trips it is never committed, and the site keeps serving the last good push.
+PRIVATE_PATTERNS = [
+    (re.compile(r"\b(10\.\d{1,3}|192\.168|172\.(1[6-9]|2\d|3[01]))\.\d{1,3}\.\d{1,3}\b"), "a private IP address"),
+    (re.compile(r"[A-Za-z0-9._%+-]+@(?!users\.noreply\.github\.com)[A-Za-z0-9.-]+\.[A-Za-z]{2,}"), "an email address"),
+    (re.compile(r"\b(gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9-]{20,}|AKIA[0-9A-Z]{16})\b"), "a token or key"),
+    (re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----"), "a private key"),
+]
+
+
+def privacy_problems(data_dir: Path) -> list[str]:
+    out = []
+    for f in sorted(data_dir.iterdir()):
+        if f.is_file():
+            text = f.read_text(errors="replace")
+            out += [f"{f.name}: contains {what}" for rx, what in PRIVATE_PATTERNS if rx.search(text)]
+    return out
+
+
 def publish(cfg: Config, changed: list[str], significant: bool, push: bool) -> None:
     """Commit data/ and push. Skips the commit when only volatile fields moved and the last data
     commit is newer than SYNC_HEARTBEAT_MINUTES, so a healthy lab doesn't spam a deploy every run.
@@ -1216,6 +1438,10 @@ def publish(cfg: Config, changed: list[str], significant: bool, push: bool) -> N
             log.info("publish: only volatile fields changed, last data commit %.0f min ago; skipping commit", age_min)
             git(cfg, "checkout", "--", *[f"data/{f}" for f in changed], check=False)
             return
+    problems = privacy_problems(cfg.data_dir)
+    if problems:
+        git(cfg, "checkout", "--", *[f"data/{f}" for f in changed], check=False)
+        raise RuntimeError("refusing to publish: " + "; ".join(problems))
     name, email = re.match(r"(.*)<(.*)>", cfg.git_author).groups()  # type: ignore[union-attr]
     git(cfg, "add", "--", *[f"data/{f}" for f in changed])
     msg = f"data: sync {', '.join(f.removesuffix('.json') for f in changed)} from {cfg.node_name}"
@@ -1237,6 +1463,7 @@ MODULES: dict[str, tuple[str, Callable[[Config, float], dict]]] = {
     "changelog": ("changelog.json", collect_changelog),
     "roadmap": ("roadmap.json", collect_roadmap),
     "ai": ("ai_usage.json", collect_ai_usage),
+    "agents": ("agents.json", collect_agents),
 }
 
 

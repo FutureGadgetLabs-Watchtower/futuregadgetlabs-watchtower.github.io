@@ -5,8 +5,9 @@ import velocityJson from '../data/velocity.json'
 import changelogJson from '../data/changelog.json'
 import roadmapJson from '../data/roadmap.json'
 import aiJson from '../data/ai_usage.json'
+import agentsJson from '../data/agents.json'
 import architectureMd from '../data/architecture.md?raw'
-import type { AiUsageData, ChangelogData, HealthData, Org, RoadmapData, VelocityData } from './types'
+import type { AgentsData, AiUsageData, ChangelogData, HealthData, Org, RoadmapData, VelocityData } from './types'
 
 export const health = healthJson as HealthData
 // Cast through unknown: TS infers a different literal type for each of the ~150 day objects in the JSON.
@@ -15,6 +16,7 @@ export const velocity = velocityJson as unknown as VelocityData
 export const changelog = changelogJson as ChangelogData
 export const roadmap = roadmapJson as RoadmapData
 export const aiUsage = aiJson as AiUsageData
+export const agents = agentsJson as unknown as AgentsData
 export const architecture = architectureMd
 
 export const BUILT_AT = __BUILD_TIME__
@@ -39,6 +41,7 @@ export const syncTimes = [
   { file: 'changelog.json', at: changelog.generated_at },
   { file: 'roadmap.json', at: roadmap.generated_at },
   { file: 'ai_usage.json', at: aiUsage.generated_at },
+  { file: 'agents.json', at: agents.generated_at },
 ]
 /** Which modules still show sample data, so the banner only appears where it's true. */
 const mock = (d: { collector: { mock?: boolean } }) => d.collector.mock === true

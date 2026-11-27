@@ -79,7 +79,12 @@ export interface DayMetrics {
   prs: number
   /** source + tests + config lines (added + deleted); lockfiles, generated, data and binaries left out */
   code: number
+  /** test-file lines (added + deleted), part of code */
+  tests: number
   docs: number
+  /** non-trivial code lines written this day, and how many of them were deleted again within the rework window */
+  written: number
+  reworked: number
   /** change sets (one repo's commits within one working session) that started this day */
   sets: number
   /** commits whose per-file stats haven't been fetched yet */
@@ -110,6 +115,8 @@ export interface VelocityData extends Envelope {
     code_lines: string
     change_sets: string
     senior_hours: string
+    rework: string
+    rework_window_days: number
     sources: string
   }
   judge: {
@@ -130,6 +137,32 @@ export interface VelocityData extends Envelope {
   /** active days only, in method.timezone, ascending */
   days: { date: string; by_project: Record<string, DayMetrics> }[]
   sprints: Sprint[]
+}
+
+export interface AgentProjectDay {
+  sessions: number
+  prompts: number
+  responses: number
+  /** per-session attention; summed across sessions, so it overlaps. Use AgentsData.days[].attention_h for your time. */
+  attention_h: number
+  busy_h: number
+  tokens_in: number
+  cache_read: number
+  tokens_out: number
+}
+
+export interface AgentsData extends Envelope {
+  method: { timezone: string; sources: string; attention: string; busy: string; parallel: string; automated: string }
+  hosts: { name: string; scanned_at: string | null; files: number }[]
+  days: {
+    date: string
+    /** your attention that day, counted once across sessions and hosts */
+    attention_h: number
+    interactive: Record<string, AgentProjectDay>
+    automated: Record<string, AgentProjectDay>
+    parallel: { any_busy_h: number; agent_busy_h: number; peak: number }
+    models: Record<string, number>
+  }[]
 }
 
 export type ChangeType = 'feature' | 'fix' | 'perf' | 'infra' | 'security' | 'docs' | 'breaking'

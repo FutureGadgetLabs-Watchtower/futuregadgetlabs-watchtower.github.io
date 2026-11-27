@@ -1,0 +1,3080 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-27T17:34:30Z",
+  "collector": {
+    "host": "agent1",
+    "version": "0.2.0",
+    "run_id": "2026-11-27T17:34:30Z",
+    "duration_ms": 5871,
+    "mock": false
+  },
+  "method": {
+    "timezone": "America/Detroit",
+    "sources": "Claude Code session transcripts on each agent host, read in place by collector/agents_scan.py. Only timings, counts and token totals leave the host, never prompt text. Daily totals are kept, so history outlives Claude Code deleting transcripts after 30 days.",
+    "attention": "Your attention: time from an agent finishing to your next prompt, capped at 10 min per prompt (beyond that you were away), counted once across sessions and hosts: overlapping waits are one stretch of your time. Per-project figures are per session, so they add up to more.",
+    "busy": "Agent working time: from your prompt through the agent's last activity, with gaps over 15 min cut out. Subagents count as their own agents.",
+    "parallel": "Parallel agents: the average number of agents working at once while at least one was, across all hosts.",
+    "automated": "Automated: sessions started by apps through `claude -p` / the SDK (worker jobs), not by you."
+  },
+  "hosts": [
+    {
+      "name": "agent1",
+      "scanned_at": "2026-11-27T17:34:25+00:00",
+      "files": 17
+    },
+    {
+      "name": "agent2",
+      "scanned_at": "2026-11-27T17:34:30+00:00",
+      "files": 26042
+    }
+  ],
+  "days": [
+    {
+      "date": "2026-08-28",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 3,
+          "responses": 11,
+          "attention_h": 0.15,
+          "busy_h": 0.03,
+          "tokens_in": 27371,
+          "cache_read": 498855,
+          "tokens_out": 7288
+        }
+      },
+      "automated": {},
+      "attention_h": 0.15,
+      "parallel": {
+        "any_busy_h": 0.03,
+        "agent_busy_h": 0.03,
+        "peak": 1
+      },
+      "models": {
+        "claude-sonnet-5": 11
+      }
+    },
+    {
+      "date": "2026-08-29",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 18,
+          "responses": 72,
+          "attention_h": 1.38,
+          "busy_h": 0.35,
+          "tokens_in": 413975,
+          "cache_read": 7852505,
+          "tokens_out": 77930
+        }
+      },
+      "automated": {},
+      "attention_h": 1.38,
+      "parallel": {
+        "any_busy_h": 0.35,
+        "agent_busy_h": 0.35,
+        "peak": 1
+      },
+      "models": {
+        "claude-sonnet-5": 72
+      }
+    },
+    {
+      "date": "2026-08-31",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 4,
+          "responses": 17,
+          "attention_h": 0.39,
+          "busy_h": 0.19,
+          "tokens_in": 196910,
+          "cache_read": 2964705,
+          "tokens_out": 30766
+        }
+      },
+      "automated": {},
+      "attention_h": 0.39,
+      "parallel": {
+        "any_busy_h": 0.19,
+        "agent_busy_h": 0.19,
+        "peak": 1
+      },
+      "models": {
+        "claude-sonnet-5": 10,
+        "claude-opus-5": 7
+      }
+    },
+    {
+      "date": "2026-09-02",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 2,
+          "attention_h": 0.17,
+          "busy_h": 0.04,
+          "tokens_in": 189263,
+          "cache_read": 221603,
+          "tokens_out": 8920
+        }
+      },
+      "automated": {},
+      "attention_h": 0.17,
+      "parallel": {
+        "any_busy_h": 0.04,
+        "agent_busy_h": 0.04,
+        "peak": 1
+      },
+      "models": {
+        "claude-opus-5": 2
+      }
+    },
+    {
+      "date": "2026-09-05",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 7,
+          "responses": 124,
+          "attention_h": 0.56,
+          "busy_h": 0.88,
+          "tokens_in": 958810,
+          "cache_read": 33176213,
+          "tokens_out": 106959
+        }
+      },
+      "automated": {},
+      "attention_h": 0.56,
+      "parallel": {
+        "any_busy_h": 0.88,
+        "agent_busy_h": 0.89,
+        "peak": 4
+      },
+      "models": {
+        "claude-opus-5": 17,
+        "claude-sonnet-5": 106
+      }
+    },
+    {
+      "date": "2026-09-14",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 18,
+          "responses": 111,
+          "attention_h": 1.33,
+          "busy_h": 0.53,
+          "tokens_in": 1300264,
+          "cache_read": 45090205,
+          "tokens_out": 99671
+        }
+      },
+      "automated": {},
+      "attention_h": 1.33,
+      "parallel": {
+        "any_busy_h": 0.53,
+        "agent_busy_h": 0.53,
+        "peak": 1
+      },
+      "models": {
+        "claude-sonnet-5": 111
+      }
+    },
+    {
+      "date": "2026-09-15",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 0,
+          "responses": 1,
+          "attention_h": 0.0,
+          "busy_h": 0.0,
+          "tokens_in": 502,
+          "cache_read": 495453,
+          "tokens_out": 545
+        }
+      },
+      "automated": {},
+      "attention_h": 0.0,
+      "parallel": {
+        "any_busy_h": 0,
+        "agent_busy_h": 0,
+        "peak": 0
+      },
+      "models": {
+        "claude-sonnet-5": 1
+      }
+    },
+    {
+      "date": "2026-09-17",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 25,
+          "responses": 80,
+          "attention_h": 1.1,
+          "busy_h": 0.28,
+          "tokens_in": 579133,
+          "cache_read": 43252302,
+          "tokens_out": 63573
+        }
+      },
+      "automated": {},
+      "attention_h": 1.1,
+      "parallel": {
+        "any_busy_h": 0.27,
+        "agent_busy_h": 0.27,
+        "peak": 1
+      },
+      "models": {
+        "claude-sonnet-5": 80
+      }
+    },
+    {
+      "date": "2026-09-20",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 3,
+          "responses": 4,
+          "attention_h": 0.26,
+          "busy_h": 0.03,
+          "tokens_in": 1157036,
+          "cache_read": 1248202,
+          "tokens_out": 8035
+        }
+      },
+      "automated": {},
+      "attention_h": 0.26,
+      "parallel": {
+        "any_busy_h": 0.03,
+        "agent_busy_h": 0.03,
+        "peak": 1
+      },
+      "models": {
+        "claude-sonnet-5": 4
+      }
+    },
+    {
+      "date": "2026-09-21",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 5,
+          "attention_h": 0.17,
+          "busy_h": 0.06,
+          "tokens_in": 607340,
+          "cache_read": 2522099,
+          "tokens_out": 17872
+        }
+      },
+      "automated": {},
+      "attention_h": 0.17,
+      "parallel": {
+        "any_busy_h": 0.06,
+        "agent_busy_h": 0.06,
+        "peak": 1
+      },
+      "models": {
+        "claude-sonnet-5": 5
+      }
+    },
+    {
+      "date": "2026-09-24",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 16,
+          "responses": 133,
+          "attention_h": 0.85,
+          "busy_h": 0.48,
+          "tokens_in": 2143630,
+          "cache_read": 97699707,
+          "tokens_out": 146836
+        }
+      },
+      "automated": {},
+      "attention_h": 0.85,
+      "parallel": {
+        "any_busy_h": 0.48,
+        "agent_busy_h": 0.48,
+        "peak": 1
+      },
+      "models": {
+        "claude-sonnet-5": 133
+      }
+    },
+    {
+      "date": "2026-09-25",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 2,
+          "responses": 17,
+          "attention_h": 0.21,
+          "busy_h": 0.08,
+          "tokens_in": 847609,
+          "cache_read": 13756670,
+          "tokens_out": 15318
+        }
+      },
+      "automated": {},
+      "attention_h": 0.21,
+      "parallel": {
+        "any_busy_h": 0.08,
+        "agent_busy_h": 0.08,
+        "peak": 1
+      },
+      "models": {
+        "claude-sonnet-5": 17
+      }
+    },
+    {
+      "date": "2026-09-26",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 4,
+          "responses": 119,
+          "attention_h": 0.37,
+          "busy_h": 0.5,
+          "tokens_in": 1001909,
+          "cache_read": 71211306,
+          "tokens_out": 79172
+        }
+      },
+      "automated": {},
+      "attention_h": 0.37,
+      "parallel": {
+        "any_busy_h": 0.5,
+        "agent_busy_h": 0.5,
+        "peak": 1
+      },
+      "models": {
+        "claude-sonnet-5": 119
+      }
+    },
+    {
+      "date": "2026-09-27",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 4,
+          "responses": 48,
+          "attention_h": 0.51,
+          "busy_h": 0.2,
+          "tokens_in": 239556,
+          "cache_read": 6194580,
+          "tokens_out": 42643
+        }
+      },
+      "automated": {},
+      "attention_h": 0.51,
+      "parallel": {
+        "any_busy_h": 0.2,
+        "agent_busy_h": 0.2,
+        "peak": 1
+      },
+      "models": {
+        "claude-sonnet-5": 48
+      }
+    },
+    {
+      "date": "2026-09-28",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 3,
+          "attention_h": 0.17,
+          "busy_h": 0.01,
+          "tokens_in": 129404,
+          "cache_read": 345394,
+          "tokens_out": 490
+        }
+      },
+      "automated": {},
+      "attention_h": 0.17,
+      "parallel": {
+        "any_busy_h": 0.01,
+        "agent_busy_h": 0.01,
+        "peak": 1
+      },
+      "models": {
+        "claude-sonnet-5": 3
+      }
+    },
+    {
+      "date": "2026-09-29",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 2,
+          "responses": 44,
+          "attention_h": 0.33,
+          "busy_h": 0.25,
+          "tokens_in": 403485,
+          "cache_read": 8953940,
+          "tokens_out": 48504
+        }
+      },
+      "automated": {},
+      "attention_h": 0.33,
+      "parallel": {
+        "any_busy_h": 0.25,
+        "agent_busy_h": 0.25,
+        "peak": 1
+      },
+      "models": {
+        "claude-sonnet-5": 44
+      }
+    },
+    {
+      "date": "2026-09-30",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 3,
+          "responses": 78,
+          "attention_h": 0.34,
+          "busy_h": 0.48,
+          "tokens_in": 403268,
+          "cache_read": 26989539,
+          "tokens_out": 161774
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 3,
+          "responses": 114,
+          "attention_h": 0.19,
+          "busy_h": 0.77,
+          "tokens_in": 298929,
+          "cache_read": 22134809,
+          "tokens_out": 149229
+        }
+      },
+      "automated": {},
+      "attention_h": 0.49,
+      "parallel": {
+        "any_busy_h": 0.99,
+        "agent_busy_h": 1.25,
+        "peak": 2
+      },
+      "models": {
+        "claude-opus-5-5": 192
+      }
+    },
+    {
+      "date": "2026-10-02",
+      "interactive": {
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 3,
+          "responses": 10,
+          "attention_h": 0.26,
+          "busy_h": 0.04,
+          "tokens_in": 313604,
+          "cache_read": 2982693,
+          "tokens_out": 9255
+        }
+      },
+      "automated": {},
+      "attention_h": 0.26,
+      "parallel": {
+        "any_busy_h": 0.04,
+        "agent_busy_h": 0.04,
+        "peak": 1
+      },
+      "models": {
+        "claude-opus-5-5": 10
+      }
+    },
+    {
+      "date": "2026-10-03",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 2,
+          "attention_h": 0.05,
+          "busy_h": 0.0,
+          "tokens_in": 368027,
+          "cache_read": 29168,
+          "tokens_out": 549
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 19,
+          "responses": 86,
+          "attention_h": 1.11,
+          "busy_h": 0.35,
+          "tokens_in": 804927,
+          "cache_read": 32988821,
+          "tokens_out": 77316
+        }
+      },
+      "automated": {},
+      "attention_h": 1.11,
+      "parallel": {
+        "any_busy_h": 0.35,
+        "agent_busy_h": 0.35,
+        "peak": 1
+      },
+      "models": {
+        "claude-opus-5-5": 86
+      }
+    },
+    {
+      "date": "2026-10-04",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 2,
+          "responses": 45,
+          "attention_h": 0.33,
+          "busy_h": 0.27,
+          "tokens_in": 461975,
+          "cache_read": 19699852,
+          "tokens_out": 60320
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 12,
+          "responses": 149,
+          "attention_h": 1.78,
+          "busy_h": 1.11,
+          "tokens_in": 2439187,
+          "cache_read": 89123248,
+          "tokens_out": 234155
+        }
+      },
+      "automated": {},
+      "attention_h": 1.85,
+      "parallel": {
+        "any_busy_h": 1.15,
+        "agent_busy_h": 1.37,
+        "peak": 2
+      },
+      "models": {
+        "claude-opus-5-5": 194
+      }
+    },
+    {
+      "date": "2026-10-05",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 12,
+          "responses": 194,
+          "attention_h": 1.5,
+          "busy_h": 1.69,
+          "tokens_in": 2753302,
+          "cache_read": 128832820,
+          "tokens_out": 229136
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 55,
+          "attention_h": 0.05,
+          "busy_h": 0.31,
+          "tokens_in": 118677,
+          "cache_read": 41398195,
+          "tokens_out": 82969
+        }
+      },
+      "automated": {},
+      "attention_h": 1.72,
+      "parallel": {
+        "any_busy_h": 1.81,
+        "agent_busy_h": 2.12,
+        "peak": 4
+      },
+      "models": {
+        "claude-opus-5-5": 231,
+        "claude-sonnet-5-5": 18
+      }
+    },
+    {
+      "date": "2026-10-06",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 6,
+          "responses": 62,
+          "attention_h": 0.72,
+          "busy_h": 0.47,
+          "tokens_in": 2824741,
+          "cache_read": 49975558,
+          "tokens_out": 67578
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 7,
+          "responses": 143,
+          "attention_h": 0.87,
+          "busy_h": 0.74,
+          "tokens_in": 2785555,
+          "cache_read": 83830695,
+          "tokens_out": 146262
+        }
+      },
+      "automated": {},
+      "attention_h": 1.27,
+      "parallel": {
+        "any_busy_h": 1.05,
+        "agent_busy_h": 1.21,
+        "peak": 2
+      },
+      "models": {
+        "claude-opus-5-5": 204
+      }
+    },
+    {
+      "date": "2026-10-07",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 2,
+          "responses": 5,
+          "attention_h": 0.33,
+          "busy_h": 0.02,
+          "tokens_in": 37363,
+          "cache_read": 237196,
+          "tokens_out": 4621
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 21,
+          "responses": 152,
+          "attention_h": 1.56,
+          "busy_h": 0.66,
+          "tokens_in": 529900,
+          "cache_read": 30804744,
+          "tokens_out": 165991
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 8,
+          "responses": 91,
+          "attention_h": 0.75,
+          "busy_h": 0.37,
+          "tokens_in": 289957,
+          "cache_read": 20960811,
+          "tokens_out": 79827
+        }
+      },
+      "automated": {},
+      "attention_h": 2.43,
+      "parallel": {
+        "any_busy_h": 1.04,
+        "agent_busy_h": 1.04,
+        "peak": 2
+      },
+      "models": {
+        "claude-opus-5-5": 247
+      }
+    },
+    {
+      "date": "2026-10-08",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 21,
+          "responses": 157,
+          "attention_h": 2.15,
+          "busy_h": 0.53,
+          "tokens_in": 862612,
+          "cache_read": 27930760,
+          "tokens_out": 106872
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 26,
+          "responses": 307,
+          "attention_h": 3.22,
+          "busy_h": 1.88,
+          "tokens_in": 3024144,
+          "cache_read": 185737480,
+          "tokens_out": 392642
+        }
+      },
+      "automated": {},
+      "attention_h": 4.11,
+      "parallel": {
+        "any_busy_h": 2.1,
+        "agent_busy_h": 2.41,
+        "peak": 2
+      },
+      "models": {
+        "claude-opus-5-5": 464
+      }
+    },
+    {
+      "date": "2026-10-09",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 5,
+          "responses": 61,
+          "attention_h": 0.64,
+          "busy_h": 0.29,
+          "tokens_in": 699017,
+          "cache_read": 19953370,
+          "tokens_out": 87275
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 9,
+          "responses": 115,
+          "attention_h": 0.9,
+          "busy_h": 1.06,
+          "tokens_in": 1090466,
+          "cache_read": 51742045,
+          "tokens_out": 175333
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 14,
+          "responses": 189,
+          "attention_h": 1.19,
+          "busy_h": 0.86,
+          "tokens_in": 1412537,
+          "cache_read": 52579139,
+          "tokens_out": 266884
+        }
+      },
+      "automated": {},
+      "attention_h": 1.81,
+      "parallel": {
+        "any_busy_h": 1.8,
+        "agent_busy_h": 2.22,
+        "peak": 2
+      },
+      "models": {
+        "claude-opus-5-5": 364
+      }
+    },
+    {
+      "date": "2026-10-10",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 11,
+          "responses": 88,
+          "attention_h": 1.24,
+          "busy_h": 0.73,
+          "tokens_in": 2426017,
+          "cache_read": 40510565,
+          "tokens_out": 121401
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 18,
+          "responses": 242,
+          "attention_h": 2.64,
+          "busy_h": 1.5,
+          "tokens_in": 4666347,
+          "cache_read": 130934866,
+          "tokens_out": 335575
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 13,
+          "responses": 111,
+          "attention_h": 1.46,
+          "busy_h": 0.68,
+          "tokens_in": 2211181,
+          "cache_read": 55403784,
+          "tokens_out": 176966
+        }
+      },
+      "automated": {},
+      "attention_h": 4.07,
+      "parallel": {
+        "any_busy_h": 2.66,
+        "agent_busy_h": 2.91,
+        "peak": 2
+      },
+      "models": {
+        "claude-opus-5-5": 437
+      }
+    },
+    {
+      "date": "2026-10-12",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 30,
+          "responses": 256,
+          "attention_h": 2.73,
+          "busy_h": 1.69,
+          "tokens_in": 4792518,
+          "cache_read": 121255818,
+          "tokens_out": 390619
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 52,
+          "responses": 349,
+          "attention_h": 4.08,
+          "busy_h": 2.56,
+          "tokens_in": 3714988,
+          "cache_read": 187633994,
+          "tokens_out": 447813
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 30,
+          "responses": 255,
+          "attention_h": 2.75,
+          "busy_h": 1.53,
+          "tokens_in": 2106638,
+          "cache_read": 130235462,
+          "tokens_out": 323321
+        }
+      },
+      "automated": {},
+      "attention_h": 6.9,
+      "parallel": {
+        "any_busy_h": 4.57,
+        "agent_busy_h": 5.77,
+        "peak": 3
+      },
+      "models": {
+        "claude-opus-5-5": 849
+      }
+    },
+    {
+      "date": "2026-10-13",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 16,
+          "responses": 100,
+          "attention_h": 1.93,
+          "busy_h": 0.46,
+          "tokens_in": 1335401,
+          "cache_read": 27000660,
+          "tokens_out": 71261
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 12,
+          "responses": 57,
+          "attention_h": 0.79,
+          "busy_h": 0.3,
+          "tokens_in": 7384271,
+          "cache_read": 37521050,
+          "tokens_out": 60406
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 27,
+          "responses": 341,
+          "attention_h": 2.6,
+          "busy_h": 1.86,
+          "tokens_in": 3224919,
+          "cache_read": 185309906,
+          "tokens_out": 420789
+        }
+      },
+      "automated": {},
+      "attention_h": 4.05,
+      "parallel": {
+        "any_busy_h": 2.24,
+        "agent_busy_h": 2.62,
+        "peak": 2
+      },
+      "models": {
+        "claude-opus-5-5": 486
+      }
+    },
+    {
+      "date": "2026-10-14",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 2,
+          "responses": 45,
+          "attention_h": 0.33,
+          "busy_h": 0.17,
+          "tokens_in": 767979,
+          "cache_read": 17342810,
+          "tokens_out": 47510
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 11,
+          "responses": 171,
+          "attention_h": 1.14,
+          "busy_h": 0.73,
+          "tokens_in": 661417,
+          "cache_read": 39119014,
+          "tokens_out": 142303
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 4,
+          "responses": 34,
+          "attention_h": 0.52,
+          "busy_h": 0.19,
+          "tokens_in": 2704762,
+          "cache_read": 26249699,
+          "tokens_out": 57488
+        },
+        "FG-Kitchen/infra": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 2,
+          "attention_h": 0.0,
+          "busy_h": 0.01,
+          "tokens_in": 19637,
+          "cache_read": 60784,
+          "tokens_out": 3840
+        }
+      },
+      "automated": {},
+      "attention_h": 2.03,
+      "parallel": {
+        "any_busy_h": 1.01,
+        "agent_busy_h": 1.11,
+        "peak": 3
+      },
+      "models": {
+        "claude-opus-5-5": 250
+      }
+    },
+    {
+      "date": "2026-10-15",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 5,
+          "responses": 17,
+          "attention_h": 0.28,
+          "busy_h": 0.04,
+          "tokens_in": 447917,
+          "cache_read": 7363714,
+          "tokens_out": 11054
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 23,
+          "responses": 132,
+          "attention_h": 1.96,
+          "busy_h": 0.76,
+          "tokens_in": 1441418,
+          "cache_read": 60061150,
+          "tokens_out": 159203
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 11,
+          "responses": 111,
+          "attention_h": 0.76,
+          "busy_h": 0.42,
+          "tokens_in": 283080,
+          "cache_read": 21241447,
+          "tokens_out": 134420
+        },
+        "FG-Kitchen/infra": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 27,
+          "attention_h": 0.17,
+          "busy_h": 0.42,
+          "tokens_in": 161843,
+          "cache_read": 3258634,
+          "tokens_out": 79870
+        },
+        "FG-InvestmentLabs/infra": {
+          "sessions": 1,
+          "prompts": 7,
+          "responses": 58,
+          "attention_h": 0.17,
+          "busy_h": 0.24,
+          "tokens_in": 121324,
+          "cache_read": 5953153,
+          "tokens_out": 66670
+        }
+      },
+      "automated": {},
+      "attention_h": 3.08,
+      "parallel": {
+        "any_busy_h": 1.62,
+        "agent_busy_h": 1.89,
+        "peak": 2
+      },
+      "models": {
+        "claude-opus-5-5": 343
+      }
+    },
+    {
+      "date": "2026-10-16",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 0,
+          "attention_h": 0.17,
+          "busy_h": 0.0,
+          "tokens_in": 0,
+          "cache_read": 0,
+          "tokens_out": 0
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 19,
+          "responses": 122,
+          "attention_h": 1.78,
+          "busy_h": 0.62,
+          "tokens_in": 2093221,
+          "cache_read": 82618659,
+          "tokens_out": 139273
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 24,
+          "responses": 111,
+          "attention_h": 1.45,
+          "busy_h": 0.61,
+          "tokens_in": 867282,
+          "cache_read": 46707704,
+          "tokens_out": 126734
+        }
+      },
+      "automated": {},
+      "attention_h": 3.15,
+      "parallel": {
+        "any_busy_h": 1.23,
+        "agent_busy_h": 1.23,
+        "peak": 1
+      },
+      "models": {
+        "claude-opus-5-5": 233
+      }
+    },
+    {
+      "date": "2026-10-19",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 21,
+          "responses": 201,
+          "attention_h": 2.22,
+          "busy_h": 1.49,
+          "tokens_in": 2184257,
+          "cache_read": 121865936,
+          "tokens_out": 213230
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 34,
+          "responses": 197,
+          "attention_h": 3.28,
+          "busy_h": 0.96,
+          "tokens_in": 5616231,
+          "cache_read": 96423683,
+          "tokens_out": 173869
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 18,
+          "responses": 208,
+          "attention_h": 2.01,
+          "busy_h": 1.2,
+          "tokens_in": 3995138,
+          "cache_read": 146289467,
+          "tokens_out": 241012
+        },
+        "FG-Kitchen/infra": {
+          "sessions": 1,
+          "prompts": 8,
+          "responses": 66,
+          "attention_h": 0.87,
+          "busy_h": 0.34,
+          "tokens_in": 1080676,
+          "cache_read": 16552180,
+          "tokens_out": 100935
+        }
+      },
+      "automated": {},
+      "attention_h": 5.35,
+      "parallel": {
+        "any_busy_h": 2.96,
+        "agent_busy_h": 3.97,
+        "peak": 3
+      },
+      "models": {
+        "claude-opus-5-5": 670
+      }
+    },
+    {
+      "date": "2026-10-20",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 7,
+          "responses": 65,
+          "attention_h": 0.71,
+          "busy_h": 0.45,
+          "tokens_in": 893012,
+          "cache_read": 54947591,
+          "tokens_out": 61660
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 14,
+          "responses": 177,
+          "attention_h": 0.98,
+          "busy_h": 0.93,
+          "tokens_in": 863148,
+          "cache_read": 57051758,
+          "tokens_out": 131427
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 6,
+          "responses": 64,
+          "attention_h": 0.72,
+          "busy_h": 0.43,
+          "tokens_in": 1067978,
+          "cache_read": 20939184,
+          "tokens_out": 81437
+        },
+        "FG-Kitchen/infra": {
+          "sessions": 1,
+          "prompts": 12,
+          "responses": 40,
+          "attention_h": 0.77,
+          "busy_h": 0.29,
+          "tokens_in": 774216,
+          "cache_read": 13808893,
+          "tokens_out": 48971
+        },
+        "FG-InvestmentLabs/infra": {
+          "sessions": 1,
+          "prompts": 6,
+          "responses": 31,
+          "attention_h": 0.55,
+          "busy_h": 0.18,
+          "tokens_in": 399585,
+          "cache_read": 5926128,
+          "tokens_out": 62930
+        }
+      },
+      "automated": {},
+      "attention_h": 2.59,
+      "parallel": {
+        "any_busy_h": 1.68,
+        "agent_busy_h": 2.29,
+        "peak": 4
+      },
+      "models": {
+        "claude-opus-5-5": 373
+      }
+    },
+    {
+      "date": "2026-10-21",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 7,
+          "responses": 136,
+          "attention_h": 0.76,
+          "busy_h": 0.83,
+          "tokens_in": 2481275,
+          "cache_read": 45172762,
+          "tokens_out": 214529
+        },
+        "local:FG-CryptoLabs": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 4,
+          "attention_h": 0.0,
+          "busy_h": 0.01,
+          "tokens_in": 27877,
+          "cache_read": 153463,
+          "tokens_out": 1346
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 10,
+          "responses": 45,
+          "attention_h": 0.86,
+          "busy_h": 0.19,
+          "tokens_in": 948935,
+          "cache_read": 20594874,
+          "tokens_out": 34500
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 10,
+          "responses": 115,
+          "attention_h": 0.62,
+          "busy_h": 0.73,
+          "tokens_in": 605360,
+          "cache_read": 31958499,
+          "tokens_out": 126566
+        },
+        "FG-Kitchen/infra": {
+          "sessions": 1,
+          "prompts": 4,
+          "responses": 42,
+          "attention_h": 0.29,
+          "busy_h": 0.71,
+          "tokens_in": 979906,
+          "cache_read": 18443947,
+          "tokens_out": 80063
+        },
+        "FG-InvestmentLabs/infra": {
+          "sessions": 1,
+          "prompts": 11,
+          "responses": 46,
+          "attention_h": 0.65,
+          "busy_h": 0.15,
+          "tokens_in": 488972,
+          "cache_read": 10833073,
+          "tokens_out": 31268
+        }
+      },
+      "automated": {},
+      "attention_h": 2.3,
+      "parallel": {
+        "any_busy_h": 2.09,
+        "agent_busy_h": 2.62,
+        "peak": 4
+      },
+      "models": {
+        "claude-opus-5-5": 380
+      }
+    },
+    {
+      "date": "2026-10-22",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 10,
+          "responses": 63,
+          "attention_h": 1.06,
+          "busy_h": 0.59,
+          "tokens_in": 917939,
+          "cache_read": 25205376,
+          "tokens_out": 106500
+        },
+        "local:FG-CryptoLabs": {
+          "sessions": 1,
+          "prompts": 9,
+          "responses": 48,
+          "attention_h": 0.43,
+          "busy_h": 0.18,
+          "tokens_in": 298735,
+          "cache_read": 4607018,
+          "tokens_out": 49655
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 7,
+          "responses": 63,
+          "attention_h": 0.96,
+          "busy_h": 0.42,
+          "tokens_in": 1182448,
+          "cache_read": 35124020,
+          "tokens_out": 71611
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 7,
+          "responses": 90,
+          "attention_h": 0.63,
+          "busy_h": 0.35,
+          "tokens_in": 1493990,
+          "cache_read": 41047677,
+          "tokens_out": 86057
+        },
+        "FG-Kitchen/infra": {
+          "sessions": 1,
+          "prompts": 6,
+          "responses": 37,
+          "attention_h": 0.47,
+          "busy_h": 0.33,
+          "tokens_in": 629112,
+          "cache_read": 20145219,
+          "tokens_out": 62085
+        },
+        "FG-InvestmentLabs/infra": {
+          "sessions": 1,
+          "prompts": 6,
+          "responses": 36,
+          "attention_h": 0.29,
+          "busy_h": 0.13,
+          "tokens_in": 312185,
+          "cache_read": 10344992,
+          "tokens_out": 37505
+        }
+      },
+      "automated": {},
+      "attention_h": 2.5,
+      "parallel": {
+        "any_busy_h": 1.29,
+        "agent_busy_h": 2.06,
+        "peak": 6
+      },
+      "models": {
+        "claude-opus-5-5": 323
+      }
+    },
+    {
+      "date": "2026-10-23",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 2,
+          "responses": 10,
+          "attention_h": 0.23,
+          "busy_h": 0.3,
+          "tokens_in": 540645,
+          "cache_read": 4393864,
+          "tokens_out": 14702
+        },
+        "local:FG-CryptoLabs": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 1,
+          "attention_h": 0.04,
+          "busy_h": 0.24,
+          "tokens_in": 0,
+          "cache_read": 0,
+          "tokens_out": 0
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 3,
+          "responses": 9,
+          "attention_h": 0.04,
+          "busy_h": 0.03,
+          "tokens_in": 1258206,
+          "cache_read": 2611266,
+          "tokens_out": 2342
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 12,
+          "responses": 132,
+          "attention_h": 0.76,
+          "busy_h": 0.7,
+          "tokens_in": 2087777,
+          "cache_read": 87241851,
+          "tokens_out": 166063
+        },
+        "FG-Kitchen/infra": {
+          "sessions": 1,
+          "prompts": 3,
+          "responses": 8,
+          "attention_h": 0.26,
+          "busy_h": 0.03,
+          "tokens_in": 674121,
+          "cache_read": 3463730,
+          "tokens_out": 7892
+        },
+        "FG-InvestmentLabs/infra": {
+          "sessions": 1,
+          "prompts": 7,
+          "responses": 21,
+          "attention_h": 0.6,
+          "busy_h": 0.13,
+          "tokens_in": 758364,
+          "cache_read": 6936361,
+          "tokens_out": 46246
+        }
+      },
+      "automated": {},
+      "attention_h": 1.04,
+      "parallel": {
+        "any_busy_h": 1.01,
+        "agent_busy_h": 1.38,
+        "peak": 4
+      },
+      "models": {
+        "claude-opus-5-5": 170
+      }
+    },
+    {
+      "date": "2026-10-24",
+      "interactive": {
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 4,
+          "responses": 14,
+          "attention_h": 0.2,
+          "busy_h": 0.09,
+          "tokens_in": 1647052,
+          "cache_read": 9312569,
+          "tokens_out": 9504
+        },
+        "FG-Kitchen/infra": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 5,
+          "attention_h": 0.17,
+          "busy_h": 0.11,
+          "tokens_in": 690356,
+          "cache_read": 2856723,
+          "tokens_out": 5086
+        },
+        "FG-InvestmentLabs/infra": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 5,
+          "attention_h": 0.17,
+          "busy_h": 0.02,
+          "tokens_in": 396516,
+          "cache_read": 1682437,
+          "tokens_out": 5150
+        }
+      },
+      "automated": {},
+      "attention_h": 0.43,
+      "parallel": {
+        "any_busy_h": 0.19,
+        "agent_busy_h": 0.22,
+        "peak": 2
+      },
+      "models": {
+        "claude-opus-5-5": 23
+      }
+    },
+    {
+      "date": "2026-10-26",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 9,
+          "responses": 55,
+          "attention_h": 0.9,
+          "busy_h": 0.38,
+          "tokens_in": 1919791,
+          "cache_read": 31366900,
+          "tokens_out": 76442
+        },
+        "local:FG-CryptoLabs": {
+          "sessions": 1,
+          "prompts": 27,
+          "responses": 306,
+          "attention_h": 1.89,
+          "busy_h": 2.41,
+          "tokens_in": 1288064,
+          "cache_read": 101380830,
+          "tokens_out": 399636
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 13,
+          "responses": 109,
+          "attention_h": 0.91,
+          "busy_h": 0.55,
+          "tokens_in": 799706,
+          "cache_read": 54442010,
+          "tokens_out": 87480
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 17,
+          "responses": 176,
+          "attention_h": 1.48,
+          "busy_h": 0.75,
+          "tokens_in": 1434885,
+          "cache_read": 57786147,
+          "tokens_out": 182014
+        },
+        "FG-Kitchen/infra": {
+          "sessions": 1,
+          "prompts": 13,
+          "responses": 80,
+          "attention_h": 0.9,
+          "busy_h": 0.44,
+          "tokens_in": 898815,
+          "cache_read": 32931720,
+          "tokens_out": 90969
+        }
+      },
+      "automated": {},
+      "attention_h": 3.87,
+      "parallel": {
+        "any_busy_h": 3.12,
+        "agent_busy_h": 4.53,
+        "peak": 4
+      },
+      "models": {
+        "claude-opus-5-5": 719
+      }
+    },
+    {
+      "date": "2026-10-27",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 14,
+          "responses": 213,
+          "attention_h": 1.27,
+          "busy_h": 1.13,
+          "tokens_in": 2053918,
+          "cache_read": 69145370,
+          "tokens_out": 236924
+        },
+        "local:FG-CryptoLabs": {
+          "sessions": 1,
+          "prompts": 10,
+          "responses": 236,
+          "attention_h": 1.11,
+          "busy_h": 1.68,
+          "tokens_in": 908439,
+          "cache_read": 48771424,
+          "tokens_out": 229030
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 21,
+          "responses": 211,
+          "attention_h": 1.61,
+          "busy_h": 1.02,
+          "tokens_in": 2817500,
+          "cache_read": 87570672,
+          "tokens_out": 242406
+        },
+        "FG-Kitchen/infra": {
+          "sessions": 1,
+          "prompts": 16,
+          "responses": 146,
+          "attention_h": 1.75,
+          "busy_h": 1.42,
+          "tokens_in": 1642104,
+          "cache_read": 44454958,
+          "tokens_out": 262589
+        },
+        "FG-InvestmentLabs/infra": {
+          "sessions": 1,
+          "prompts": 14,
+          "responses": 84,
+          "attention_h": 1.67,
+          "busy_h": 0.67,
+          "tokens_in": 2468701,
+          "cache_read": 33015784,
+          "tokens_out": 102626
+        }
+      },
+      "automated": {},
+      "attention_h": 3.24,
+      "parallel": {
+        "any_busy_h": 3.23,
+        "agent_busy_h": 5.92,
+        "peak": 5
+      },
+      "models": {
+        "claude-opus-5-5": 884
+      }
+    },
+    {
+      "date": "2026-10-28",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 24,
+          "responses": 280,
+          "attention_h": 3.09,
+          "busy_h": 2.22,
+          "tokens_in": 2175101,
+          "cache_read": 185188369,
+          "tokens_out": 338856
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 2,
+          "prompts": 11,
+          "responses": 120,
+          "attention_h": 1.08,
+          "busy_h": 0.66,
+          "tokens_in": 899573,
+          "cache_read": 21221849,
+          "tokens_out": 170838
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 21,
+          "responses": 337,
+          "attention_h": 2.31,
+          "busy_h": 2.4,
+          "tokens_in": 1894240,
+          "cache_read": 172148404,
+          "tokens_out": 366623
+        }
+      },
+      "automated": {},
+      "attention_h": 4.84,
+      "parallel": {
+        "any_busy_h": 4.57,
+        "agent_busy_h": 5.29,
+        "peak": 3
+      },
+      "models": {
+        "claude-opus-5-5": 735
+      }
+    },
+    {
+      "date": "2026-10-29",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 12,
+          "responses": 101,
+          "attention_h": 0.98,
+          "busy_h": 0.89,
+          "tokens_in": 346966,
+          "cache_read": 31889886,
+          "tokens_out": 85844
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 4,
+          "responses": 41,
+          "attention_h": 0.29,
+          "busy_h": 0.15,
+          "tokens_in": 213697,
+          "cache_read": 8377094,
+          "tokens_out": 29624
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 21,
+          "responses": 240,
+          "attention_h": 1.7,
+          "busy_h": 1.46,
+          "tokens_in": 1258262,
+          "cache_read": 123343829,
+          "tokens_out": 275619
+        }
+      },
+      "automated": {},
+      "attention_h": 2.26,
+      "parallel": {
+        "any_busy_h": 1.98,
+        "agent_busy_h": 2.5,
+        "peak": 3
+      },
+      "models": {
+        "claude-opus-5-5": 382
+      }
+    },
+    {
+      "date": "2026-10-30",
+      "interactive": {
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 0,
+          "attention_h": 0.17,
+          "busy_h": 0.0,
+          "tokens_in": 0,
+          "cache_read": 0,
+          "tokens_out": 0
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 1,
+          "attention_h": 0.17,
+          "busy_h": 0.01,
+          "tokens_in": 715076,
+          "cache_read": 22789,
+          "tokens_out": 2323
+        }
+      },
+      "automated": {},
+      "attention_h": 0.27,
+      "parallel": {
+        "any_busy_h": 0.01,
+        "agent_busy_h": 0.01,
+        "peak": 1
+      },
+      "models": {
+        "claude-opus-5-5": 1
+      }
+    },
+    {
+      "date": "2026-10-31",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 1,
+          "attention_h": 0.17,
+          "busy_h": 0.0,
+          "tokens_in": 0,
+          "cache_read": 0,
+          "tokens_out": 0
+        }
+      },
+      "automated": {},
+      "attention_h": 0.17,
+      "parallel": {
+        "any_busy_h": 0.0,
+        "agent_busy_h": 0.0,
+        "peak": 1
+      },
+      "models": {}
+    },
+    {
+      "date": "2026-11-02",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 12,
+          "responses": 118,
+          "attention_h": 1.48,
+          "busy_h": 0.74,
+          "tokens_in": 1072966,
+          "cache_read": 36657260,
+          "tokens_out": 156079
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 2,
+          "prompts": 15,
+          "responses": 174,
+          "attention_h": 2.07,
+          "busy_h": 0.68,
+          "tokens_in": 1850018,
+          "cache_read": 43596415,
+          "tokens_out": 180042
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 48,
+          "responses": 468,
+          "attention_h": 3.9,
+          "busy_h": 2.93,
+          "tokens_in": 3541287,
+          "cache_read": 175114353,
+          "tokens_out": 508550
+        },
+        "FG-Kitchen/infra": {
+          "sessions": 1,
+          "prompts": 6,
+          "responses": 82,
+          "attention_h": 0.82,
+          "busy_h": 0.46,
+          "tokens_in": 1829329,
+          "cache_read": 46091759,
+          "tokens_out": 133735
+        },
+        "FG-InvestmentLabs/infra": {
+          "sessions": 2,
+          "prompts": 10,
+          "responses": 54,
+          "attention_h": 1.38,
+          "busy_h": 0.56,
+          "tokens_in": 1378335,
+          "cache_read": 10377452,
+          "tokens_out": 83207
+        }
+      },
+      "automated": {},
+      "attention_h": 4.38,
+      "parallel": {
+        "any_busy_h": 3.41,
+        "agent_busy_h": 5.36,
+        "peak": 5
+      },
+      "models": {
+        "claude-opus-5-5": 883
+      }
+    },
+    {
+      "date": "2026-11-03",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 23,
+          "attention_h": 0.17,
+          "busy_h": 0.14,
+          "tokens_in": 505631,
+          "cache_read": 11030724,
+          "tokens_out": 49648
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 2,
+          "prompts": 11,
+          "responses": 103,
+          "attention_h": 1.11,
+          "busy_h": 0.49,
+          "tokens_in": 1201160,
+          "cache_read": 22435946,
+          "tokens_out": 134926
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 30,
+          "responses": 411,
+          "attention_h": 3.44,
+          "busy_h": 3.34,
+          "tokens_in": 2846580,
+          "cache_read": 135251879,
+          "tokens_out": 554262
+        },
+        "FG-InvestmentLabs/infra": {
+          "sessions": 1,
+          "prompts": 23,
+          "responses": 97,
+          "attention_h": 1.52,
+          "busy_h": 0.55,
+          "tokens_in": 253138,
+          "cache_read": 18997327,
+          "tokens_out": 88457
+        }
+      },
+      "automated": {},
+      "attention_h": 4.42,
+      "parallel": {
+        "any_busy_h": 3.51,
+        "agent_busy_h": 4.52,
+        "peak": 3
+      },
+      "models": {
+        "claude-opus-5-5": 631
+      }
+    },
+    {
+      "date": "2026-11-04",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 2,
+          "responses": 22,
+          "attention_h": 0.21,
+          "busy_h": 0.37,
+          "tokens_in": 612127,
+          "cache_read": 12567633,
+          "tokens_out": 81181
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 2,
+          "prompts": 2,
+          "responses": 10,
+          "attention_h": 0.33,
+          "busy_h": 0.07,
+          "tokens_in": 332651,
+          "cache_read": 1775057,
+          "tokens_out": 15268
+        },
+        "fg-collectlabs:ai-card": {
+          "sessions": 2,
+          "prompts": 0,
+          "responses": 4,
+          "attention_h": 0.0,
+          "busy_h": 0.0,
+          "tokens_in": 53400,
+          "cache_read": 79858,
+          "tokens_out": 1637
+        },
+        "fg-collectlabs:ai-grade": {
+          "sessions": 2,
+          "prompts": 0,
+          "responses": 4,
+          "attention_h": 0.0,
+          "busy_h": 0.0,
+          "tokens_in": 36515,
+          "cache_read": 99426,
+          "tokens_out": 2393
+        },
+        "fg-collectlabs:cert-reader": {
+          "sessions": 19,
+          "prompts": 0,
+          "responses": 38,
+          "attention_h": 0.0,
+          "busy_h": 0.02,
+          "tokens_in": 344824,
+          "cache_read": 917709,
+          "tokens_out": 8645
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 29,
+          "responses": 353,
+          "attention_h": 2.88,
+          "busy_h": 2.77,
+          "tokens_in": 5686635,
+          "cache_read": 213375657,
+          "tokens_out": 470118
+        },
+        "FG-InvestmentLabs/infra": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 11,
+          "attention_h": 0.17,
+          "busy_h": 0.07,
+          "tokens_in": 254165,
+          "cache_read": 2575073,
+          "tokens_out": 11230
+        }
+      },
+      "automated": {
+        "fg-collectlabs:ai-card": {
+          "sessions": 200,
+          "prompts": 0,
+          "responses": 400,
+          "attention_h": 0.0,
+          "busy_h": 0.23,
+          "tokens_in": 3530905,
+          "cache_read": 5184333,
+          "tokens_out": 165722
+        },
+        "fg-collectlabs:ai-cert": {
+          "sessions": 200,
+          "prompts": 0,
+          "responses": 400,
+          "attention_h": 0.0,
+          "busy_h": 0.25,
+          "tokens_in": 3659911,
+          "cache_read": 5211442,
+          "tokens_out": 222111
+        },
+        "fg-collectlabs:ai-grade": {
+          "sessions": 277,
+          "prompts": 0,
+          "responses": 554,
+          "attention_h": 0.0,
+          "busy_h": 0.35,
+          "tokens_in": 5071013,
+          "cache_read": 7169651,
+          "tokens_out": 305725
+        },
+        "fg-collectlabs:ai-photos": {
+          "sessions": 100,
+          "prompts": 0,
+          "responses": 200,
+          "attention_h": 0.0,
+          "busy_h": 0.06,
+          "tokens_in": 1336498,
+          "cache_read": 2561293,
+          "tokens_out": 42622
+        },
+        "fg-collectlabs:cert-reader": {
+          "sessions": 961,
+          "prompts": 0,
+          "responses": 1822,
+          "attention_h": 0.0,
+          "busy_h": 0.74,
+          "tokens_in": 13878707,
+          "cache_read": 21963276,
+          "tokens_out": 437745
+        }
+      },
+      "attention_h": 2.89,
+      "parallel": {
+        "any_busy_h": 2.69,
+        "agent_busy_h": 3.3,
+        "peak": 2
+      },
+      "models": {
+        "claude-opus-5-5": 393,
+        "claude-haiku-5-5": 3322
+      }
+    },
+    {
+      "date": "2026-11-05",
+      "interactive": {
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 50,
+          "responses": 643,
+          "attention_h": 4.47,
+          "busy_h": 3.62,
+          "tokens_in": 2809325,
+          "cache_read": 132516599,
+          "tokens_out": 560151
+        },
+        "FG-InvestmentLabs/infra": {
+          "sessions": 1,
+          "prompts": 2,
+          "responses": 19,
+          "attention_h": 0.07,
+          "busy_h": 0.06,
+          "tokens_in": 59688,
+          "cache_read": 5675162,
+          "tokens_out": 12907
+        }
+      },
+      "automated": {
+        "fg-collectlabs:ai-card": {
+          "sessions": 722,
+          "prompts": 0,
+          "responses": 1359,
+          "attention_h": 0.0,
+          "busy_h": 0.84,
+          "tokens_in": 12781896,
+          "cache_read": 16620402,
+          "tokens_out": 534106
+        },
+        "fg-collectlabs:ai-cert": {
+          "sessions": 1387,
+          "prompts": 0,
+          "responses": 2724,
+          "attention_h": 0.0,
+          "busy_h": 1.7,
+          "tokens_in": 24382101,
+          "cache_read": 34786278,
+          "tokens_out": 1307485
+        },
+        "fg-collectlabs:ai-grade": {
+          "sessions": 767,
+          "prompts": 0,
+          "responses": 1417,
+          "attention_h": 0.0,
+          "busy_h": 0.89,
+          "tokens_in": 12058729,
+          "cache_read": 17016637,
+          "tokens_out": 570110
+        },
+        "fg-collectlabs:ai-photos": {
+          "sessions": 860,
+          "prompts": 0,
+          "responses": 1679,
+          "attention_h": 0.0,
+          "busy_h": 0.53,
+          "tokens_in": 11210019,
+          "cache_read": 21273338,
+          "tokens_out": 371860
+        }
+      },
+      "attention_h": 3.86,
+      "parallel": {
+        "any_busy_h": 3.36,
+        "agent_busy_h": 3.69,
+        "peak": 2
+      },
+      "models": {
+        "claude-haiku-5-5": 6881,
+        "claude-opus-5-5": 658
+      }
+    },
+    {
+      "date": "2026-11-06",
+      "interactive": {
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 2,
+          "responses": 2,
+          "attention_h": 0.01,
+          "busy_h": 0.01,
+          "tokens_in": 15388,
+          "cache_read": 59136,
+          "tokens_out": 2256
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 34,
+          "responses": 410,
+          "attention_h": 3.75,
+          "busy_h": 3.33,
+          "tokens_in": 3545242,
+          "cache_read": 192090724,
+          "tokens_out": 405713
+        }
+      },
+      "automated": {
+        "fg-collectlabs:ai-card": {
+          "sessions": 2754,
+          "prompts": 14,
+          "responses": 4634,
+          "attention_h": 0.0,
+          "busy_h": 2.53,
+          "tokens_in": 37309841,
+          "cache_read": 49453267,
+          "tokens_out": 1530716
+        },
+        "fg-collectlabs:ai-cert": {
+          "sessions": 2538,
+          "prompts": 24,
+          "responses": 4260,
+          "attention_h": 0.0,
+          "busy_h": 2.45,
+          "tokens_in": 30944845,
+          "cache_read": 45385207,
+          "tokens_out": 1577695
+        },
+        "fg-collectlabs:ai-grade": {
+          "sessions": 2743,
+          "prompts": 0,
+          "responses": 4573,
+          "attention_h": 0.0,
+          "busy_h": 2.59,
+          "tokens_in": 33125860,
+          "cache_read": 48100767,
+          "tokens_out": 1646812
+        },
+        "fg-collectlabs:ai-photos": {
+          "sessions": 2759,
+          "prompts": 29,
+          "responses": 4607,
+          "attention_h": 0.0,
+          "busy_h": 1.2,
+          "tokens_in": 25006357,
+          "cache_read": 48284072,
+          "tokens_out": 808655
+        }
+      },
+      "attention_h": 3.29,
+      "parallel": {
+        "any_busy_h": 3.0,
+        "agent_busy_h": 3.34,
+        "peak": 2
+      },
+      "models": {
+        "claude-opus-5-5": 406,
+        "claude-haiku-5-5": 14553
+      }
+    },
+    {
+      "date": "2026-11-07",
+      "interactive": {
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 31,
+          "responses": 367,
+          "attention_h": 3.78,
+          "busy_h": 3.37,
+          "tokens_in": 3703983,
+          "cache_read": 207081788,
+          "tokens_out": 379122
+        }
+      },
+      "automated": {
+        "fg-collectlabs:ai-card": {
+          "sessions": 2432,
+          "prompts": 0,
+          "responses": 3752,
+          "attention_h": 0.0,
+          "busy_h": 1.68,
+          "tokens_in": 26558519,
+          "cache_read": 35499828,
+          "tokens_out": 1146771
+        },
+        "fg-collectlabs:ai-cert": {
+          "sessions": 2338,
+          "prompts": 0,
+          "responses": 3701,
+          "attention_h": 0.0,
+          "busy_h": 1.92,
+          "tokens_in": 27148990,
+          "cache_read": 36702350,
+          "tokens_out": 1350109
+        },
+        "fg-collectlabs:ai-condition": {
+          "sessions": 125,
+          "prompts": 0,
+          "responses": 159,
+          "attention_h": 0.0,
+          "busy_h": 0.14,
+          "tokens_in": 511567,
+          "cache_read": 906149,
+          "tokens_out": 93214
+        },
+        "fg-collectlabs:ai-grade": {
+          "sessions": 2451,
+          "prompts": 1,
+          "responses": 3757,
+          "attention_h": 0.0,
+          "busy_h": 1.79,
+          "tokens_in": 25611285,
+          "cache_read": 35167620,
+          "tokens_out": 1259604
+        },
+        "fg-collectlabs:ai-photos": {
+          "sessions": 2400,
+          "prompts": 0,
+          "responses": 3684,
+          "attention_h": 0.0,
+          "busy_h": 0.77,
+          "tokens_in": 17262038,
+          "cache_read": 33855302,
+          "tokens_out": 556291
+        }
+      },
+      "attention_h": 2.84,
+      "parallel": {
+        "any_busy_h": 2.96,
+        "agent_busy_h": 3.37,
+        "peak": 2
+      },
+      "models": {
+        "claude-haiku-5-5": 10612,
+        "claude-opus-5-5": 359
+      }
+    },
+    {
+      "date": "2026-11-08",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 8,
+          "responses": 65,
+          "attention_h": 1.0,
+          "busy_h": 0.63,
+          "tokens_in": 1469267,
+          "cache_read": 44675573,
+          "tokens_out": 155018
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 42,
+          "responses": 575,
+          "attention_h": 4.44,
+          "busy_h": 3.09,
+          "tokens_in": 3041185,
+          "cache_read": 196365883,
+          "tokens_out": 548758
+        }
+      },
+      "automated": {},
+      "attention_h": 3.55,
+      "parallel": {
+        "any_busy_h": 2.73,
+        "agent_busy_h": 3.72,
+        "peak": 3
+      },
+      "models": {
+        "claude-opus-5-5": 632
+      }
+    },
+    {
+      "date": "2026-11-09",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 23,
+          "responses": 267,
+          "attention_h": 2.77,
+          "busy_h": 1.96,
+          "tokens_in": 1549287,
+          "cache_read": 105086462,
+          "tokens_out": 302724
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 24,
+          "responses": 268,
+          "attention_h": 2.4,
+          "busy_h": 1.64,
+          "tokens_in": 3787980,
+          "cache_read": 114073623,
+          "tokens_out": 282344
+        }
+      },
+      "automated": {},
+      "attention_h": 4.16,
+      "parallel": {
+        "any_busy_h": 3.44,
+        "agent_busy_h": 3.61,
+        "peak": 3
+      },
+      "models": {
+        "claude-opus-5-5": 530
+      }
+    },
+    {
+      "date": "2026-11-10",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 12,
+          "responses": 164,
+          "attention_h": 1.43,
+          "busy_h": 1.56,
+          "tokens_in": 934696,
+          "cache_read": 24343933,
+          "tokens_out": 150848
+        },
+        "local:FG-CryptoLabs": {
+          "sessions": 1,
+          "prompts": 9,
+          "responses": 128,
+          "attention_h": 1.24,
+          "busy_h": 1.13,
+          "tokens_in": 861162,
+          "cache_read": 39930158,
+          "tokens_out": 125953
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 21,
+          "responses": 325,
+          "attention_h": 2.14,
+          "busy_h": 1.17,
+          "tokens_in": 3821262,
+          "cache_read": 84241936,
+          "tokens_out": 202047
+        }
+      },
+      "automated": {},
+      "attention_h": 3.85,
+      "parallel": {
+        "any_busy_h": 3.54,
+        "agent_busy_h": 3.86,
+        "peak": 2
+      },
+      "models": {
+        "claude-opus-5-5": 613
+      }
+    },
+    {
+      "date": "2026-11-11",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 18,
+          "responses": 236,
+          "attention_h": 1.79,
+          "busy_h": 1.15,
+          "tokens_in": 1265294,
+          "cache_read": 56281763,
+          "tokens_out": 234029
+        },
+        "local:FG-CryptoLabs": {
+          "sessions": 1,
+          "prompts": 17,
+          "responses": 191,
+          "attention_h": 2.02,
+          "busy_h": 1.65,
+          "tokens_in": 1450339,
+          "cache_read": 53206515,
+          "tokens_out": 259362
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 36,
+          "attention_h": 0.17,
+          "busy_h": 0.13,
+          "tokens_in": 84548,
+          "cache_read": 2654261,
+          "tokens_out": 21608
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 13,
+          "responses": 228,
+          "attention_h": 1.93,
+          "busy_h": 1.08,
+          "tokens_in": 2950466,
+          "cache_read": 56147171,
+          "tokens_out": 211768
+        }
+      },
+      "automated": {},
+      "attention_h": 4.34,
+      "parallel": {
+        "any_busy_h": 3.16,
+        "agent_busy_h": 4.05,
+        "peak": 3
+      },
+      "models": {
+        "claude-opus-5-5": 686
+      }
+    },
+    {
+      "date": "2026-11-12",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 21,
+          "responses": 183,
+          "attention_h": 1.82,
+          "busy_h": 1.32,
+          "tokens_in": 1482010,
+          "cache_read": 34508207,
+          "tokens_out": 142666
+        },
+        "local:FG-CryptoLabs": {
+          "sessions": 1,
+          "prompts": 7,
+          "responses": 32,
+          "attention_h": 0.78,
+          "busy_h": 0.16,
+          "tokens_in": 494602,
+          "cache_read": 15242294,
+          "tokens_out": 37508
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 4,
+          "prompts": 19,
+          "responses": 307,
+          "attention_h": 2.09,
+          "busy_h": 1.58,
+          "tokens_in": 1843524,
+          "cache_read": 65503029,
+          "tokens_out": 348205
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 9,
+          "responses": 192,
+          "attention_h": 1.16,
+          "busy_h": 0.9,
+          "tokens_in": 1408568,
+          "cache_read": 80059289,
+          "tokens_out": 218621
+        }
+      },
+      "automated": {},
+      "attention_h": 4.4,
+      "parallel": {
+        "any_busy_h": 3.34,
+        "agent_busy_h": 3.92,
+        "peak": 3
+      },
+      "models": {
+        "claude-opus-5-5": 711
+      }
+    },
+    {
+      "date": "2026-11-13",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 16,
+          "responses": 154,
+          "attention_h": 1.97,
+          "busy_h": 1.22,
+          "tokens_in": 861891,
+          "cache_read": 54226897,
+          "tokens_out": 120827
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 37,
+          "responses": 560,
+          "attention_h": 3.37,
+          "busy_h": 2.08,
+          "tokens_in": 2182778,
+          "cache_read": 126675993,
+          "tokens_out": 404103
+        }
+      },
+      "automated": {},
+      "attention_h": 4.71,
+      "parallel": {
+        "any_busy_h": 3.03,
+        "agent_busy_h": 3.29,
+        "peak": 3
+      },
+      "models": {
+        "claude-opus-5-5": 714
+      }
+    },
+    {
+      "date": "2026-11-14",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 3,
+          "responses": 30,
+          "attention_h": 0.44,
+          "busy_h": 0.14,
+          "tokens_in": 503054,
+          "cache_read": 14055684,
+          "tokens_out": 33886
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 11,
+          "responses": 169,
+          "attention_h": 1.08,
+          "busy_h": 1.1,
+          "tokens_in": 901875,
+          "cache_read": 63693180,
+          "tokens_out": 165537
+        }
+      },
+      "automated": {},
+      "attention_h": 1.01,
+      "parallel": {
+        "any_busy_h": 1.13,
+        "agent_busy_h": 1.24,
+        "peak": 3
+      },
+      "models": {
+        "claude-opus-5-5": 196
+      }
+    },
+    {
+      "date": "2026-11-15",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 4,
+          "responses": 12,
+          "attention_h": 0.51,
+          "busy_h": 0.06,
+          "tokens_in": 511314,
+          "cache_read": 5869342,
+          "tokens_out": 7544
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 32,
+          "responses": 245,
+          "attention_h": 3.12,
+          "busy_h": 1.81,
+          "tokens_in": 1904837,
+          "cache_read": 149234668,
+          "tokens_out": 286383
+        }
+      },
+      "automated": {},
+      "attention_h": 3.17,
+      "parallel": {
+        "any_busy_h": 1.79,
+        "agent_busy_h": 1.87,
+        "peak": 3
+      },
+      "models": {
+        "claude-opus-5-5": 257
+      }
+    },
+    {
+      "date": "2026-11-16",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 13,
+          "responses": 90,
+          "attention_h": 1.47,
+          "busy_h": 0.73,
+          "tokens_in": 1829882,
+          "cache_read": 52114805,
+          "tokens_out": 87262
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 30,
+          "responses": 390,
+          "attention_h": 2.95,
+          "busy_h": 2.76,
+          "tokens_in": 4390908,
+          "cache_read": 196626366,
+          "tokens_out": 397461
+        }
+      },
+      "automated": {},
+      "attention_h": 3.09,
+      "parallel": {
+        "any_busy_h": 2.39,
+        "agent_busy_h": 3.49,
+        "peak": 3
+      },
+      "models": {
+        "claude-opus-5-5": 475
+      }
+    },
+    {
+      "date": "2026-11-17",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 27,
+          "responses": 152,
+          "attention_h": 2.68,
+          "busy_h": 0.84,
+          "tokens_in": 1203449,
+          "cache_read": 71042006,
+          "tokens_out": 147591
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 20,
+          "responses": 300,
+          "attention_h": 2.49,
+          "busy_h": 2.04,
+          "tokens_in": 3219447,
+          "cache_read": 113130681,
+          "tokens_out": 360207
+        }
+      },
+      "automated": {},
+      "attention_h": 4.47,
+      "parallel": {
+        "any_busy_h": 2.7,
+        "agent_busy_h": 2.88,
+        "peak": 3
+      },
+      "models": {
+        "claude-opus-5-5": 452
+      }
+    },
+    {
+      "date": "2026-11-18",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 8,
+          "responses": 81,
+          "attention_h": 1.12,
+          "busy_h": 0.39,
+          "tokens_in": 1289782,
+          "cache_read": 22347969,
+          "tokens_out": 95494
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 52,
+          "responses": 525,
+          "attention_h": 5.38,
+          "busy_h": 3.29,
+          "tokens_in": 7230677,
+          "cache_read": 270470399,
+          "tokens_out": 561484
+        }
+      },
+      "automated": {},
+      "attention_h": 4.9,
+      "parallel": {
+        "any_busy_h": 2.76,
+        "agent_busy_h": 3.67,
+        "peak": 3
+      },
+      "models": {
+        "claude-opus-5-5": 600
+      }
+    },
+    {
+      "date": "2026-11-19",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 14,
+          "responses": 133,
+          "attention_h": 1.46,
+          "busy_h": 1.02,
+          "tokens_in": 2971117,
+          "cache_read": 67244874,
+          "tokens_out": 232731
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 21,
+          "responses": 204,
+          "attention_h": 2.53,
+          "busy_h": 1.21,
+          "tokens_in": 3520746,
+          "cache_read": 93026093,
+          "tokens_out": 187058
+        }
+      },
+      "automated": {},
+      "attention_h": 3.15,
+      "parallel": {
+        "any_busy_h": 1.94,
+        "agent_busy_h": 2.23,
+        "peak": 2
+      },
+      "models": {
+        "claude-opus-5-5": 335
+      }
+    },
+    {
+      "date": "2026-11-20",
+      "interactive": {
+        "local:FG-CryptoLabs": {
+          "sessions": 1,
+          "prompts": 3,
+          "responses": 49,
+          "attention_h": 0.33,
+          "busy_h": 0.43,
+          "tokens_in": 592040,
+          "cache_read": 27517232,
+          "tokens_out": 69387
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 3,
+          "responses": 5,
+          "attention_h": 0.02,
+          "busy_h": 0.02,
+          "tokens_in": 19197,
+          "cache_read": 188409,
+          "tokens_out": 5707
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 20,
+          "responses": 172,
+          "attention_h": 2.66,
+          "busy_h": 1.62,
+          "tokens_in": 2022905,
+          "cache_read": 53187141,
+          "tokens_out": 127496
+        },
+        "FG-InvestmentLabs/infra": {
+          "sessions": 1,
+          "prompts": 4,
+          "responses": 74,
+          "attention_h": 0.66,
+          "busy_h": 0.48,
+          "tokens_in": 1074169,
+          "cache_read": 33051577,
+          "tokens_out": 132329
+        }
+      },
+      "automated": {},
+      "attention_h": 2.63,
+      "parallel": {
+        "any_busy_h": 2.04,
+        "agent_busy_h": 2.59,
+        "peak": 3
+      },
+      "models": {
+        "claude-opus-5-5": 295
+      }
+    },
+    {
+      "date": "2026-11-21",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 7,
+          "responses": 64,
+          "attention_h": 0.98,
+          "busy_h": 0.62,
+          "tokens_in": 751820,
+          "cache_read": 45233184,
+          "tokens_out": 80026
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 14,
+          "responses": 121,
+          "attention_h": 2.07,
+          "busy_h": 0.89,
+          "tokens_in": 982299,
+          "cache_read": 35859955,
+          "tokens_out": 139750
+        },
+        "FG-InvestmentLabs/infra": {
+          "sessions": 1,
+          "prompts": 7,
+          "responses": 73,
+          "attention_h": 1.05,
+          "busy_h": 0.61,
+          "tokens_in": 1352986,
+          "cache_read": 43415854,
+          "tokens_out": 107544
+        }
+      },
+      "automated": {},
+      "attention_h": 1.7,
+      "parallel": {
+        "any_busy_h": 1.17,
+        "agent_busy_h": 2.11,
+        "peak": 4
+      },
+      "models": {
+        "claude-opus-5-5": 256
+      }
+    },
+    {
+      "date": "2026-11-22",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 3,
+          "responses": 35,
+          "attention_h": 0.5,
+          "busy_h": 0.3,
+          "tokens_in": 2391719,
+          "cache_read": 24273113,
+          "tokens_out": 33963
+        },
+        "local:FG-CryptoLabs": {
+          "sessions": 2,
+          "prompts": 27,
+          "responses": 237,
+          "attention_h": 2.49,
+          "busy_h": 1.76,
+          "tokens_in": 3578469,
+          "cache_read": 131662064,
+          "tokens_out": 328599
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 17,
+          "responses": 140,
+          "attention_h": 2.51,
+          "busy_h": 1.19,
+          "tokens_in": 3201344,
+          "cache_read": 54745543,
+          "tokens_out": 148941
+        }
+      },
+      "automated": {},
+      "attention_h": 3.3,
+      "parallel": {
+        "any_busy_h": 2.51,
+        "agent_busy_h": 3.25,
+        "peak": 4
+      },
+      "models": {
+        "claude-opus-5-5": 403
+      }
+    },
+    {
+      "date": "2026-11-23",
+      "interactive": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 2,
+          "attention_h": 0.17,
+          "busy_h": 0.02,
+          "tokens_in": 813439,
+          "cache_read": 857982,
+          "tokens_out": 1214
+        },
+        "local:FG-CryptoLabs": {
+          "sessions": 1,
+          "prompts": 13,
+          "responses": 276,
+          "attention_h": 1.45,
+          "busy_h": 2.54,
+          "tokens_in": 1568645,
+          "cache_read": 102678671,
+          "tokens_out": 303973
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 1,
+          "prompts": 9,
+          "responses": 61,
+          "attention_h": 0.48,
+          "busy_h": 0.35,
+          "tokens_in": 627276,
+          "cache_read": 26072430,
+          "tokens_out": 84102
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 9,
+          "responses": 162,
+          "attention_h": 1.27,
+          "busy_h": 0.99,
+          "tokens_in": 2973659,
+          "cache_read": 90791321,
+          "tokens_out": 166495
+        }
+      },
+      "automated": {},
+      "attention_h": 2.32,
+      "parallel": {
+        "any_busy_h": 3.12,
+        "agent_busy_h": 3.91,
+        "peak": 4
+      },
+      "models": {
+        "claude-opus-5-5": 491,
+        "claude-haiku-5-5": 7
+      }
+    },
+    {
+      "date": "2026-11-24",
+      "interactive": {
+        "local:FG-CryptoLabs": {
+          "sessions": 1,
+          "prompts": 5,
+          "responses": 39,
+          "attention_h": 0.37,
+          "busy_h": 0.27,
+          "tokens_in": 1255317,
+          "cache_read": 23511335,
+          "tokens_out": 31097
+        },
+        "FG-PolyLabs/polyedge": {
+          "sessions": 2,
+          "prompts": 42,
+          "responses": 181,
+          "attention_h": 3.2,
+          "busy_h": 0.93,
+          "tokens_in": 2770138,
+          "cache_read": 58344438,
+          "tokens_out": 182078
+        },
+        "FG-PolyLabs/polyweather": {
+          "sessions": 1,
+          "prompts": 6,
+          "responses": 61,
+          "attention_h": 0.34,
+          "busy_h": 0.49,
+          "tokens_in": 129653,
+          "cache_read": 7151527,
+          "tokens_out": 51678
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 24,
+          "attention_h": 0.17,
+          "busy_h": 0.11,
+          "tokens_in": 685707,
+          "cache_read": 16181607,
+          "tokens_out": 14721
+        }
+      },
+      "automated": {},
+      "attention_h": 3.6,
+      "parallel": {
+        "any_busy_h": 1.63,
+        "agent_busy_h": 1.8,
+        "peak": 2
+      },
+      "models": {
+        "claude-opus-5-5": 297,
+        "claude-haiku-5-5": 6
+      }
+    },
+    {
+      "date": "2026-11-25",
+      "interactive": {
+        "FG-PolyLabs/polyweather": {
+          "sessions": 1,
+          "prompts": 4,
+          "responses": 28,
+          "attention_h": 0.15,
+          "busy_h": 0.39,
+          "tokens_in": 175154,
+          "cache_read": 4814758,
+          "tokens_out": 36753
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 67,
+          "responses": 583,
+          "attention_h": 6.97,
+          "busy_h": 2.68,
+          "tokens_in": 1795694,
+          "cache_read": 160828545,
+          "tokens_out": 437233
+        }
+      },
+      "automated": {},
+      "attention_h": 5.28,
+      "parallel": {
+        "any_busy_h": 2.74,
+        "agent_busy_h": 3.06,
+        "peak": 3
+      },
+      "models": {
+        "claude-opus-5-5": 610
+      }
+    },
+    {
+      "date": "2026-11-26",
+      "interactive": {
+        "local:phil": {
+          "sessions": 1,
+          "prompts": 6,
+          "responses": 67,
+          "attention_h": 0.47,
+          "busy_h": 0.34,
+          "tokens_in": 142627,
+          "cache_read": 7788277,
+          "tokens_out": 109784
+        },
+        "FG-CollectShop/fg-collect-storefront": {
+          "sessions": 1,
+          "prompts": 1,
+          "responses": 7,
+          "attention_h": 0.0,
+          "busy_h": 0.02,
+          "tokens_in": 29235,
+          "cache_read": 293904,
+          "tokens_out": 4706
+        },
+        "FutureGadgetLabs-Watchtower/futuregadgetlabs-watchtower.github.io": {
+          "sessions": 1,
+          "prompts": 24,
+          "responses": 127,
+          "attention_h": 1.84,
+          "busy_h": 0.46,
+          "tokens_in": 654513,
+          "cache_read": 21481730,
+          "tokens_out": 121833
+        },
+        "FG-PolyLabs/polyweather": {
+          "sessions": 2,
+          "prompts": 33,
+          "responses": 457,
+          "attention_h": 2.04,
+          "busy_h": 2.73,
+          "tokens_in": 1873763,
+          "cache_read": 90262604,
+          "tokens_out": 452821
+        },
+        "FG-CollectLabs/infra": {
+          "sessions": 2,
+          "prompts": 3,
+          "responses": 55,
+          "attention_h": 0.38,
+          "busy_h": 0.32,
+          "tokens_in": 259492,
+          "cache_read": 6950612,
+          "tokens_out": 49662
+        }
+      },
+      "automated": {},
+      "attention_h": 3.35,
+      "parallel": {
+        "any_busy_h": 2.62,
+        "agent_busy_h": 3.85,
+        "peak": 4
+      },
+      "models": {
+        "claude-opus-5-5": 705,
+        "claude-haiku-5-5": 2
+      }
+    },
+    {
+      "date": "2026-11-27",
+      "interactive": {
+        "FutureGadgetLabs-Watchtower/futuregadgetlabs-watchtower.github.io": {
+          "sessions": 1,
+          "prompts": 17,
+          "responses": 102,
+          "attention_h": 1.14,
+          "busy_h": 0.53,
+          "tokens_in": 1192913,
+          "cache_read": 38468353,
+          "tokens_out": 142511
+        },
+        "FG-PolyLabs/polyweather": {
+          "sessions": 2,
+          "prompts": 18,
+          "responses": 214,
+          "attention_h": 1.65,
+          "busy_h": 1.72,
+          "tokens_in": 1825983,
+          "cache_read": 65614887,
+          "tokens_out": 291536
+        }
+      },
+      "automated": {},
+      "attention_h": 2.15,
+      "parallel": {
+        "any_busy_h": 1.83,
+        "agent_busy_h": 2.03,
+        "peak": 2
+      },
+      "models": {
+        "claude-opus-5-5": 313
+      }
+    }
+  ]
+}
