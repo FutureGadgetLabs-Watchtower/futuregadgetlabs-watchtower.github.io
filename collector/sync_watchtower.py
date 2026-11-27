@@ -701,6 +701,9 @@ def collect_velocity(cfg: Config, started: float, full: bool = False, backfill_f
             "models": sorted({mdl for j in judged.values() for mdl in j.get("models", [])}),
             "judged_sets": len(judged), "total_sets": len(eligible),
             "first_judged_date": min((by_id[i]["date"] for i in judged), default=None),
+            # From `judge.py calibration-report`, only if it was run against this scoring guide.
+            "calibration": (lambda c: c if c and c.get("prompt_version") == _judge.PROMPT_VERSION else None)(
+                read_json(cfg.state_dir / "velocity" / "calibration_summary.json")),
         }
 
     active_orgs = sorted({r["org"] for r in repos})

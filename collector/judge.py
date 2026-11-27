@@ -29,6 +29,7 @@ import logging
 import os
 import random
 import re
+import shlex
 import subprocess
 import sys
 import time
@@ -187,6 +188,10 @@ class Limited(Exception):
     pass
 
 
+class Budget(Exception):
+    """The account's usage meter passed the share we allow the judge; stop and leave the rest for its owner."""
+
+
 def claude_env() -> dict:
     env = {k: v for k, v in os.environ.items() if not re.search(r"TOKEN|KEY|SECRET|PASSWORD|CREDENTIAL", k, re.I)}
     env.pop("ANTHROPIC_API_KEY", None)  # never bill per token by accident; use the subscription login
@@ -195,18 +200,42 @@ def claude_env() -> dict:
     return env
 
 
-def ask_claude(prompt: str, model: str, effort: str, timeout_s: int = 600) -> tuple[dict, dict]:
-    cmd = [os.environ.get("CLAUDE_BIN", "claude"), "-p", "--output-format", "json",
-           "--json-schema", json.dumps(SCHEMA), "--model", model, "--effort", effort,
-           "--tools", "", "--permission-mode", "dontAsk", "--safe-mode", "--strict-mcp-config",
-           "--no-session-persistence"]
-    workdir = Path(os.environ.get("JUDGE_WORKDIR", Path.home() / ".cache" / "fgl-watchtower-judge"))
-    workdir.mkdir(parents=True, exist_ok=True)
+def parse_stream(out: str) -> tuple[dict | None, dict | None]:
+    """(final result, usage meter) from `--output-format stream-json`. The meter is the account's own share of
+    its 5-hour and 7-day limits (all use of the account, not just the judge), as the worker pool reads it."""
+    data, limits = None, None
+    for line in out.splitlines():
+        try:
+            d = json.loads(line)
+        except ValueError:
+            continue
+        if d.get("type") == "result":
+            data = d
+        elif d.get("type") == "rate_limit_event":
+            w = ((d.get("rate_limit_info") or {}).get("unifiedWindows")) or {}
+            limits = {k: (w.get(k) or {}).get("utilization") for k in ("five_hour", "seven_day")}
+    return data, limits
+
+
+def ask_claude(prompt: str, model: str, effort: str, ssh_host: str = "", timeout_s: int = 600) -> tuple[dict, dict]:
+    claude_cmd = [os.environ.get("CLAUDE_BIN", "claude"), "-p", "--output-format", "stream-json", "--verbose",
+                  "--json-schema", json.dumps(SCHEMA), "--model", model, "--effort", effort,
+                  "--tools", "", "--permission-mode", "dontAsk", "--safe-mode", "--strict-mcp-config",
+                  "--no-session-persistence"]
+    if ssh_host:
+        # Run Claude on another host with that host's own login (e.g. a worker-pool account); the prompt goes over
+        # stdin, so nothing is copied there and nothing is left behind (--no-session-persistence).
+        claude_cmd[0] = os.environ.get("JUDGE_REMOTE_CLAUDE_BIN", "claude")
+        remote = "mkdir -p ~/.cache/fgl-watchtower-judge && cd ~/.cache/fgl-watchtower-judge && " + shlex.join(claude_cmd)
+        cmd, env, cwd = ["ssh", "-o", "BatchMode=yes", ssh_host, remote], None, None
+    else:
+        cmd, env = claude_cmd, claude_env()
+        cwd = Path(os.environ.get("JUDGE_WORKDIR", Path.home() / ".cache" / "fgl-watchtower-judge"))
+        cwd.mkdir(parents=True, exist_ok=True)
     started = time.monotonic()
-    p = subprocess.run(cmd, input=prompt, capture_output=True, text=True, timeout=timeout_s, cwd=workdir, env=claude_env())
-    try:
-        data = json.loads(p.stdout)
-    except json.JSONDecodeError:
+    p = subprocess.run(cmd, input=prompt, capture_output=True, text=True, timeout=timeout_s, cwd=cwd, env=env)
+    data, limits = parse_stream(p.stdout)
+    if data is None:
         tail = (p.stderr or p.stdout)[-1500:]
         if LIMIT_RE.search(tail):
             raise Limited(tail.strip())
@@ -227,8 +256,24 @@ def ask_claude(prompt: str, model: str, effort: str, timeout_s: int = 600) -> tu
         "tokens_out": sum(u.get("outputTokens") or 0 for u in usage.values()),
         "cost_usd": data.get("total_cost_usd"),  # API-equivalent; $0 marginal on a subscription
         "duration_s": round(time.monotonic() - started, 1),
+        "host": ssh_host or "local",
+        "limits": limits,
     }
     return r, meta
+
+
+def over_budget(limits: dict | None, max_5h: float, max_7d: float) -> str:
+    """Why to stop, or "" to carry on. Utilization may come as 0-1 or as a percentage."""
+    if not limits:
+        return ""
+    for key, cap in (("five_hour", max_5h), ("seven_day", max_7d)):
+        u = limits.get(key)
+        if u is None:
+            continue
+        u = u / 100 if u > 1.5 else u
+        if u >= cap:
+            return f"{key.replace('_', '-')} usage at {u:.0%} (judge stops at {cap:.0%})"
+    return ""
 
 
 # ---------------------------------------------------------------------------------------------
@@ -265,12 +310,19 @@ def cmd_run(cfg: wt.Config, args: argparse.Namespace) -> int:
     jobs = [(s, "primary") for s in todo] + [(s, "repeat") for s in repeats]
     if args.limit:
         jobs = jobs[: args.limit]
-    log.info("judge: %d to do (%d already judged, %d repeats due); model %s, effort %s",
-             len(jobs), len(done), len(repeats), args.model, args.effort)
+    log.info("judge: %d to do (%d already judged, %d repeats due); model %s, effort %s, on %s; stops at 5h %.0f%% / 7d %.0f%%",
+             len(jobs), len(done), len(repeats), args.model, args.effort, args.ssh_host or "this host",
+             args.max_five_hour * 100, args.max_seven_day * 100)
 
     def one(job: tuple[dict, str]) -> dict:
         cs, sample = job
-        r, meta = ask_claude(build_prompt(inp, cs), args.model, args.effort)
+        r, meta = ask_claude(build_prompt(inp, cs), args.model, args.effort, ssh_host=args.ssh_host)
+        why = over_budget(meta.get("limits"), args.max_five_hour, args.max_seven_day)
+        if why:
+            row = {"id": cs["id"], "sig": signature(cs), "sample": sample, "prompt_version": PROMPT_VERSION,
+                   "judged_at": wt.iso(wt.now_utc()), "model": args.model, "effort": args.effort,
+                   "code_lines": code_lines(cs), **r, **meta}
+            raise Budget(why, row)
         return {"id": cs["id"], "sig": signature(cs), "sample": sample, "prompt_version": PROMPT_VERSION,
                 "judged_at": wt.iso(wt.now_utc()), "model": args.model, "effort": args.effort,
                 "code_lines": code_lines(cs), **r, **meta}
@@ -285,6 +337,15 @@ def cmd_run(cfg: wt.Config, args: argparse.Namespace) -> int:
                     row = f.result()
                 except Limited as e:
                     log.warning("judge: usage limit reached, stopping (progress is saved): %s", str(e)[:200])
+                    for other in futs:
+                        other.cancel()
+                    break
+                except Budget as e:
+                    reason, row = e.args
+                    out.write(json.dumps(row) + "\n")  # this one finished; keep it
+                    out.flush()
+                    n_ok += 1
+                    log.warning("judge: %s; stopping so the account keeps headroom (progress is saved)", reason)
                     for other in futs:
                         other.cancel()
                     break
@@ -365,6 +426,12 @@ def cmd_calibration_report(cfg: wt.Config, args: argparse.Namespace) -> int:
     you, judge = sum(p[0] for p in pairs), sum(p[1] for p in pairs)
     inside = sum(1 for y, _, lo, hi, _ in pairs if lo <= y <= hi)
     ratios = sorted(j / y for y, j, *_ in pairs if y > 0)
+    # A short, publishable summary (counts only) for the site's method notes.
+    wt.write_json_atomic(inp.store / "calibration_summary.json", {
+        "prompt_version": PROMPT_VERSION, "date": wt.now_utc().date().isoformat(), "pairs": len(pairs),
+        "inside_range": inside, "judge_over_you": round(judge / you, 3) if you else None,
+        "blind": not any("non-blind" in (r.get("notes") or "") for r in rows if r["your_hours"].strip()),
+    })
     print(f"{len(pairs)} pairs · your total {you:.1f} h · judge total {judge:.1f} h · judge/you = {judge / you:.2f}")
     print(f"median per-set ratio {ratios[len(ratios) // 2]:.2f} · your number inside the judge's 80% range: {inside}/{len(pairs)}")
     for y, j, lo, hi, i in pairs:
@@ -388,6 +455,12 @@ def main(argv: list[str] | None = None) -> int:
     r.add_argument("--effort", default=os.environ.get("JUDGE_EFFORT", "medium"))
     r.add_argument("--concurrency", type=int, default=int(os.environ.get("JUDGE_CONCURRENCY", "2")))
     r.add_argument("--repeat-share", type=float, default=0.05, help="share of sets judged twice for consistency")
+    r.add_argument("--ssh-host", default=os.environ.get("JUDGE_SSH_HOST", ""),
+                   help="run claude on this host (its own login), e.g. a worker-pool machine")
+    r.add_argument("--max-five-hour", type=float, default=float(os.environ.get("JUDGE_MAX_FIVE_HOUR", "0.6")),
+                   help="stop once the account's 5-hour window is this used (0-1)")
+    r.add_argument("--max-seven-day", type=float, default=float(os.environ.get("JUDGE_MAX_SEVEN_DAY", "0.8")),
+                   help="stop once the account's 7-day window is this used (0-1)")
     p = sub.add_parser("prompt")
     p.add_argument("id")
     c = sub.add_parser("calibration-sheet")
