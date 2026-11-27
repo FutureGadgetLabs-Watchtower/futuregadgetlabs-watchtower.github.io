@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-27T17:41:54Z",
+  "generated_at": "2026-11-27T17:45:40Z",
   "collector": {
     "host": "agent1",
     "version": "0.2.0",
-    "run_id": "2026-11-27T17:41:54Z",
-    "duration_ms": 5882,
+    "run_id": "2026-11-27T17:45:40Z",
+    "duration_ms": 5957,
     "mock": false
   },
   "method": {
@@ -19,12 +19,12 @@
   "hosts": [
     {
       "name": "agent1",
-      "scanned_at": "2026-11-27T17:41:48+00:00",
+      "scanned_at": "2026-11-27T17:45:34+00:00",
       "files": 17
     },
     {
       "name": "agent2",
-      "scanned_at": "2026-11-27T17:41:54+00:00",
+      "scanned_at": "2026-11-27T17:45:40+00:00",
       "files": 26042
     }
   ],
@@ -3046,34 +3046,34 @@
       "interactive": {
         "FutureGadgetLabs-Watchtower/futuregadgetlabs-watchtower.github.io": {
           "sessions": 1,
-          "prompts": 19,
-          "responses": 109,
-          "attention_h": 1.23,
-          "busy_h": 0.56,
-          "tokens_in": 1201437,
-          "cache_read": 41864340,
-          "tokens_out": 150238
+          "prompts": 20,
+          "responses": 115,
+          "attention_h": 1.24,
+          "busy_h": 0.58,
+          "tokens_in": 1204426,
+          "cache_read": 44809612,
+          "tokens_out": 152236
         },
         "FG-PolyLabs/polyweather": {
           "sessions": 2,
           "prompts": 18,
-          "responses": 222,
+          "responses": 228,
           "attention_h": 1.65,
-          "busy_h": 1.84,
-          "tokens_in": 1849677,
-          "cache_read": 69977254,
-          "tokens_out": 311793
+          "busy_h": 1.88,
+          "tokens_in": 1866654,
+          "cache_read": 73357034,
+          "tokens_out": 324423
         }
       },
       "automated": {},
-      "attention_h": 2.24,
+      "attention_h": 2.25,
       "parallel": {
-        "any_busy_h": 1.98,
-        "agent_busy_h": 2.25,
+        "any_busy_h": 2.0,
+        "agent_busy_h": 2.27,
         "peak": 2
       },
       "models": {
-        "claude-opus-5-5": 328
+        "claude-opus-5-5": 340
       }
     }
   ]
