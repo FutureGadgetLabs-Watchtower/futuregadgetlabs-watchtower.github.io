@@ -1,11 +1,11 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-27T18:45:35Z",
+  "generated_at": "2026-11-27T19:00:32Z",
   "collector": {
     "host": "agent1",
     "version": "0.2.0",
-    "run_id": "2026-11-27T18:45:35Z",
-    "duration_ms": 33248,
+    "run_id": "2026-11-27T19:00:32Z",
+    "duration_ms": 31517,
     "mock": false
   },
   "method": {
@@ -39,9 +39,9 @@
     }
   },
   "excluded": {
-    "merge_commits": 1015,
+    "merge_commits": 1017,
     "bot_commits": 187,
-    "automated_commits": 135,
+    "automated_commits": 136,
     "repos": [
       "FG-PolyLabs/doge-predict-data"
     ]
@@ -13812,7 +13812,7 @@
           "additions": 4713,
           "deletions": 1051,
           "claude": 12,
-          "hours": 2.3,
+          "hours": 2.26,
           "prs": 8,
           "code": 4447,
           "docs": 1225,
@@ -13831,7 +13831,7 @@
           "additions": 1252,
           "deletions": 493,
           "claude": 4,
-          "hours": 0.77,
+          "hours": 0.75,
           "prs": 4,
           "code": 1001,
           "docs": 222,
@@ -13850,7 +13850,7 @@
           "additions": 6211,
           "deletions": 13,
           "claude": 4,
-          "hours": 0.96,
+          "hours": 0.94,
           "prs": 4,
           "code": 1603,
           "docs": 124,
@@ -13869,7 +13869,7 @@
           "additions": 12822,
           "deletions": 2374,
           "claude": 6,
-          "hours": 1.15,
+          "hours": 1.13,
           "prs": 5,
           "code": 1727,
           "docs": 87,
@@ -13903,14 +13903,14 @@
           "reworked": 0
         },
         "FG-PolyLabs/polyedge": {
-          "commits": 4,
-          "additions": 306,
-          "deletions": 32,
-          "claude": 4,
-          "hours": 0.77,
-          "prs": 2,
+          "commits": 5,
+          "additions": 307,
+          "deletions": 33,
+          "claude": 5,
+          "hours": 0.94,
+          "prs": 3,
           "code": 309,
-          "docs": 29,
+          "docs": 31,
           "tests": 109,
           "sets": 1,
           "unclassified": 0,
