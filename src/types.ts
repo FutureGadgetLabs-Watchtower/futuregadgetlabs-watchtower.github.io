@@ -84,6 +84,12 @@ export interface DayMetrics {
   sets: number
   /** commits whose per-file stats haven't been fetched yet */
   unclassified: number
+  /** senior-engineer-equivalent hours from the judge: median and 80% range, summed over judged change sets */
+  senior: number
+  senior_low: number
+  senior_high: number
+  /** change sets judged (compare with sets for coverage) */
+  judged: number
 }
 
 export interface Sprint {
@@ -97,7 +103,16 @@ export interface Sprint {
 }
 
 export interface VelocityData extends Envelope {
-  method: { timezone: string; your_hours: string; lines: string; code_lines: string; change_sets: string; sources: string }
+  method: {
+    timezone: string
+    your_hours: string
+    lines: string
+    code_lines: string
+    change_sets: string
+    senior_hours: string
+    sources: string
+  }
+  judge: { prompt_version: string; models: string[]; judged_sets: number; total_sets: number; first_judged_date: string | null } | null
   /** share of counted commits with per-file stats (code lines are complete at 1) */
   file_coverage: number
   excluded: { merge_commits: number; bot_commits: number; automated_commits: number; repos: string[] }

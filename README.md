@@ -72,11 +72,50 @@ offline behavior working as intended.
   closed issues count as shipped. Priority comes from `P0`..`P3`, and progress from `progress:NN`.
 - **Release notes** come from GitHub Releases. Set `publish_releases: false` on a repo in the
   config to keep its notes off the site.
+- **Velocity is counts only.** `velocity.json` holds per-day, per-repo totals: commits, code lines,
+  change sets, merged PRs, your hours and senior-equivalent hours. Commit messages, author emails,
+  diffs and the judge's write-ups stay in `collector/state/velocity/` on the collector host.
 - **Sprints** in `velocity.json` are kept as you write them. The collector does not overwrite
   them unless `sprints` is set in the config.
 - **Engineering AI usage** reads only timestamps, cwd, token counts and a task category from
   Claude Code transcripts. The category is guessed from keywords in the first prompt. Prompt text
   is never written out.
+
+## Velocity and the senior-hours judge
+
+Velocity reads every repo the **Watchtower GitHub App** can see. Set `GITHUB_APP_ID` and
+`GITHUB_APP_KEY` (the `.pem`). The `velocity` block in `watchtower.config.json` sets the timezone,
+the excluded orgs and repos, and the session rules.
+
+1. **Commits** are cached per repo in `state/velocity/commits/`. A repo is re-read only when its
+   `pushed_at` moves.
+2. **Per-file stats** for each counted commit go to `state/velocity/files/`, and non-excluded diff
+   text goes to `state/velocity/diffs/`. Each run fetches up to 600 commits; the first time, run
+   `--backfill-files` instead.
+3. **Files are classified** as code, test, config, docs or excluded (`FILE_RULES`, plus size rules
+   for data and generated files). Code lines count code, test and config.
+4. **Change sets** are one repo's commits within one working session. They are written to
+   `state/velocity/change_sets.jsonl`.
+5. **The judge** (`collector/judge.py`) asks Claude, through the `claude` CLI on the host, how many
+   hours one senior engineer would have needed for each change set before AI. Results go to
+   `state/velocity/judgments.jsonl`, and the collector adds them up per day as `senior` (median),
+   `senior_low` and `senior_high` (80% range).
+
+```sh
+python3 collector/judge.py calibration-sheet      # 18 change sets for you to score blind
+python3 collector/judge.py calibration-report     # your scores vs the judge's
+python3 collector/judge.py run                    # judge everything not yet judged, newest first
+python3 collector/judge.py run --since 2026-11-01 --limit 50
+python3 collector/judge.py prompt <change-set-id> # see exactly what the judge sees
+```
+
+- **Account:** the judge uses the Claude login of the user it runs as, or `JUDGE_CLAUDE_CONFIG_DIR`.
+  Each change set is about 30k tokens, about 5 s with two in parallel. It stops cleanly at a usage
+  limit and resumes on the next run.
+- **Versions:** judgments are tied to `PROMPT_VERSION` and to the change set's commits. Changing the
+  scoring guide, or a session gaining commits, means that set gets judged again.
+- **Consistency:** 5% of sets are judged twice. `calibration-report` shows how far apart the two
+  runs land.
 
 ## Collector setup (on a Proxmox node)
 
