@@ -1,11 +1,11 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-27T23:15:30Z",
+  "generated_at": "2026-11-27T23:30:31Z",
   "collector": {
     "host": "agent1",
     "version": "0.2.0",
-    "run_id": "2026-11-27T23:15:30Z",
-    "duration_ms": 28380,
+    "run_id": "2026-11-27T23:30:31Z",
+    "duration_ms": 28825,
     "mock": false
   },
   "method": {
@@ -28,7 +28,7 @@
       "claude-sonnet-5",
       "claude-sonnet-5-5"
     ],
-    "judged_sets": 86,
+    "judged_sets": 87,
     "total_sets": 995,
     "first_judged_date": "2026-09-20",
     "calibration": {
@@ -43,7 +43,7 @@
   "excluded": {
     "merge_commits": 1017,
     "bot_commits": 187,
-    "automated_commits": 153,
+    "automated_commits": 154,
     "repos": [
       "FG-PolyLabs/doge-predict-data"
     ]
@@ -13897,10 +13897,10 @@
           "tests": 344,
           "sets": 1,
           "unclassified": 0,
-          "senior": 0.0,
-          "senior_low": 0.0,
-          "senior_high": 0.0,
-          "judged": 0,
+          "senior": 26.0,
+          "senior_low": 16.0,
+          "senior_high": 40.0,
+          "judged": 1,
           "written": 790,
           "reworked": 0
         },
