@@ -1,4 +1,4 @@
-import { BUILT_AT, health, isMock, syncTimes } from '../data'
+import { BUILT_AT, health, mockByRoute, syncTimes } from '../data'
 import { ageMs, STALE_AFTER_MS, timeAgo, utcStamp } from '../lib/format'
 import { ROUTES, type RouteId } from '../lib/route'
 
@@ -14,6 +14,7 @@ export function Header({ route, now }: { route: RouteId; now: number }) {
   const { newest, oldest, state } = syncState(now)
   const stale = state === 'CACHED'
   const stamp = utcStamp(newest.at)
+  const isMock = mockByRoute[route] ?? false
   return (
     <header className="sticky top-0 z-30 border-t-3 border-b border-t-band border-b-line bg-void/85 backdrop-blur-md">
       <div className="mx-auto flex max-w-[1400px] flex-wrap items-center gap-x-6 gap-y-3 px-4 py-3">
@@ -88,7 +89,7 @@ export function Header({ route, now }: { route: RouteId; now: number }) {
             {isMock && (
               <>
                 <span className="font-mono text-nixie">SAMPLE DATA.</span> These numbers are mock values until the
-                collector's first real run.
+                collector covers this module. Velocity is live.
               </>
             )}
           </p>

@@ -40,4 +40,12 @@ export const syncTimes = [
   { file: 'roadmap.json', at: roadmap.generated_at },
   { file: 'ai_usage.json', at: aiUsage.generated_at },
 ]
-export const isMock = health.collector.mock === true
+/** Which modules still show sample data, so the banner only appears where it's true. */
+const mock = (d: { collector: { mock?: boolean } }) => d.collector.mock === true
+export const mockByRoute: Record<string, boolean> = {
+  health: mock(health),
+  velocity: mock(velocity),
+  architecture: architecture.includes('> Sample data'),
+  roadmap: mock(roadmap) || mock(changelog),
+  ai: mock(aiUsage),
+}
