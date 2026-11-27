@@ -1,11 +1,11 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-27T18:15:31Z",
+  "generated_at": "2026-11-27T18:30:40Z",
   "collector": {
     "host": "agent1",
     "version": "0.2.0",
-    "run_id": "2026-11-27T18:15:31Z",
-    "duration_ms": 30269,
+    "run_id": "2026-11-27T18:30:40Z",
+    "duration_ms": 37969,
     "mock": false
   },
   "method": {
@@ -13,10 +13,10 @@
     "your_hours": "Session-based: commits less than 120 min apart form one working session; a session counts its span plus 30 min of lead-in. One timeline for everything, since one person directs every agent.",
     "lines": "Lines added and deleted per commit, capped at 5,000 each so generated or vendored commits can't swamp the totals.",
     "code_lines": "Code lines count source, tests and config (added + deleted), from per-file stats. Lockfiles, generated and vendored files, data, fixtures and binaries are left out, as is any JSON/HTML/XML file changing by 1,000+ lines or any file changing by 3,000+ lines in one commit; docs are counted separately.",
-    "change_sets": "A change set is one repo's commits within one working session: the unit the senior-hours judge scores.",
+    "change_sets": "A change set is one repo's commits within one working session: the unit the engineering-hours judge scores.",
     "rework": "Rework: of the non-trivial code, test and config lines written on a day, the share deleted again from the same file within 21 days (matched line by line in the diffs). Days younger than 21 days are still open and left out of the rate. Lower is better: code that stays.",
     "rework_window_days": 21,
-    "senior_hours": "Senior-engineer-equivalent hours: for each change set, Claude reads the commit messages, file list and code diff and estimates how long one senior engineer, familiar with the codebase, would have needed before AI coding tools (design, code, tests, debugging; not meetings or waiting). The median is shown with an 80% range. AI verbosity is credited at a senior's speed, not per line.",
+    "senior_hours": "Engineering hours delivered: how much engineering work the shipped code represents. For each change set, Claude reads the commit messages, file list and code diff and estimates how long one senior engineer, familiar with the codebase, would have needed before AI coding tools (design, code, tests, debugging; not meetings or waiting). The median is shown with an 80% range. AI verbosity is credited at a senior's speed, not per line.",
     "sources": "Default-branch history of every repo the Watchtower GitHub App can read; merge, bot and automated data commits excluded; merged PRs from GitHub search."
   },
   "file_coverage": 1.0,
@@ -39,9 +39,9 @@
     }
   },
   "excluded": {
-    "merge_commits": 1009,
+    "merge_commits": 1011,
     "bot_commits": 187,
-    "automated_commits": 133,
+    "automated_commits": 134,
     "repos": [
       "FG-PolyLabs/doge-predict-data"
     ]
@@ -13808,30 +13808,30 @@
       "date": "2026-11-27",
       "by_project": {
         "FG-PolyLabs/polyweather": {
-          "commits": 10,
-          "additions": 4217,
-          "deletions": 1048,
-          "claude": 10,
-          "hours": 2.16,
-          "prs": 7,
-          "code": 4112,
-          "docs": 1063,
-          "tests": 759,
+          "commits": 12,
+          "additions": 4713,
+          "deletions": 1051,
+          "claude": 12,
+          "hours": 2.66,
+          "prs": 8,
+          "code": 4447,
+          "docs": 1225,
+          "tests": 798,
           "sets": 1,
           "unclassified": 0,
           "senior": 0.0,
           "senior_low": 0.0,
           "senior_high": 0.0,
           "judged": 0,
-          "written": 2474,
-          "reworked": 479
+          "written": 2749,
+          "reworked": 480
         },
         "FG-PolyLabs/polyweather-bot": {
           "commits": 2,
           "additions": 720,
           "deletions": 472,
           "claude": 2,
-          "hours": 0.43,
+          "hours": 0.44,
           "prs": 2,
           "code": 565,
           "docs": 117,
@@ -13850,7 +13850,7 @@
           "additions": 6211,
           "deletions": 13,
           "claude": 4,
-          "hours": 1.08,
+          "hours": 1.11,
           "prs": 4,
           "code": 1603,
           "docs": 124,
@@ -13865,13 +13865,13 @@
           "reworked": 7
         },
         "FutureGadgetLabs-Watchtower/futuregadgetlabs-watchtower.github.io": {
-          "commits": 5,
-          "additions": 12804,
-          "deletions": 2357,
-          "claude": 5,
-          "hours": 1.08,
-          "prs": 4,
-          "code": 1692,
+          "commits": 6,
+          "additions": 12822,
+          "deletions": 2374,
+          "claude": 6,
+          "hours": 1.33,
+          "prs": 5,
+          "code": 1727,
           "docs": 87,
           "tests": 0,
           "sets": 1,
@@ -13880,15 +13880,15 @@
           "senior_low": 0.0,
           "senior_high": 0.0,
           "judged": 0,
-          "written": 1350,
-          "reworked": 28
+          "written": 1368,
+          "reworked": 45
         },
         "FG-PolyLabs/polyresearch": {
           "commits": 2,
           "additions": 1255,
           "deletions": 0,
           "claude": 2,
-          "hours": 0.43,
+          "hours": 0.44,
           "prs": 1,
           "code": 1009,
           "docs": 61,
