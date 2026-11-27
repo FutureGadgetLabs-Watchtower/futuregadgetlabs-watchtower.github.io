@@ -1,11 +1,11 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-27T18:30:40Z",
+  "generated_at": "2026-11-27T18:45:35Z",
   "collector": {
     "host": "agent1",
     "version": "0.2.0",
-    "run_id": "2026-11-27T18:30:40Z",
-    "duration_ms": 37969,
+    "run_id": "2026-11-27T18:45:35Z",
+    "duration_ms": 33248,
     "mock": false
   },
   "method": {
@@ -26,8 +26,8 @@
       "claude-haiku-5-5",
       "claude-sonnet-5-5"
     ],
-    "judged_sets": 85,
-    "total_sets": 994,
+    "judged_sets": 84,
+    "total_sets": 995,
     "first_judged_date": "2026-09-20",
     "calibration": {
       "prompt_version": "2026-11-27.1",
@@ -39,9 +39,9 @@
     }
   },
   "excluded": {
-    "merge_commits": 1011,
+    "merge_commits": 1015,
     "bot_commits": 187,
-    "automated_commits": 134,
+    "automated_commits": 135,
     "repos": [
       "FG-PolyLabs/doge-predict-data"
     ]
@@ -13410,7 +13410,7 @@
           "senior_high": 138.0,
           "judged": 3,
           "written": 2814,
-          "reworked": 198
+          "reworked": 208
         },
         "FG-PolyLabs/polyweather-bot": {
           "commits": 4,
@@ -13605,7 +13605,7 @@
           "senior_high": 16.2,
           "judged": 2,
           "written": 316,
-          "reworked": 0
+          "reworked": 3
         },
         "FG-PolyLabs/polyweather": {
           "commits": 1,
@@ -13762,7 +13762,7 @@
           "senior_high": 46.5,
           "judged": 2,
           "written": 1369,
-          "reworked": 61
+          "reworked": 68
         },
         "FG-PolyLabs/polyweather": {
           "commits": 16,
@@ -13800,7 +13800,7 @@
           "senior_high": 190.0,
           "judged": 3,
           "written": 5283,
-          "reworked": 442
+          "reworked": 450
         }
       }
     },
@@ -13812,7 +13812,7 @@
           "additions": 4713,
           "deletions": 1051,
           "claude": 12,
-          "hours": 2.66,
+          "hours": 2.3,
           "prs": 8,
           "code": 4447,
           "docs": 1225,
@@ -13827,30 +13827,30 @@
           "reworked": 480
         },
         "FG-PolyLabs/polyweather-bot": {
-          "commits": 2,
-          "additions": 720,
-          "deletions": 472,
-          "claude": 2,
-          "hours": 0.44,
-          "prs": 2,
-          "code": 565,
-          "docs": 117,
-          "tests": 0,
+          "commits": 4,
+          "additions": 1252,
+          "deletions": 493,
+          "claude": 4,
+          "hours": 0.77,
+          "prs": 4,
+          "code": 1001,
+          "docs": 222,
+          "tests": 149,
           "sets": 1,
           "unclassified": 0,
-          "senior": 5.0,
-          "senior_low": 3.0,
-          "senior_high": 8.0,
-          "judged": 1,
-          "written": 95,
-          "reworked": 2
+          "senior": 0.0,
+          "senior_low": 0.0,
+          "senior_high": 0.0,
+          "judged": 0,
+          "written": 445,
+          "reworked": 7
         },
         "FG-PolyLabs/polykit": {
           "commits": 5,
           "additions": 6211,
           "deletions": 13,
           "claude": 4,
-          "hours": 1.11,
+          "hours": 0.96,
           "prs": 4,
           "code": 1603,
           "docs": 124,
@@ -13869,7 +13869,7 @@
           "additions": 12822,
           "deletions": 2374,
           "claude": 6,
-          "hours": 1.33,
+          "hours": 1.15,
           "prs": 5,
           "code": 1727,
           "docs": 87,
@@ -13888,7 +13888,7 @@
           "additions": 1255,
           "deletions": 0,
           "claude": 2,
-          "hours": 0.44,
+          "hours": 0.38,
           "prs": 1,
           "code": 1009,
           "docs": 61,
@@ -13901,6 +13901,25 @@
           "judged": 0,
           "written": 790,
           "reworked": 0
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 4,
+          "additions": 306,
+          "deletions": 32,
+          "claude": 4,
+          "hours": 0.77,
+          "prs": 2,
+          "code": 309,
+          "docs": 29,
+          "tests": 109,
+          "sets": 1,
+          "unclassified": 0,
+          "senior": 0.0,
+          "senior_low": 0.0,
+          "senior_high": 0.0,
+          "judged": 0,
+          "written": 243,
+          "reworked": 1
         }
       }
     }
