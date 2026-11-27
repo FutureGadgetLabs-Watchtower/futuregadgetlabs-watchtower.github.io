@@ -5,6 +5,7 @@ import { compact, num, shortDate } from '../lib/format'
 import type { DayMetrics } from '../types'
 import { axisProps, ChartTooltip, gridProps, Legend, SERIES } from '../components/charts'
 import { Bar, OrgTag, PageHead, Panel, Segmented, Select, Stat } from '../components/ui'
+import { DelegationPanel } from './Delegation'
 
 type Metric = 'senior' | 'commits' | 'hours' | 'code' | 'sets' | 'prs'
 type Grain = 'day' | 'week'
@@ -30,8 +31,12 @@ const localToday = (tz: string, iso: string) =>
   new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(iso))
 
 const metricOf = (m: DayMetrics, k: Metric) => m[k] ?? 0
+const pct = (x: number) => `${(x * 100).toFixed(x < 0.1 ? 1 : 0)}%`
 
 interface Totals {
+  tests: number
+  written: number
+  reworked: number
   senior: number
   senior_low: number
   senior_high: number
@@ -45,8 +50,14 @@ interface Totals {
   claude: number
   days: number
 }
-const ZERO: Totals = { senior: 0, senior_low: 0, senior_high: 0, judged: 0, commits: 0, hours: 0, code: 0, docs: 0, sets: 0, prs: 0, claude: 0, days: 0 }
-function add(t: Totals, m: DayMetrics) {
+const ZERO: Totals = { tests: 0, written: 0, reworked: 0, senior: 0, senior_low: 0, senior_high: 0, judged: 0, commits: 0, hours: 0, code: 0, docs: 0, sets: 0, prs: 0, claude: 0, days: 0 }
+function add(t: Totals, m: DayMetrics, matured = true) {
+  t.tests += m.tests ?? 0
+  // Rework only counts once a day's window has closed; younger days would understate it.
+  if (matured) {
+    t.written += m.written ?? 0
+    t.reworked += m.reworked ?? 0
+  }
   t.senior += m.senior ?? 0
   t.senior_low += m.senior_low ?? 0
   t.senior_high += m.senior_high ?? 0
@@ -59,13 +70,13 @@ function add(t: Totals, m: DayMetrics) {
   t.prs += m.prs
   t.claude += m.claude
 }
-function totals(days: typeof velocity.days, inScope: (p: string) => boolean): Totals {
+function totals(days: typeof velocity.days, inScope: (p: string) => boolean, maturedUntil: string): Totals {
   const t = { ...ZERO }
   for (const d of days) {
     let active = false
     for (const [p, m] of Object.entries(d.by_project)) {
       if (!inScope(p)) continue
-      add(t, m)
+      add(t, m, d.date <= maturedUntil)
       active ||= m.commits > 0
     }
     if (active) t.days += 1
@@ -90,8 +101,9 @@ export function Velocity() {
 
   const windowDays = velocity.days.filter((d) => d.date >= start && d.date <= today)
   const prevDays = range === 'all' ? [] : velocity.days.filter((d) => d.date >= prevStart && d.date < start)
-  const cur = totals(windowDays, inScope)
-  const prev = range === 'all' ? null : totals(prevDays, inScope)
+  const maturedUntil = addDays(today, -(velocity.method.rework_window_days ?? 21))
+  const cur = totals(windowDays, inScope, maturedUntil)
+  const prev = range === 'all' ? null : totals(prevDays, inScope, maturedUntil)
   // A % change against a near-empty prior period (1 PR → 1,179) says nothing; show it only from a real base.
   const delta = (a: number, b?: number) => (b && b >= 5 ? (a - b) / b : null)
 
@@ -142,7 +154,7 @@ export function Velocity() {
       for (const [p, m] of Object.entries(d.by_project)) {
         if (!inScope(p)) continue
         const r = rows.get(p) ?? { id: p, ...ZERO }
-        add(r, m)
+        add(r, m, d.date <= maturedUntil)
         r.days += m.commits > 0 ? 1 : 0
         rows.set(p, r)
       }
@@ -277,13 +289,17 @@ export function Velocity() {
         </div>
       </Panel>
 
+      <DelegationPanel start={start} end={today} org={org} rangeLabel={rangeLabel} />
+
+      <QualityPanel days={windowDays} inScope={inScope} maturedUntil={maturedUntil} cur={cur} rangeLabel={rangeLabel} />
+
       <div className={`mt-5 grid gap-5 ${velocity.sprints.length ? 'xl:grid-cols-[1fr_380px]' : ''}`}>
         <Panel pad={false} kicker={rangeLabel} title={`By repository (${table.length})`}>
           <div className="max-h-[560px] overflow-auto">
             <table className="w-full text-sm">
               <thead className="sticky top-0 bg-panel">
                 <tr className="border-b border-line text-left">
-                  {['Repository', 'Org', 'Your hours', 'Senior h', 'Change sets', 'Commits', 'PRs', 'Code lines', 'Active days', 'Claude'].map((h) => (
+                  {['Repository', 'Org', 'Your hours', 'Senior h', 'Change sets', 'Commits', 'PRs', 'Code lines', 'Rework', 'Active days', 'Claude'].map((h) => (
                     <th key={h} className="label whitespace-nowrap px-4 py-2 font-normal">
                       {h}
                     </th>
@@ -318,6 +334,7 @@ export function Velocity() {
                       <td className="px-4 py-2 font-mono text-xs tnum">{num(r.commits)}</td>
                       <td className="px-4 py-2 font-mono text-xs tnum">{r.prs}</td>
                       <td className="whitespace-nowrap px-4 py-2 font-mono text-xs text-ink-2 tnum">{compact(r.code)}</td>
+                      <td className="px-4 py-2 font-mono text-xs text-ink-2 tnum">{r.written >= 200 ? pct(r.reworked / r.written) : '—'}</td>
                       <td className="px-4 py-2 font-mono text-xs text-ink-2 tnum">{r.days}</td>
                       <td className="px-4 py-2 font-mono text-xs text-ink-2 tnum">{Math.round((r.claude / r.commits) * 100)}%</td>
                     </tr>
@@ -373,6 +390,10 @@ export function Velocity() {
             ` Checked against my own estimates on ${velocity.judge.calibration.pairs} change sets (${velocity.judge.calibration.blind ? 'scored blind' : 'reviewed after seeing the judge\'s number, so not blind'}): ${velocity.judge.calibration.inside_range} of ${velocity.judge.calibration.pairs} inside the judge's range; judge total ÷ mine = ${velocity.judge.calibration.judge_over_you?.toFixed(2)}. A ballpark, not a timesheet.`}
         </p>
         <p>
+          <span className="label mr-2">rework</span>
+          {velocity.method.rework}
+        </p>
+        <p>
           <span className="label mr-2">change sets</span>
           {velocity.method.change_sets}
         </p>
@@ -383,5 +404,69 @@ export function Velocity() {
         </p>
       </div>
     </div>
+  )
+}
+
+/** Quality next to output: how much freshly written code was thrown away again, and how much of it is tests. */
+function QualityPanel({
+  days,
+  inScope,
+  maturedUntil,
+  cur,
+  rangeLabel,
+}: {
+  days: typeof velocity.days
+  inScope: (p: string) => boolean
+  maturedUntil: string
+  cur: Totals
+  rangeLabel: string
+}) {
+  const weeks = new Map<string, { written: number; reworked: number }>()
+  for (const d of days) {
+    if (d.date > maturedUntil) continue
+    const w = weeks.get(mondayOf(d.date)) ?? { written: 0, reworked: 0 }
+    for (const [p, m] of Object.entries(d.by_project)) {
+      if (!inScope(p)) continue
+      w.written += m.written ?? 0
+      w.reworked += m.reworked ?? 0
+    }
+    weeks.set(mondayOf(d.date), w)
+  }
+  const data = [...weeks.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .filter(([, w]) => w.written >= 200)
+    .map(([at, w]) => ({ at, rework: Math.round((w.reworked / w.written) * 1000) / 10 }))
+  const windowDays = velocity.method.rework_window_days ?? 21
+  return (
+    <Panel className="mt-5" kicker={`${rangeLabel} · ${windowDays}-day rework window`} title="Quality: does the code stay?">
+      <div className="grid gap-5 lg:grid-cols-[320px_1fr]">
+        <div className="grid grid-cols-2 gap-3 self-start lg:grid-cols-1">
+          <Stat
+            label="Rework rate"
+            value={cur.written ? pct(cur.reworked / cur.written) : '—'}
+            sub={cur.written ? `${compact(cur.reworked)} of ${compact(cur.written)} lines deleted within ${windowDays} days` : `no day older than ${windowDays} days in range`}
+          />
+          <Stat label="Tests" value={cur.code ? pct(cur.tests / cur.code) : '—'} sub="share of code lines changed" />
+        </div>
+        <div className="h-[220px]">
+          {data.length ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={data} margin={{ top: 8, right: 8, left: -12, bottom: 0 }} barCategoryGap="22%">
+                <CartesianGrid {...gridProps} />
+                <XAxis dataKey="at" {...axisProps} tickFormatter={shortDate} minTickGap={16} />
+                <YAxis {...axisProps} tickFormatter={(v) => `${v}%`} width={44} />
+                <Tooltip
+                  cursor={{ fill: 'rgb(255 255 255 / 0.04)' }}
+                  content={<ChartTooltip fmt={(v) => `${v}% reworked`} labelFmt={(l) => `Code written week of ${shortDate(String(l))}`} />}
+                />
+                <RBar dataKey="rework" name="Rework" fill="var(--color-scan)" radius={[3, 3, 0, 0]} isAnimationActive={false} />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <p className="py-16 text-center text-xs text-ink-3">Not enough code older than {windowDays} days in this range.</p>
+          )}
+        </div>
+      </div>
+    </Panel>
   )
 }

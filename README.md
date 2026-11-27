@@ -124,6 +124,41 @@ python3 collector/judge.py prompt <change-set-id> # see exactly what the judge s
 - **Consistency:** 5% of sets are judged twice. `calibration-report` shows how far apart the two
   runs land.
 
+## Agent sessions (delegation)
+
+`collector/agents_scan.py` runs on each host that has Claude Code transcripts. The collector runs it
+locally on agent1 and over ssh (`ssh agent2 python3 - < agents_scan.py`) elsewhere. It reads
+`~/.claude/projects/**/*.jsonl` incrementally and prints per-day totals. Only timings, counts and
+token totals leave the host. Its state is in `~/.cache/fgl-watchtower-agents/` on that host, so
+history outlives Claude Code deleting old transcripts. Hosts are set in `agents.hosts` in the config.
+
+`data/agents.json` (module `agents`) has, per day:
+
+- **Your attention:** time from an agent finishing to your next prompt, capped at 10 min. It is
+  counted once across sessions and hosts.
+- **Agent working time:** prompt to last activity, with gaps over 15 min cut out. Subagents count.
+- **Parallel agents:** the average number working at once while any was, plus the peak.
+- **Tokens:** split into fresh input, cache reads and output.
+- **Automated app jobs:** sessions started by `claude -p` / the SDK, labelled `app:job-type`.
+
+## Running on agent1 (automatic publishing)
+
+The collector runs from cron on agent1 through `collector/run.sh`. That script loads
+`~/.config/fgl-watchtower/collector.env`, pulls the latest merged code into a clone that is used
+only by the collector (`~/fgl-watchtower-collector`), and runs under a lock.
+
+- **State:** `~/.local/state/fgl-watchtower` holds the commit and diff caches, change sets,
+  judgments and agent-scan results. Config is in `~/.config/fgl-watchtower/`.
+- **Push:** with the deploy key `~/.ssh/fgl_watchtower_deploy`, which has write access to this repo
+  only. The clone's push URL is `git@github.com:...`.
+- **Privacy:** `publish()` runs the same privacy rules as `validate-data` **before committing**. A
+  file with an email, a private IP or a key is never committed, and the site keeps the last good push.
+
+```cron
+*/15 * * * * /home/phil/fgl-watchtower-collector/collector/run.sh sync_watchtower.py --only velocity,agents >> /home/phil/.cache/fgl-watchtower-collector.log 2>&1
+17 * * * *   /home/phil/fgl-watchtower-collector/collector/run.sh judge.py run --ssh-host agent2 --concurrency 1 >> /home/phil/.cache/fgl-watchtower-judge/judge.log 2>&1
+```
+
 ## Collector setup (on a Proxmox node)
 
 ```sh

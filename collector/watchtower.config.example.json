@@ -263,5 +263,23 @@
       "commits_co_authored": 0
     },
     "highlights": []
+  },
+  "agents": {
+    "_comment": "Hosts with Claude Code transcripts. ssh '' = the collector's own host, else an ssh alias.",
+    "hosts": [
+      {
+        "name": "agent1",
+        "ssh": ""
+      },
+      {
+        "name": "agent2",
+        "ssh": "agent2"
+      }
+    ],
+    "idle_minutes": 15,
+    "attention_cap_minutes": 10,
+    "project_aliases": {
+      "local:FGL-Watchtower": "FutureGadgetLabs-Watchtower/futuregadgetlabs-watchtower.github.io"
+    }
   }
 }
