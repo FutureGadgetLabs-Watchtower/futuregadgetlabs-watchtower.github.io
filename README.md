@@ -109,9 +109,16 @@ python3 collector/judge.py run --since 2026-11-01 --limit 50
 python3 collector/judge.py prompt <change-set-id> # see exactly what the judge sees
 ```
 
-- **Account:** the judge uses the Claude login of the user it runs as, or `JUDGE_CLAUDE_CONFIG_DIR`.
-  Each change set is about 30k tokens, about 5 s with two in parallel. It stops cleanly at a usage
-  limit and resumes on the next run.
+- **Account:** by default the judge uses the Claude login of the user it runs as (or
+  `JUDGE_CLAUDE_CONFIG_DIR`). With `--ssh-host agent2` (or `JUDGE_SSH_HOST`) only the `claude` call
+  runs on that host, under that host's login; the prompt goes over stdin and nothing is copied there.
+  On agent1, the default login is shared with the agent1 workers. Don't run the back-fill on it.
+- **Budget:** each change set is about 30k tokens. After every judgment the judge reads the
+  account's usage meter and stops once the 5-hour window passes 60% (`--max-five-hour`) or the
+  7-day window passes 80% (`--max-seven-day`). That leaves headroom for whatever else uses the
+  account. A hard usage limit also stops it cleanly. Either way it resumes on the next run.
+- **Schedule (agent1, hourly):**
+  `17 * * * * cd /home/phil/code/FGL-Watchtower/fgl-watchtower && flock -n /tmp/fgl-watchtower-judge.lock /usr/bin/python3 -I collector/judge.py run --ssh-host agent2 --concurrency 1 >> ~/.cache/fgl-watchtower-judge/judge.log 2>&1`
 - **Versions:** judgments are tied to `PROMPT_VERSION` and to the change set's commits. Changing the
   scoring guide, or a session gaining commits, means that set gets judged again.
 - **Consistency:** 5% of sets are judged twice. `calibration-report` shows how far apart the two
