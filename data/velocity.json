@@ -1,23 +1,44 @@
 {
-  "schema_version": 1,
-  "generated_at": "2026-11-26T14:00:00Z",
+  "schema_version": 2,
+  "generated_at": "2026-11-27T03:51:00Z",
   "collector": {
-    "host": "pve-01",
-    "version": "0.1.0",
-    "run_id": "2026-11-26T14:00Z-mock",
-    "duration_ms": 8421,
-    "mock": true
+    "host": "agent1",
+    "version": "0.2.0",
+    "run_id": "2026-11-27T03:51:00Z",
+    "duration_ms": 27046,
+    "mock": false
   },
   "method": {
-    "est_hours": "0.55 h per commit + 1.5 h per merged PR + 1 h per 900 lines changed. A rough proxy, not a timesheet.",
-    "sources": "GitHub GraphQL contributionsCollection + REST pulls per org; default branches only; bots excluded"
+    "timezone": "America/Detroit",
+    "your_hours": "Session-based: commits less than 120 min apart form one working session; a session counts its span plus 30 min of lead-in. One timeline for everything, since one person directs every agent.",
+    "lines": "Lines added and deleted per commit, capped at 5,000 each so generated or vendored commits can't swamp the totals.",
+    "sources": "Default-branch history of every repo the Watchtower GitHub App can read; merge, bot and automated data commits excluded; merged PRs from GitHub search."
+  },
+  "excluded": {
+    "merge_commits": 989,
+    "bot_commits": 186,
+    "automated_commits": 130,
+    "repos": [
+      "FG-PolyLabs/doge-predict-data"
+    ]
   },
   "orgs": [
+    {
+      "id": "FG-CollectLabs",
+      "name": "FG-CollectLabs",
+      "color": "#338ced",
+      "description": "TCG tooling: pricing, grading, inventory and listing apps"
+    },
     {
       "id": "FG-CollectShop",
       "name": "FG-CollectShop",
       "color": "#e76624",
       "description": "TCG shop: catalog, pricing agents, admin and storefront"
+    },
+    {
+      "id": "FG-CryptHub",
+      "name": "FG-CryptHub",
+      "color": "#b45fb0"
     },
     {
       "id": "FG-CryptoLabs",
@@ -26,16 +47,35 @@
       "description": "Crypto portfolio tooling and the legacy org hub"
     },
     {
+      "id": "FG-GameJam",
+      "name": "FG-GameJam",
+      "color": "#8fa83a"
+    },
+    {
+      "id": "FG-InvestmentLabs",
+      "name": "FG-InvestmentLabs",
+      "color": "#0aac23"
+    },
+    {
+      "id": "FG-Kitchen",
+      "name": "FG-Kitchen",
+      "color": "#5ab4c4"
+    },
+    {
+      "id": "FG-Liquidator",
+      "name": "FG-Liquidator",
+      "color": "#d28e05"
+    },
+    {
+      "id": "FG-PersonalCashFlow",
+      "name": "FG-PersonalCashFlow",
+      "color": "#c46a3a"
+    },
+    {
       "id": "FG-PolyLabs",
       "name": "FG-PolyLabs",
       "color": "#00a888",
       "description": "Prediction-market research and trading bots"
-    },
-    {
-      "id": "FGL-Services",
-      "name": "FGL-Services",
-      "color": "#338ced",
-      "description": "Back-office services (COGS subledger)"
     },
     {
       "id": "FutureGadgetLabs-Watchtower",
@@ -46,1233 +86,6547 @@
   ],
   "projects": [
     {
-      "id": "fg-collect-core",
-      "org": "FG-CollectShop",
-      "repo": "FG-CollectShop/fg-collect-core"
+      "id": "FG-CollectLabs/.github",
+      "org": "FG-CollectLabs",
+      "name": ".github",
+      "private": false,
+      "archived": false
     },
     {
-      "id": "fg-collect-admin",
-      "org": "FG-CollectShop",
-      "repo": "FG-CollectShop/fg-collect-admin"
+      "id": "FG-CollectLabs/sellthrough-analyzer",
+      "org": "FG-CollectLabs",
+      "name": "sellthrough-analyzer",
+      "private": true,
+      "archived": false
     },
     {
-      "id": "fg-collect-infra",
-      "org": "FG-CollectShop",
-      "repo": "FG-CollectShop/fg-collect-infra"
+      "id": "FG-CollectLabs/slab-cracker-frontend",
+      "org": "FG-CollectLabs",
+      "name": "slab-cracker-frontend",
+      "private": false,
+      "archived": false
     },
     {
-      "id": "fg-price-scout",
-      "org": "FG-CollectShop",
-      "repo": "FG-CollectShop/fg-price-scout"
+      "id": "FG-CollectLabs/slab-cracker-extension",
+      "org": "FG-CollectLabs",
+      "name": "slab-cracker-extension",
+      "private": true,
+      "archived": false
     },
     {
-      "id": "fg-crypto-portfolio",
+      "id": "FG-CollectLabs/card-identifier-backend",
+      "org": "FG-CollectLabs",
+      "name": "card-identifier-backend",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/card-identifier-frontend",
+      "org": "FG-CollectLabs",
+      "name": "card-identifier-frontend",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/youtube-content",
+      "org": "FG-CollectLabs",
+      "name": "youtube-content",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/market-tracker-backend",
+      "org": "FG-CollectLabs",
+      "name": "market-tracker-backend",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/ws-set-analysis",
+      "org": "FG-CollectLabs",
+      "name": "ws-set-analysis",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/fg-image-host",
+      "org": "FG-CollectLabs",
+      "name": "fg-image-host",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/ev-calculator",
+      "org": "FG-CollectLabs",
+      "name": "ev-calculator",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/fg-collectlabs.github.io",
+      "org": "FG-CollectLabs",
+      "name": "fg-collectlabs.github.io",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/card-inventory-backend",
+      "org": "FG-CollectLabs",
+      "name": "card-inventory-backend",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/card-inventory-frontend",
+      "org": "FG-CollectLabs",
+      "name": "card-inventory-frontend",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/tcgplayer-repricer",
+      "org": "FG-CollectLabs",
+      "name": "tcgplayer-repricer",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/slab-cracker-backend",
+      "org": "FG-CollectLabs",
+      "name": "slab-cracker-backend",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/market-tracker-frontend",
+      "org": "FG-CollectLabs",
+      "name": "market-tracker-frontend",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/binder-planner",
+      "org": "FG-CollectLabs",
+      "name": "binder-planner",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/binder-companion",
+      "org": "FG-CollectLabs",
+      "name": "binder-companion",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/graded-lister",
+      "org": "FG-CollectLabs",
+      "name": "graded-lister",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/graded-lister-backend",
+      "org": "FG-CollectLabs",
+      "name": "graded-lister-backend",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/box-break-app",
+      "org": "FG-CollectLabs",
+      "name": "box-break-app",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/grading-predictor-backend",
+      "org": "FG-CollectLabs",
+      "name": "grading-predictor-backend",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/grading-predictor-frontend",
+      "org": "FG-CollectLabs",
+      "name": "grading-predictor-frontend",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/bulk-lot-analyzer",
+      "org": "FG-CollectLabs",
+      "name": "bulk-lot-analyzer",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/tcg-shipping-labels",
+      "org": "FG-CollectLabs",
+      "name": "tcg-shipping-labels",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/pack-price-finder",
+      "org": "FG-CollectLabs",
+      "name": "pack-price-finder",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/platform-listing-tool",
+      "org": "FG-CollectLabs",
+      "name": "platform-listing-tool",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/sealed-arb-analyzer",
+      "org": "FG-CollectLabs",
+      "name": "sealed-arb-analyzer",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/pack-ev",
+      "org": "FG-CollectLabs",
+      "name": "pack-ev",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/tcg-10k-challenge-backend",
+      "org": "FG-CollectLabs",
+      "name": "tcg-10k-challenge-backend",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/tcg-10k-challenge-frontend",
+      "org": "FG-CollectLabs",
+      "name": "tcg-10k-challenge-frontend",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/hub",
+      "org": "FG-CollectLabs",
+      "name": "hub",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/box-break-audit",
+      "org": "FG-CollectLabs",
+      "name": "box-break-audit",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectLabs/infra",
+      "org": "FG-CollectLabs",
+      "name": "infra",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectShop/fg-collect-storefront",
+      "org": "FG-CollectShop",
+      "name": "fg-collect-storefront",
+      "private": false,
+      "archived": true
+    },
+    {
+      "id": "FG-CollectShop/fg-collect-core",
+      "org": "FG-CollectShop",
+      "name": "fg-collect-core",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectShop/fg-collect-infra",
+      "org": "FG-CollectShop",
+      "name": "fg-collect-infra",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectShop/fg-collect-admin",
+      "org": "FG-CollectShop",
+      "name": "fg-collect-admin",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectShop/.github",
+      "org": "FG-CollectShop",
+      "name": ".github",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectShop/hub",
+      "org": "FG-CollectShop",
+      "name": "hub",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectShop/fg-price-scout",
+      "org": "FG-CollectShop",
+      "name": "fg-price-scout",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CollectShop/fg-collect-portfolio",
+      "org": "FG-CollectShop",
+      "name": "fg-collect-portfolio",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CryptHub/fg-crypt-dashboard",
+      "org": "FG-CryptHub",
+      "name": "fg-crypt-dashboard",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CryptHub/fg-crypt-core",
+      "org": "FG-CryptHub",
+      "name": "fg-crypt-core",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-CryptHub/fg-crypt-ingest",
+      "org": "FG-CryptHub",
+      "name": "fg-crypt-ingest",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-CryptoLabs/pendle-analyzer",
       "org": "FG-CryptoLabs",
-      "repo": "FG-CryptoLabs/fg-crypto-portfolio"
+      "name": "pendle-analyzer",
+      "private": true,
+      "archived": false
     },
     {
-      "id": "fg-labs-hub",
+      "id": "FG-CryptoLabs/fg-labs-hub",
       "org": "FG-CryptoLabs",
-      "repo": "FG-CryptoLabs/fg-labs-hub"
+      "name": "fg-labs-hub",
+      "private": false,
+      "archived": false
     },
     {
-      "id": "polyedge",
+      "id": "FG-CryptoLabs/.github",
+      "org": "FG-CryptoLabs",
+      "name": ".github",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-CryptoLabs/fg-crypto-portfolio",
+      "org": "FG-CryptoLabs",
+      "name": "fg-crypto-portfolio",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-GameJam/2LaneRoguelike",
+      "org": "FG-GameJam",
+      "name": "2LaneRoguelike",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-InvestmentLabs/options-copilot",
+      "org": "FG-InvestmentLabs",
+      "name": "options-copilot",
+      "private": true,
+      "archived": true
+    },
+    {
+      "id": "FG-InvestmentLabs/infra",
+      "org": "FG-InvestmentLabs",
+      "name": "infra",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-InvestmentLabs/greeks",
+      "org": "FG-InvestmentLabs",
+      "name": "greeks",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-InvestmentLabs/backtester",
+      "org": "FG-InvestmentLabs",
+      "name": "backtester",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-Kitchen/infra",
+      "org": "FG-Kitchen",
+      "name": "infra",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-Kitchen/kitchen",
+      "org": "FG-Kitchen",
+      "name": "kitchen",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-Liquidator/infra",
+      "org": "FG-Liquidator",
+      "name": "infra",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-Liquidator/lot-eval",
+      "org": "FG-Liquidator",
+      "name": "lot-eval",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-Liquidator/sheets",
+      "org": "FG-Liquidator",
+      "name": "sheets",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-PersonalCashFlow/fg-cash-flow",
+      "org": "FG-PersonalCashFlow",
+      "name": "fg-cash-flow",
+      "private": false,
+      "archived": false
+    },
+    {
+      "id": "FG-PolyLabs/cloud-predict-analytics",
       "org": "FG-PolyLabs",
-      "repo": "FG-PolyLabs/polyedge"
+      "name": "cloud-predict-analytics",
+      "private": true,
+      "archived": true
     },
     {
-      "id": "polyweather",
+      "id": "FG-PolyLabs/doomsday-predict-analytics",
       "org": "FG-PolyLabs",
-      "repo": "FG-PolyLabs/polyweather"
+      "name": "doomsday-predict-analytics",
+      "private": false,
+      "archived": true
     },
     {
-      "id": "polyesports",
+      "id": "FG-PolyLabs/doomsday-data-backend",
       "org": "FG-PolyLabs",
-      "repo": "FG-PolyLabs/polyesports"
+      "name": "doomsday-data-backend",
+      "private": false,
+      "archived": true
     },
     {
-      "id": "tcg-cogs-subledger",
-      "org": "FGL-Services",
-      "repo": "FGL-Services/tcg-cogs-subledger"
+      "id": "FG-PolyLabs/doomsday-hedging-calculator",
+      "org": "FG-PolyLabs",
+      "name": "doomsday-hedging-calculator",
+      "private": false,
+      "archived": true
     },
     {
-      "id": "fgl-watchtower",
+      "id": "FG-PolyLabs/cloud-predict-analytics-frontend-admin",
+      "org": "FG-PolyLabs",
+      "name": "cloud-predict-analytics-frontend-admin",
+      "private": false,
+      "archived": true
+    },
+    {
+      "id": "FG-PolyLabs/cloud-predict-analytics-data",
+      "org": "FG-PolyLabs",
+      "name": "cloud-predict-analytics-data",
+      "private": false,
+      "archived": true
+    },
+    {
+      "id": "FG-PolyLabs/doomsday-predict-frontend-admin",
+      "org": "FG-PolyLabs",
+      "name": "doomsday-predict-frontend-admin",
+      "private": false,
+      "archived": true
+    },
+    {
+      "id": "FG-PolyLabs/doomsday-predict-data",
+      "org": "FG-PolyLabs",
+      "name": "doomsday-predict-data",
+      "private": false,
+      "archived": true
+    },
+    {
+      "id": "FG-PolyLabs/doomsday-predict-frontend",
+      "org": "FG-PolyLabs",
+      "name": "doomsday-predict-frontend",
+      "private": false,
+      "archived": true
+    },
+    {
+      "id": "FG-PolyLabs/cloud-predict-analytics-market-edge",
+      "org": "FG-PolyLabs",
+      "name": "cloud-predict-analytics-market-edge",
+      "private": false,
+      "archived": true
+    },
+    {
+      "id": "FG-PolyLabs/doge-predict-frontend-admin",
+      "org": "FG-PolyLabs",
+      "name": "doge-predict-frontend-admin",
+      "private": false,
+      "archived": true
+    },
+    {
+      "id": "FG-PolyLabs/doge-predict-backend",
+      "org": "FG-PolyLabs",
+      "name": "doge-predict-backend",
+      "private": true,
+      "archived": true
+    },
+    {
+      "id": "FG-PolyLabs/doge-predict-frontend-public",
+      "org": "FG-PolyLabs",
+      "name": "doge-predict-frontend-public",
+      "private": false,
+      "archived": true
+    },
+    {
+      "id": "FG-PolyLabs/market-maker-backend",
+      "org": "FG-PolyLabs",
+      "name": "market-maker-backend",
+      "private": true,
+      "archived": true
+    },
+    {
+      "id": "FG-PolyLabs/fg-polylabs-infra",
+      "org": "FG-PolyLabs",
+      "name": "fg-polylabs-infra",
+      "private": true,
+      "archived": true
+    },
+    {
+      "id": "FG-PolyLabs/cloud-predict-core",
+      "org": "FG-PolyLabs",
+      "name": "cloud-predict-core",
+      "private": true,
+      "archived": true
+    },
+    {
+      "id": "FG-PolyLabs/cloud-predict-mcp",
+      "org": "FG-PolyLabs",
+      "name": "cloud-predict-mcp",
+      "private": true,
+      "archived": true
+    },
+    {
+      "id": "FG-PolyLabs/polyedge",
+      "org": "FG-PolyLabs",
+      "name": "polyedge",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-PolyLabs/polyarbs",
+      "org": "FG-PolyLabs",
+      "name": "polyarbs",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-PolyLabs/polyweather",
+      "org": "FG-PolyLabs",
+      "name": "polyweather",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-PolyLabs/polyesports",
+      "org": "FG-PolyLabs",
+      "name": "polyesports",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FG-PolyLabs/polyweather-bot",
+      "org": "FG-PolyLabs",
+      "name": "polyweather-bot",
+      "private": true,
+      "archived": false
+    },
+    {
+      "id": "FutureGadgetLabs-Watchtower/futuregadgetlabs-watchtower.github.io",
       "org": "FutureGadgetLabs-Watchtower",
-      "repo": "FutureGadgetLabs-Watchtower/futuregadgetlabs-watchtower.github.io"
+      "name": "futuregadgetlabs-watchtower.github.io",
+      "private": false,
+      "archived": false
     }
   ],
-  "weeks": [
+  "days": [
     {
-      "week_start": "2026-09-07",
+      "date": "2026-03-09",
       "by_project": {
-        "fg-collect-core": {
-          "commits": 19,
-          "prs_merged": 3,
-          "additions": 1725,
-          "deletions": 670,
-          "active_repos": 1,
-          "est_hours": 17.6
-        },
-        "fg-collect-admin": {
-          "commits": 26,
-          "prs_merged": 4,
-          "additions": 1527,
-          "deletions": 421,
-          "active_repos": 1,
-          "est_hours": 22.5
-        },
-        "fg-collect-infra": {
+        "FG-PolyLabs/cloud-predict-analytics": {
           "commits": 2,
-          "prs_merged": 0,
-          "additions": 103,
-          "deletions": 52,
-          "active_repos": 1,
-          "est_hours": 1.3
-        },
-        "fg-price-scout": {
-          "commits": 5,
-          "prs_merged": 0,
-          "additions": 386,
-          "deletions": 198,
-          "active_repos": 1,
-          "est_hours": 3.4
-        },
-        "fg-crypto-portfolio": {
-          "commits": 13,
-          "prs_merged": 2,
-          "additions": 1619,
-          "deletions": 699,
-          "active_repos": 1,
-          "est_hours": 12.7
-        },
-        "fg-labs-hub": {
-          "commits": 3,
-          "prs_merged": 0,
-          "additions": 381,
-          "deletions": 144,
-          "active_repos": 1,
-          "est_hours": 2.2
-        },
-        "polyedge": {
-          "commits": 14,
-          "prs_merged": 2,
-          "additions": 1131,
-          "deletions": 648,
-          "active_repos": 1,
-          "est_hours": 12.7
-        },
-        "polyweather": {
-          "commits": 15,
-          "prs_merged": 2,
-          "additions": 2072,
-          "deletions": 612,
-          "active_repos": 1,
-          "est_hours": 14.2
-        },
-        "polyesports": {
-          "commits": 0,
-          "prs_merged": 0,
-          "additions": 0,
-          "deletions": 0,
-          "active_repos": 0,
-          "est_hours": 0.0
-        },
-        "tcg-cogs-subledger": {
-          "commits": 14,
-          "prs_merged": 2,
-          "additions": 1137,
-          "deletions": 676,
-          "active_repos": 1,
-          "est_hours": 12.7
-        },
-        "fgl-watchtower": {
-          "commits": 5,
-          "prs_merged": 1,
-          "additions": 683,
-          "deletions": 171,
-          "active_repos": 1,
-          "est_hours": 5.2
+          "additions": 1303,
+          "deletions": 2,
+          "claude": 0,
+          "hours": 1.58,
+          "prs": 0
         }
       }
     },
     {
-      "week_start": "2026-09-14",
+      "date": "2026-03-10",
       "by_project": {
-        "fg-collect-core": {
-          "commits": 12,
-          "prs_merged": 1,
-          "additions": 918,
-          "deletions": 220,
-          "active_repos": 1,
-          "est_hours": 9.4
-        },
-        "fg-collect-admin": {
-          "commits": 19,
-          "prs_merged": 2,
-          "additions": 882,
-          "deletions": 227,
-          "active_repos": 1,
-          "est_hours": 14.7
-        },
-        "fg-collect-infra": {
-          "commits": 5,
-          "prs_merged": 0,
-          "additions": 685,
-          "deletions": 157,
-          "active_repos": 1,
-          "est_hours": 3.7
-        },
-        "fg-price-scout": {
-          "commits": 9,
-          "prs_merged": 1,
-          "additions": 744,
-          "deletions": 172,
-          "active_repos": 1,
-          "est_hours": 7.5
-        },
-        "fg-crypto-portfolio": {
-          "commits": 9,
-          "prs_merged": 1,
-          "additions": 981,
-          "deletions": 405,
-          "active_repos": 1,
-          "est_hours": 8.0
-        },
-        "fg-labs-hub": {
-          "commits": 5,
-          "prs_merged": 0,
-          "additions": 456,
-          "deletions": 189,
-          "active_repos": 1,
-          "est_hours": 3.5
-        },
-        "polyedge": {
-          "commits": 17,
-          "prs_merged": 2,
-          "additions": 1144,
-          "deletions": 541,
-          "active_repos": 1,
-          "est_hours": 14.2
-        },
-        "polyweather": {
-          "commits": 14,
-          "prs_merged": 3,
-          "additions": 1931,
-          "deletions": 973,
-          "active_repos": 1,
-          "est_hours": 15.4
-        },
-        "polyesports": {
-          "commits": 3,
-          "prs_merged": 0,
-          "additions": 163,
-          "deletions": 43,
-          "active_repos": 1,
-          "est_hours": 1.9
-        },
-        "tcg-cogs-subledger": {
-          "commits": 9,
-          "prs_merged": 1,
-          "additions": 452,
-          "deletions": 155,
-          "active_repos": 1,
-          "est_hours": 7.1
-        },
-        "fgl-watchtower": {
+        "FG-PolyLabs/cloud-predict-analytics": {
           "commits": 4,
-          "prs_merged": 0,
-          "additions": 272,
-          "deletions": 99,
-          "active_repos": 1,
-          "est_hours": 2.6
+          "additions": 1050,
+          "deletions": 88,
+          "claude": 3,
+          "hours": 1.43,
+          "prs": 0
         }
       }
     },
     {
-      "week_start": "2026-09-21",
+      "date": "2026-03-11",
       "by_project": {
-        "fg-collect-core": {
-          "commits": 20,
-          "prs_merged": 4,
-          "additions": 2058,
-          "deletions": 726,
-          "active_repos": 1,
-          "est_hours": 20.1
-        },
-        "fg-collect-admin": {
-          "commits": 14,
-          "prs_merged": 2,
-          "additions": 1291,
-          "deletions": 559,
-          "active_repos": 1,
-          "est_hours": 12.8
-        },
-        "fg-collect-infra": {
-          "commits": 7,
-          "prs_merged": 1,
-          "additions": 758,
-          "deletions": 424,
-          "active_repos": 1,
-          "est_hours": 6.7
-        },
-        "fg-price-scout": {
-          "commits": 13,
-          "prs_merged": 2,
-          "additions": 940,
-          "deletions": 393,
-          "active_repos": 1,
-          "est_hours": 11.6
-        },
-        "fg-crypto-portfolio": {
-          "commits": 23,
-          "prs_merged": 3,
-          "additions": 1688,
-          "deletions": 987,
-          "active_repos": 1,
-          "est_hours": 20.1
-        },
-        "fg-labs-hub": {
-          "commits": 5,
-          "prs_merged": 0,
-          "additions": 441,
-          "deletions": 141,
-          "active_repos": 1,
-          "est_hours": 3.4
-        },
-        "polyedge": {
-          "commits": 32,
-          "prs_merged": 7,
-          "additions": 2599,
-          "deletions": 892,
-          "active_repos": 1,
-          "est_hours": 32.0
-        },
-        "polyweather": {
-          "commits": 15,
-          "prs_merged": 3,
-          "additions": 1671,
-          "deletions": 348,
-          "active_repos": 1,
-          "est_hours": 15.0
-        },
-        "polyesports": {
+        "FG-PolyLabs/cloud-predict-analytics": {
           "commits": 2,
-          "prs_merged": 0,
-          "additions": 254,
-          "deletions": 129,
-          "active_repos": 1,
-          "est_hours": 1.5
-        },
-        "tcg-cogs-subledger": {
-          "commits": 6,
-          "prs_merged": 0,
-          "additions": 789,
-          "deletions": 392,
-          "active_repos": 1,
-          "est_hours": 4.6
-        },
-        "fgl-watchtower": {
-          "commits": 6,
-          "prs_merged": 0,
-          "additions": 401,
-          "deletions": 208,
-          "active_repos": 1,
-          "est_hours": 4.0
-        }
-      }
-    },
-    {
-      "week_start": "2026-09-28",
-      "by_project": {
-        "fg-collect-core": {
-          "commits": 8,
-          "prs_merged": 1,
-          "additions": 504,
-          "deletions": 151,
-          "active_repos": 1,
-          "est_hours": 6.6
-        },
-        "fg-collect-admin": {
-          "commits": 17,
-          "prs_merged": 2,
-          "additions": 985,
-          "deletions": 235,
-          "active_repos": 1,
-          "est_hours": 13.7
-        },
-        "fg-collect-infra": {
-          "commits": 1,
-          "prs_merged": 0,
-          "additions": 48,
-          "deletions": 24,
-          "active_repos": 1,
-          "est_hours": 0.6
-        },
-        "fg-price-scout": {
-          "commits": 11,
-          "prs_merged": 2,
-          "additions": 1445,
-          "deletions": 477,
-          "active_repos": 1,
-          "est_hours": 11.2
-        },
-        "fg-crypto-portfolio": {
-          "commits": 14,
-          "prs_merged": 2,
-          "additions": 897,
-          "deletions": 461,
-          "active_repos": 1,
-          "est_hours": 12.2
-        },
-        "fg-labs-hub": {
-          "commits": 4,
-          "prs_merged": 0,
-          "additions": 283,
-          "deletions": 75,
-          "active_repos": 1,
-          "est_hours": 2.6
-        },
-        "polyedge": {
-          "commits": 15,
-          "prs_merged": 2,
-          "additions": 2020,
-          "deletions": 1185,
-          "active_repos": 1,
-          "est_hours": 14.8
-        },
-        "polyweather": {
-          "commits": 12,
-          "prs_merged": 1,
-          "additions": 1073,
-          "deletions": 246,
-          "active_repos": 1,
-          "est_hours": 9.6
-        },
-        "polyesports": {
-          "commits": 5,
-          "prs_merged": 0,
-          "additions": 332,
-          "deletions": 156,
-          "active_repos": 1,
-          "est_hours": 3.3
-        },
-        "tcg-cogs-subledger": {
-          "commits": 8,
-          "prs_merged": 1,
-          "additions": 783,
-          "deletions": 184,
-          "active_repos": 1,
-          "est_hours": 7.0
-        },
-        "fgl-watchtower": {
-          "commits": 2,
-          "prs_merged": 0,
-          "additions": 140,
-          "deletions": 34,
-          "active_repos": 1,
-          "est_hours": 1.3
-        }
-      }
-    },
-    {
-      "week_start": "2026-10-05",
-      "by_project": {
-        "fg-collect-core": {
-          "commits": 14,
-          "prs_merged": 2,
-          "additions": 1136,
-          "deletions": 517,
-          "active_repos": 1,
-          "est_hours": 12.5
-        },
-        "fg-collect-admin": {
-          "commits": 24,
-          "prs_merged": 4,
-          "additions": 2618,
-          "deletions": 1017,
-          "active_repos": 1,
-          "est_hours": 23.2
-        },
-        "fg-collect-infra": {
-          "commits": 1,
-          "prs_merged": 0,
-          "additions": 102,
-          "deletions": 46,
-          "active_repos": 1,
-          "est_hours": 0.7
-        },
-        "fg-price-scout": {
-          "commits": 3,
-          "prs_merged": 0,
-          "additions": 267,
-          "deletions": 128,
-          "active_repos": 1,
-          "est_hours": 2.1
-        },
-        "fg-crypto-portfolio": {
-          "commits": 11,
-          "prs_merged": 2,
-          "additions": 533,
-          "deletions": 318,
-          "active_repos": 1,
-          "est_hours": 10.0
-        },
-        "fg-labs-hub": {
-          "commits": 2,
-          "prs_merged": 0,
-          "additions": 134,
-          "deletions": 55,
-          "active_repos": 1,
-          "est_hours": 1.3
-        },
-        "polyedge": {
-          "commits": 15,
-          "prs_merged": 2,
-          "additions": 1667,
-          "deletions": 693,
-          "active_repos": 1,
-          "est_hours": 13.9
-        },
-        "polyweather": {
-          "commits": 18,
-          "prs_merged": 3,
-          "additions": 2052,
-          "deletions": 1137,
-          "active_repos": 1,
-          "est_hours": 17.9
-        },
-        "polyesports": {
-          "commits": 6,
-          "prs_merged": 1,
-          "additions": 805,
-          "deletions": 251,
-          "active_repos": 1,
-          "est_hours": 6.0
-        },
-        "tcg-cogs-subledger": {
-          "commits": 4,
-          "prs_merged": 0,
-          "additions": 262,
-          "deletions": 99,
-          "active_repos": 1,
-          "est_hours": 2.6
-        },
-        "fgl-watchtower": {
-          "commits": 4,
-          "prs_merged": 0,
-          "additions": 319,
-          "deletions": 178,
-          "active_repos": 1,
-          "est_hours": 2.8
-        }
-      }
-    },
-    {
-      "week_start": "2026-10-12",
-      "by_project": {
-        "fg-collect-core": {
-          "commits": 28,
-          "prs_merged": 4,
-          "additions": 1421,
-          "deletions": 441,
-          "active_repos": 1,
-          "est_hours": 23.5
-        },
-        "fg-collect-admin": {
-          "commits": 31,
-          "prs_merged": 4,
-          "additions": 1664,
-          "deletions": 473,
-          "active_repos": 1,
-          "est_hours": 25.4
-        },
-        "fg-collect-infra": {
-          "commits": 5,
-          "prs_merged": 0,
-          "additions": 686,
-          "deletions": 151,
-          "active_repos": 1,
-          "est_hours": 3.7
-        },
-        "fg-price-scout": {
-          "commits": 3,
-          "prs_merged": 0,
-          "additions": 193,
-          "deletions": 102,
-          "active_repos": 1,
-          "est_hours": 2.0
-        },
-        "fg-crypto-portfolio": {
-          "commits": 25,
-          "prs_merged": 4,
-          "additions": 2517,
-          "deletions": 1321,
-          "active_repos": 1,
-          "est_hours": 24.0
-        },
-        "fg-labs-hub": {
-          "commits": 3,
-          "prs_merged": 0,
-          "additions": 304,
-          "deletions": 94,
-          "active_repos": 1,
-          "est_hours": 2.1
-        },
-        "polyedge": {
-          "commits": 30,
-          "prs_merged": 4,
-          "additions": 4164,
-          "deletions": 1732,
-          "active_repos": 1,
-          "est_hours": 29.1
-        },
-        "polyweather": {
-          "commits": 16,
-          "prs_merged": 2,
-          "additions": 920,
-          "deletions": 315,
-          "active_repos": 1,
-          "est_hours": 13.2
-        },
-        "polyesports": {
-          "commits": 9,
-          "prs_merged": 1,
-          "additions": 908,
-          "deletions": 187,
-          "active_repos": 1,
-          "est_hours": 7.7
-        },
-        "tcg-cogs-subledger": {
-          "commits": 9,
-          "prs_merged": 1,
-          "additions": 502,
-          "deletions": 113,
-          "active_repos": 1,
-          "est_hours": 7.1
-        },
-        "fgl-watchtower": {
-          "commits": 5,
-          "prs_merged": 0,
-          "additions": 396,
-          "deletions": 173,
-          "active_repos": 1,
-          "est_hours": 3.4
-        }
-      }
-    },
-    {
-      "week_start": "2026-10-19",
-      "by_project": {
-        "fg-collect-core": {
-          "commits": 17,
-          "prs_merged": 2,
-          "additions": 1939,
-          "deletions": 1092,
-          "active_repos": 1,
-          "est_hours": 15.7
-        },
-        "fg-collect-admin": {
-          "commits": 18,
-          "prs_merged": 3,
-          "additions": 1325,
-          "deletions": 605,
-          "active_repos": 1,
-          "est_hours": 16.5
-        },
-        "fg-collect-infra": {
-          "commits": 16,
-          "prs_merged": 2,
-          "additions": 1367,
-          "deletions": 332,
-          "active_repos": 1,
-          "est_hours": 13.7
-        },
-        "fg-price-scout": {
-          "commits": 11,
-          "prs_merged": 1,
-          "additions": 958,
-          "deletions": 536,
-          "active_repos": 1,
-          "est_hours": 9.2
-        },
-        "fg-crypto-portfolio": {
-          "commits": 12,
-          "prs_merged": 2,
-          "additions": 1251,
-          "deletions": 543,
-          "active_repos": 1,
-          "est_hours": 11.6
-        },
-        "fg-labs-hub": {
-          "commits": 4,
-          "prs_merged": 0,
-          "additions": 324,
-          "deletions": 142,
-          "active_repos": 1,
-          "est_hours": 2.7
-        },
-        "polyedge": {
-          "commits": 17,
-          "prs_merged": 3,
-          "additions": 2045,
-          "deletions": 502,
-          "active_repos": 1,
-          "est_hours": 16.7
-        },
-        "polyweather": {
-          "commits": 21,
-          "prs_merged": 3,
-          "additions": 2696,
-          "deletions": 1133,
-          "active_repos": 1,
-          "est_hours": 20.3
-        },
-        "polyesports": {
-          "commits": 13,
-          "prs_merged": 1,
-          "additions": 1096,
-          "deletions": 581,
-          "active_repos": 1,
-          "est_hours": 10.5
-        },
-        "tcg-cogs-subledger": {
-          "commits": 6,
-          "prs_merged": 1,
-          "additions": 685,
-          "deletions": 222,
-          "active_repos": 1,
-          "est_hours": 5.8
-        },
-        "fgl-watchtower": {
-          "commits": 3,
-          "prs_merged": 0,
-          "additions": 330,
-          "deletions": 128,
-          "active_repos": 1,
-          "est_hours": 2.2
-        }
-      }
-    },
-    {
-      "week_start": "2026-10-26",
-      "by_project": {
-        "fg-collect-core": {
-          "commits": 26,
-          "prs_merged": 6,
-          "additions": 1380,
-          "deletions": 514,
-          "active_repos": 1,
-          "est_hours": 25.4
-        },
-        "fg-collect-admin": {
-          "commits": 17,
-          "prs_merged": 3,
-          "additions": 861,
-          "deletions": 501,
-          "active_repos": 1,
-          "est_hours": 15.4
-        },
-        "fg-collect-infra": {
-          "commits": 3,
-          "prs_merged": 0,
-          "additions": 325,
-          "deletions": 118,
-          "active_repos": 1,
-          "est_hours": 2.1
-        },
-        "fg-price-scout": {
-          "commits": 14,
-          "prs_merged": 2,
-          "additions": 1848,
-          "deletions": 407,
-          "active_repos": 1,
-          "est_hours": 13.2
-        },
-        "fg-crypto-portfolio": {
-          "commits": 5,
-          "prs_merged": 1,
-          "additions": 373,
-          "deletions": 90,
-          "active_repos": 1,
-          "est_hours": 4.8
-        },
-        "fg-labs-hub": {
-          "commits": 2,
-          "prs_merged": 0,
-          "additions": 250,
-          "deletions": 85,
-          "active_repos": 1,
-          "est_hours": 1.5
-        },
-        "polyedge": {
-          "commits": 19,
-          "prs_merged": 3,
-          "additions": 1062,
-          "deletions": 330,
-          "active_repos": 1,
-          "est_hours": 16.5
-        },
-        "polyweather": {
-          "commits": 16,
-          "prs_merged": 2,
-          "additions": 1886,
-          "deletions": 846,
-          "active_repos": 1,
-          "est_hours": 14.8
-        },
-        "polyesports": {
-          "commits": 15,
-          "prs_merged": 2,
-          "additions": 1468,
-          "deletions": 651,
-          "active_repos": 1,
-          "est_hours": 13.6
-        },
-        "tcg-cogs-subledger": {
-          "commits": 6,
-          "prs_merged": 1,
-          "additions": 425,
-          "deletions": 214,
-          "active_repos": 1,
-          "est_hours": 5.5
-        },
-        "fgl-watchtower": {
-          "commits": 1,
-          "prs_merged": 0,
-          "additions": 78,
-          "deletions": 21,
-          "active_repos": 1,
-          "est_hours": 0.7
-        }
-      }
-    },
-    {
-      "week_start": "2026-11-02",
-      "by_project": {
-        "fg-collect-core": {
-          "commits": 28,
-          "prs_merged": 6,
-          "additions": 3230,
-          "deletions": 1901,
-          "active_repos": 1,
-          "est_hours": 30.1
-        },
-        "fg-collect-admin": {
-          "commits": 24,
-          "prs_merged": 5,
-          "additions": 2289,
-          "deletions": 802,
-          "active_repos": 1,
-          "est_hours": 24.1
-        },
-        "fg-collect-infra": {
-          "commits": 5,
-          "prs_merged": 1,
-          "additions": 379,
-          "deletions": 218,
-          "active_repos": 1,
-          "est_hours": 4.9
-        },
-        "fg-price-scout": {
-          "commits": 9,
-          "prs_merged": 1,
-          "additions": 1160,
-          "deletions": 304,
-          "active_repos": 1,
-          "est_hours": 8.1
-        },
-        "fg-crypto-portfolio": {
-          "commits": 13,
-          "prs_merged": 3,
-          "additions": 1132,
-          "deletions": 418,
-          "active_repos": 1,
-          "est_hours": 13.4
-        },
-        "fg-labs-hub": {
-          "commits": 2,
-          "prs_merged": 0,
-          "additions": 168,
-          "deletions": 48,
-          "active_repos": 1,
-          "est_hours": 1.3
-        },
-        "polyedge": {
-          "commits": 13,
-          "prs_merged": 3,
-          "additions": 1422,
-          "deletions": 621,
-          "active_repos": 1,
-          "est_hours": 13.9
-        },
-        "polyweather": {
-          "commits": 15,
-          "prs_merged": 2,
-          "additions": 1114,
-          "deletions": 321,
-          "active_repos": 1,
-          "est_hours": 12.8
-        },
-        "polyesports": {
-          "commits": 12,
-          "prs_merged": 2,
-          "additions": 1617,
-          "deletions": 819,
-          "active_repos": 1,
-          "est_hours": 12.3
-        },
-        "tcg-cogs-subledger": {
-          "commits": 9,
-          "prs_merged": 1,
-          "additions": 652,
-          "deletions": 161,
-          "active_repos": 1,
-          "est_hours": 7.4
-        },
-        "fgl-watchtower": {
-          "commits": 2,
-          "prs_merged": 0,
-          "additions": 191,
-          "deletions": 55,
-          "active_repos": 1,
-          "est_hours": 1.4
-        }
-      }
-    },
-    {
-      "week_start": "2026-11-09",
-      "by_project": {
-        "fg-collect-core": {
-          "commits": 22,
-          "prs_merged": 3,
-          "additions": 2386,
-          "deletions": 815,
-          "active_repos": 1,
-          "est_hours": 20.2
-        },
-        "fg-collect-admin": {
-          "commits": 9,
-          "prs_merged": 1,
-          "additions": 798,
-          "deletions": 184,
-          "active_repos": 1,
-          "est_hours": 7.5
-        },
-        "fg-collect-infra": {
-          "commits": 9,
-          "prs_merged": 1,
-          "additions": 772,
-          "deletions": 279,
-          "active_repos": 1,
-          "est_hours": 7.6
-        },
-        "fg-price-scout": {
-          "commits": 7,
-          "prs_merged": 1,
-          "additions": 957,
-          "deletions": 257,
-          "active_repos": 1,
-          "est_hours": 6.7
-        },
-        "fg-crypto-portfolio": {
-          "commits": 10,
-          "prs_merged": 1,
-          "additions": 887,
-          "deletions": 422,
-          "active_repos": 1,
-          "est_hours": 8.5
-        },
-        "fg-labs-hub": {
-          "commits": 1,
-          "prs_merged": 0,
-          "additions": 86,
-          "deletions": 30,
-          "active_repos": 1,
-          "est_hours": 0.7
-        },
-        "polyedge": {
-          "commits": 25,
-          "prs_merged": 5,
-          "additions": 3192,
-          "deletions": 1590,
-          "active_repos": 1,
-          "est_hours": 26.6
-        },
-        "polyweather": {
-          "commits": 17,
-          "prs_merged": 4,
-          "additions": 1787,
-          "deletions": 736,
-          "active_repos": 1,
-          "est_hours": 18.2
-        },
-        "polyesports": {
-          "commits": 17,
-          "prs_merged": 3,
-          "additions": 2018,
-          "deletions": 687,
-          "active_repos": 1,
-          "est_hours": 16.9
-        },
-        "tcg-cogs-subledger": {
-          "commits": 15,
-          "prs_merged": 3,
-          "additions": 821,
-          "deletions": 248,
-          "active_repos": 1,
-          "est_hours": 13.9
-        },
-        "fgl-watchtower": {
-          "commits": 3,
-          "prs_merged": 0,
-          "additions": 178,
-          "deletions": 89,
-          "active_repos": 1,
-          "est_hours": 1.9
-        }
-      }
-    },
-    {
-      "week_start": "2026-11-16",
-      "by_project": {
-        "fg-collect-core": {
-          "commits": 37,
-          "prs_merged": 6,
-          "additions": 3295,
-          "deletions": 1402,
-          "active_repos": 1,
-          "est_hours": 34.6
-        },
-        "fg-collect-admin": {
-          "commits": 24,
-          "prs_merged": 4,
-          "additions": 2632,
-          "deletions": 1455,
-          "active_repos": 1,
-          "est_hours": 23.7
-        },
-        "fg-collect-infra": {
-          "commits": 1,
-          "prs_merged": 0,
-          "additions": 137,
-          "deletions": 44,
-          "active_repos": 1,
-          "est_hours": 0.8
-        },
-        "fg-price-scout": {
-          "commits": 0,
-          "prs_merged": 0,
-          "additions": 0,
-          "deletions": 0,
-          "active_repos": 0,
-          "est_hours": 0.0
-        },
-        "fg-crypto-portfolio": {
-          "commits": 14,
-          "prs_merged": 2,
-          "additions": 728,
-          "deletions": 280,
-          "active_repos": 1,
-          "est_hours": 11.8
-        },
-        "fg-labs-hub": {
-          "commits": 0,
-          "prs_merged": 0,
-          "additions": 0,
-          "deletions": 0,
-          "active_repos": 0,
-          "est_hours": 0.0
-        },
-        "polyedge": {
-          "commits": 8,
-          "prs_merged": 1,
-          "additions": 811,
-          "deletions": 286,
-          "active_repos": 1,
-          "est_hours": 7.1
-        },
-        "polyweather": {
-          "commits": 4,
-          "prs_merged": 0,
-          "additions": 542,
-          "deletions": 268,
-          "active_repos": 1,
-          "est_hours": 3.1
-        },
-        "polyesports": {
-          "commits": 19,
-          "prs_merged": 3,
-          "additions": 1194,
-          "deletions": 527,
-          "active_repos": 1,
-          "est_hours": 16.9
-        },
-        "tcg-cogs-subledger": {
-          "commits": 11,
-          "prs_merged": 1,
-          "additions": 1495,
-          "deletions": 568,
-          "active_repos": 1,
-          "est_hours": 9.8
-        },
-        "fgl-watchtower": {
-          "commits": 5,
-          "prs_merged": 0,
-          "additions": 265,
+          "additions": 214,
           "deletions": 121,
-          "active_repos": 1,
-          "est_hours": 3.2
+          "claude": 2,
+          "hours": 0.71,
+          "prs": 0
         }
       }
     },
     {
-      "week_start": "2026-11-23",
+      "date": "2026-03-12",
       "by_project": {
-        "fg-collect-core": {
-          "commits": 9,
-          "prs_merged": 2,
-          "additions": 1010,
-          "deletions": 602,
-          "active_repos": 1,
-          "est_hours": 9.7
+        "FG-PolyLabs/cloud-predict-analytics": {
+          "commits": 5,
+          "additions": 77,
+          "deletions": 34,
+          "claude": 0,
+          "hours": 2.78,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-03-13",
+      "by_project": {
+        "FG-PolyLabs/doomsday-predict-analytics": {
+          "commits": 8,
+          "additions": 2081,
+          "deletions": 247,
+          "claude": 0,
+          "hours": 3.69,
+          "prs": 0
         },
-        "fg-collect-admin": {
-          "commits": 9,
-          "prs_merged": 1,
-          "additions": 1189,
-          "deletions": 422,
-          "active_repos": 1,
-          "est_hours": 8.2
+        "FG-PolyLabs/cloud-predict-analytics": {
+          "commits": 1,
+          "additions": 105,
+          "deletions": 5,
+          "claude": 0,
+          "hours": 0.46,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-03-14",
+      "by_project": {
+        "FG-PolyLabs/doomsday-data-backend": {
+          "commits": 1,
+          "additions": 693,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.75,
+          "prs": 0
         },
-        "fg-collect-infra": {
-          "commits": 6,
-          "prs_merged": 0,
-          "additions": 656,
-          "deletions": 144,
-          "active_repos": 1,
-          "est_hours": 4.2
+        "FG-PolyLabs/doomsday-hedging-calculator": {
+          "commits": 1,
+          "additions": 693,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.75,
+          "prs": 0
         },
-        "fg-price-scout": {
-          "commits": 6,
-          "prs_merged": 1,
-          "additions": 588,
-          "deletions": 208,
-          "active_repos": 1,
-          "est_hours": 5.7
-        },
-        "fg-crypto-portfolio": {
-          "commits": 10,
-          "prs_merged": 2,
-          "additions": 1258,
-          "deletions": 736,
-          "active_repos": 1,
-          "est_hours": 10.7
-        },
-        "fg-labs-hub": {
+        "FG-PolyLabs/doomsday-predict-analytics": {
           "commits": 2,
-          "prs_merged": 0,
-          "additions": 216,
-          "deletions": 122,
-          "active_repos": 1,
-          "est_hours": 1.5
+          "additions": 387,
+          "deletions": 35,
+          "claude": 0,
+          "hours": 1.5,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-03-15",
+      "by_project": {
+        "FG-PolyLabs/doomsday-hedging-calculator": {
+          "commits": 3,
+          "additions": 3507,
+          "deletions": 154,
+          "claude": 0,
+          "hours": 1.47,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-03-19",
+      "by_project": {
+        "FG-PolyLabs/cloud-predict-analytics": {
+          "commits": 1,
+          "additions": 30,
+          "deletions": 2,
+          "claude": 0,
+          "hours": 0.5,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-03-20",
+      "by_project": {
+        "FG-PolyLabs/doomsday-predict-analytics": {
+          "commits": 2,
+          "additions": 367,
+          "deletions": 263,
+          "claude": 1,
+          "hours": 0.89,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-03-21",
+      "by_project": {
+        "FG-PolyLabs/cloud-predict-analytics-frontend-admin": {
+          "commits": 2,
+          "additions": 1982,
+          "deletions": 7,
+          "claude": 0,
+          "hours": 0.3,
+          "prs": 0
         },
-        "polyedge": {
+        "FG-PolyLabs/cloud-predict-analytics-data": {
+          "commits": 2,
+          "additions": 1042,
+          "deletions": 81,
+          "claude": 0,
+          "hours": 0.3,
+          "prs": 0
+        },
+        "FG-PolyLabs/doomsday-predict-frontend-admin": {
+          "commits": 2,
+          "additions": 1854,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.3,
+          "prs": 0
+        },
+        "FG-PolyLabs/doomsday-predict-data": {
+          "commits": 2,
+          "additions": 1086,
+          "deletions": 4,
+          "claude": 0,
+          "hours": 0.3,
+          "prs": 0
+        },
+        "FG-PolyLabs/doomsday-predict-analytics": {
+          "commits": 2,
+          "additions": 1183,
+          "deletions": 89,
+          "claude": 1,
+          "hours": 0.3,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics": {
+          "commits": 1,
+          "additions": 1093,
+          "deletions": 200,
+          "claude": 0,
+          "hours": 0.15,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-03-22",
+      "by_project": {
+        "FG-PolyLabs/cloud-predict-analytics-frontend-admin": {
+          "commits": 19,
+          "additions": 1375,
+          "deletions": 344,
+          "claude": 19,
+          "hours": 3.54,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics-data": {
+          "commits": 5,
+          "additions": 176,
+          "deletions": 30,
+          "claude": 5,
+          "hours": 0.93,
+          "prs": 0
+        },
+        "FG-PolyLabs/doomsday-predict-frontend-admin": {
           "commits": 17,
-          "prs_merged": 3,
-          "additions": 1824,
-          "deletions": 847,
-          "active_repos": 1,
-          "est_hours": 16.8
+          "additions": 1100,
+          "deletions": 173,
+          "claude": 17,
+          "hours": 3.17,
+          "prs": 0
         },
-        "polyweather": {
-          "commits": 21,
-          "prs_merged": 4,
-          "additions": 2060,
-          "deletions": 942,
-          "active_repos": 1,
-          "est_hours": 20.9
+        "FG-PolyLabs/doomsday-predict-analytics": {
+          "commits": 7,
+          "additions": 354,
+          "deletions": 38,
+          "claude": 7,
+          "hours": 1.3,
+          "prs": 0
         },
-        "polyesports": {
-          "commits": 15,
-          "prs_merged": 3,
-          "additions": 857,
-          "deletions": 412,
-          "active_repos": 1,
-          "est_hours": 14.2
+        "FG-PolyLabs/doomsday-predict-data": {
+          "commits": 3,
+          "additions": 97,
+          "deletions": 56,
+          "claude": 2,
+          "hours": 0.56,
+          "prs": 0
         },
-        "tcg-cogs-subledger": {
-          "commits": 21,
-          "prs_merged": 3,
-          "additions": 1131,
-          "deletions": 529,
-          "active_repos": 1,
-          "est_hours": 17.9
-        },
-        "fgl-watchtower": {
+        "FG-PolyLabs/cloud-predict-analytics": {
+          "commits": 13,
+          "additions": 1276,
+          "deletions": 411,
+          "claude": 13,
+          "hours": 2.42,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-03-23",
+      "by_project": {
+        "FG-PolyLabs/doomsday-predict-frontend-admin": {
           "commits": 4,
-          "prs_merged": 0,
-          "additions": 186,
+          "additions": 391,
+          "deletions": 232,
+          "claude": 4,
+          "hours": 1.37,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics-frontend-admin": {
+          "commits": 4,
+          "additions": 231,
+          "deletions": 23,
+          "claude": 4,
+          "hours": 1.37,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics": {
+          "commits": 5,
+          "additions": 104,
+          "deletions": 28,
+          "claude": 5,
+          "hours": 1.77,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics-data": {
+          "commits": 1,
+          "additions": 30,
+          "deletions": 21,
+          "claude": 1,
+          "hours": 0.19,
+          "prs": 0
+        },
+        "FG-PolyLabs/doomsday-predict-data": {
+          "commits": 3,
+          "additions": 37,
+          "deletions": 238,
+          "claude": 2,
+          "hours": 0.98,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-03-24",
+      "by_project": {
+        "FG-PolyLabs/doomsday-predict-frontend-admin": {
+          "commits": 10,
+          "additions": 958,
+          "deletions": 144,
+          "claude": 10,
+          "hours": 3.73,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics-frontend-admin": {
+          "commits": 4,
+          "additions": 483,
+          "deletions": 37,
+          "claude": 4,
+          "hours": 1.48,
+          "prs": 0
+        },
+        "FG-PolyLabs/doomsday-predict-frontend": {
+          "commits": 2,
+          "additions": 666,
+          "deletions": 1,
+          "claude": 2,
+          "hours": 0.74,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-03-28",
+      "by_project": {
+        "FG-PolyLabs/doomsday-predict-frontend-admin": {
+          "commits": 5,
+          "additions": 553,
+          "deletions": 41,
+          "claude": 5,
+          "hours": 2.86,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics": {
+          "commits": 5,
+          "additions": 446,
+          "deletions": 18,
+          "claude": 3,
+          "hours": 3.1,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics-frontend-admin": {
+          "commits": 2,
+          "additions": 311,
+          "deletions": 125,
+          "claude": 2,
+          "hours": 1.18,
+          "prs": 0
+        },
+        "FG-PolyLabs/doomsday-predict-analytics": {
+          "commits": 1,
+          "additions": 219,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.44,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-03-29",
+      "by_project": {
+        "FG-PolyLabs/cloud-predict-analytics": {
+          "commits": 4,
+          "additions": 210,
+          "deletions": 10,
+          "claude": 1,
+          "hours": 1.75,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics-frontend-admin": {
+          "commits": 1,
+          "additions": 359,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.25,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-03-30",
+      "by_project": {
+        "FG-PolyLabs/cloud-predict-analytics": {
+          "commits": 1,
+          "additions": 361,
+          "deletions": 74,
+          "claude": 1,
+          "hours": 0.39,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics-frontend-admin": {
+          "commits": 6,
+          "additions": 658,
+          "deletions": 117,
+          "claude": 6,
+          "hours": 2.34,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics-market-edge": {
+          "commits": 3,
+          "additions": 907,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 1.17,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-03-31",
+      "by_project": {
+        "FG-PolyLabs/cloud-predict-analytics-market-edge": {
+          "commits": 7,
+          "additions": 236,
+          "deletions": 107,
+          "claude": 4,
+          "hours": 1.95,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics": {
+          "commits": 2,
+          "additions": 1074,
+          "deletions": 9,
+          "claude": 2,
+          "hours": 0.48,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-04-01",
+      "by_project": {
+        "FG-PolyLabs/cloud-predict-analytics-market-edge": {
+          "commits": 9,
+          "additions": 220,
+          "deletions": 71,
+          "claude": 2,
+          "hours": 1.99,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics-frontend-admin": {
+          "commits": 5,
+          "additions": 465,
+          "deletions": 160,
+          "claude": 5,
+          "hours": 2.0,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-04-02",
+      "by_project": {
+        "FG-PolyLabs/cloud-predict-analytics": {
+          "commits": 10,
+          "additions": 3348,
+          "deletions": 199,
+          "claude": 10,
+          "hours": 3.05,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics-market-edge": {
+          "commits": 8,
+          "additions": 665,
+          "deletions": 171,
+          "claude": 8,
+          "hours": 2.81,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics-frontend-admin": {
+          "commits": 5,
+          "additions": 2429,
+          "deletions": 18,
+          "claude": 5,
+          "hours": 1.48,
+          "prs": 0
+        },
+        "FG-PolyLabs/doge-predict-frontend-admin": {
+          "commits": 1,
+          "additions": 1764,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.28,
+          "prs": 0
+        },
+        "FG-PolyLabs/doge-predict-frontend-public": {
+          "commits": 1,
+          "additions": 224,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.28,
+          "prs": 0
+        },
+        "FG-PolyLabs/doge-predict-backend": {
+          "commits": 1,
+          "additions": 474,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.28,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-04-03",
+      "by_project": {
+        "FG-PolyLabs/cloud-predict-analytics-frontend-admin": {
+          "commits": 6,
+          "additions": 2311,
+          "deletions": 38,
+          "claude": 5,
+          "hours": 1.88,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics-market-edge": {
+          "commits": 7,
+          "additions": 334,
+          "deletions": 23,
+          "claude": 6,
+          "hours": 2.2,
+          "prs": 0
+        },
+        "FG-PolyLabs/doge-predict-frontend-admin": {
+          "commits": 5,
+          "additions": 1781,
+          "deletions": 229,
+          "claude": 5,
+          "hours": 1.41,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics": {
+          "commits": 8,
+          "additions": 4199,
+          "deletions": 56,
+          "claude": 8,
+          "hours": 2.04,
+          "prs": 0
+        },
+        "FG-PolyLabs/doge-predict-backend": {
+          "commits": 8,
+          "additions": 2245,
+          "deletions": 183,
+          "claude": 8,
+          "hours": 2.23,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-04-04",
+      "by_project": {
+        "FG-PolyLabs/cloud-predict-analytics-frontend-admin": {
+          "commits": 8,
+          "additions": 711,
+          "deletions": 79,
+          "claude": 8,
+          "hours": 1.62,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics-market-edge": {
+          "commits": 10,
+          "additions": 1027,
+          "deletions": 191,
+          "claude": 10,
+          "hours": 2.44,
+          "prs": 0
+        },
+        "FG-PolyLabs/doge-predict-backend": {
+          "commits": 11,
+          "additions": 1431,
+          "deletions": 511,
+          "claude": 11,
+          "hours": 2.5,
+          "prs": 0
+        },
+        "FG-PolyLabs/doge-predict-frontend-admin": {
+          "commits": 5,
+          "additions": 543,
+          "deletions": 379,
+          "claude": 5,
+          "hours": 1.11,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics": {
+          "commits": 9,
+          "additions": 1587,
+          "deletions": 66,
+          "claude": 9,
+          "hours": 2.0,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-04-05",
+      "by_project": {
+        "FG-PolyLabs/doge-predict-frontend-admin": {
+          "commits": 13,
+          "additions": 1293,
+          "deletions": 608,
+          "claude": 13,
+          "hours": 4.79,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics": {
+          "commits": 3,
+          "additions": 164,
+          "deletions": 7,
+          "claude": 3,
+          "hours": 0.76,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics-market-edge": {
+          "commits": 7,
+          "additions": 536,
+          "deletions": 77,
+          "claude": 7,
+          "hours": 1.62,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics-frontend-admin": {
+          "commits": 1,
+          "additions": 9,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.27,
+          "prs": 0
+        },
+        "FG-PolyLabs/doge-predict-backend": {
+          "commits": 12,
+          "additions": 932,
+          "deletions": 418,
+          "claude": 12,
+          "hours": 4.87,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-04-06",
+      "by_project": {
+        "FG-PolyLabs/doge-predict-frontend-admin": {
+          "commits": 6,
+          "additions": 162,
+          "deletions": 23,
+          "claude": 6,
+          "hours": 1.87,
+          "prs": 0
+        },
+        "FG-PolyLabs/doge-predict-backend": {
+          "commits": 5,
+          "additions": 699,
+          "deletions": 9,
+          "claude": 5,
+          "hours": 1.34,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-04-13",
+      "by_project": {
+        "FG-PolyLabs/market-maker-backend": {
+          "commits": 1,
+          "additions": 708,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.5,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-04-23",
+      "by_project": {
+        "FG-CollectShop/fg-collect-storefront": {
+          "commits": 2,
+          "additions": 54,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.11,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 2,
+          "additions": 72,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.11,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 2,
+          "additions": 65,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.11,
+          "prs": 0
+        },
+        "FG-CryptHub/fg-crypt-dashboard": {
+          "commits": 3,
+          "additions": 61,
+          "deletions": 7,
+          "claude": 0,
+          "hours": 0.17,
+          "prs": 0
+        },
+        "FG-CryptHub/fg-crypt-core": {
+          "commits": 3,
+          "additions": 77,
+          "deletions": 12,
+          "claude": 0,
+          "hours": 0.17,
+          "prs": 0
+        },
+        "FG-CryptHub/fg-crypt-ingest": {
+          "commits": 3,
+          "additions": 82,
+          "deletions": 8,
+          "claude": 0,
+          "hours": 0.17,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 1,
+          "additions": 48,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.06,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-04-24",
+      "by_project": {
+        "FG-GameJam/2LaneRoguelike": {
+          "commits": 1,
+          "additions": 691,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.27,
+          "prs": 0
+        },
+        "FG-CryptHub/fg-crypt-core": {
+          "commits": 1,
+          "additions": 1584,
+          "deletions": 15,
+          "claude": 1,
+          "hours": 0.27,
+          "prs": 0
+        },
+        "FG-CryptHub/fg-crypt-ingest": {
+          "commits": 1,
+          "additions": 1069,
+          "deletions": 21,
+          "claude": 1,
+          "hours": 0.27,
+          "prs": 0
+        },
+        "FG-CryptHub/fg-crypt-dashboard": {
+          "commits": 1,
+          "additions": 1217,
+          "deletions": 10,
+          "claude": 1,
+          "hours": 0.27,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-storefront": {
+          "commits": 2,
+          "additions": 1198,
+          "deletions": 1,
+          "claude": 2,
+          "hours": 0.54,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 2,
+          "additions": 2515,
+          "deletions": 17,
+          "claude": 2,
+          "hours": 0.54,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 1,
+          "additions": 1160,
+          "deletions": 8,
+          "claude": 1,
+          "hours": 0.27,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-04-25",
+      "by_project": {
+        "FG-CryptHub/fg-crypt-dashboard": {
+          "commits": 1,
+          "additions": 4,
+          "deletions": 4,
+          "claude": 1,
+          "hours": 0.5,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-storefront": {
+          "commits": 1,
+          "additions": 85,
+          "deletions": 6,
+          "claude": 1,
+          "hours": 0.15,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 4,
+          "additions": 1423,
+          "deletions": 35,
+          "claude": 4,
+          "hours": 0.9,
+          "prs": 0
+        },
+        "FG-GameJam/2LaneRoguelike": {
+          "commits": 7,
+          "additions": 2155,
+          "deletions": 88,
+          "claude": 7,
+          "hours": 1.94,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 2,
+          "additions": 5763,
+          "deletions": 44,
+          "claude": 2,
+          "hours": 0.6,
+          "prs": 0
+        },
+        "FG-CryptHub/fg-crypt-core": {
+          "commits": 1,
+          "additions": 15,
+          "deletions": 6,
+          "claude": 1,
+          "hours": 0.44,
+          "prs": 0
+        },
+        "FG-CryptHub/fg-crypt-ingest": {
+          "commits": 2,
+          "additions": 359,
+          "deletions": 613,
+          "claude": 2,
+          "hours": 0.89,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 1,
+          "additions": 1525,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.44,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-04-26",
+      "by_project": {
+        "FG-GameJam/2LaneRoguelike": {
+          "commits": 14,
+          "additions": 1804,
+          "deletions": 385,
+          "claude": 14,
+          "hours": 6.35,
+          "prs": 0
+        },
+        "FG-CryptHub/fg-crypt-dashboard": {
+          "commits": 1,
+          "additions": 2,
+          "deletions": 2,
+          "claude": 1,
+          "hours": 0.44,
+          "prs": 0
+        },
+        "FG-CryptHub/fg-crypt-core": {
+          "commits": 1,
+          "additions": 53,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.44,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-storefront": {
+          "commits": 1,
+          "additions": 2,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.31,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 1,
+          "additions": 1,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.31,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 1,
+          "additions": 36,
+          "deletions": 8,
+          "claude": 1,
+          "hours": 0.34,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 1,
+          "additions": 63,
+          "deletions": 36,
+          "claude": 1,
+          "hours": 0.34,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-01",
+      "by_project": {
+        "FG-CollectLabs/.github": {
+          "commits": 1,
+          "additions": 68,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.35,
+          "prs": 0
+        },
+        "FG-CollectLabs/sellthrough-analyzer": {
+          "commits": 14,
+          "additions": 4665,
+          "deletions": 481,
+          "claude": 14,
+          "hours": 6.02,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-02",
+      "by_project": {
+        "FG-CollectLabs/slab-cracker-frontend": {
+          "commits": 3,
+          "additions": 3024,
+          "deletions": 1,
+          "claude": 3,
+          "hours": 0.64,
+          "prs": 0
+        },
+        "FG-CollectLabs/slab-cracker-extension": {
+          "commits": 1,
+          "additions": 1725,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.17,
+          "prs": 0
+        },
+        "FG-CollectLabs/.github": {
+          "commits": 1,
+          "additions": 2,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.3,
+          "prs": 0
+        },
+        "FG-CollectLabs/card-identifier-backend": {
+          "commits": 1,
+          "additions": 1929,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.53,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-03",
+      "by_project": {
+        "FG-CollectLabs/card-identifier-backend": {
+          "commits": 1,
+          "additions": 87,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.53,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 1,
+          "additions": 4742,
+          "deletions": 3,
+          "claude": 1,
+          "hours": 0.23,
+          "prs": 0
+        },
+        "FG-CollectLabs/card-identifier-frontend": {
+          "commits": 2,
+          "additions": 1970,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.46,
+          "prs": 0
+        },
+        "FG-CollectLabs/.github": {
+          "commits": 2,
+          "additions": 43,
+          "deletions": 15,
+          "claude": 1,
+          "hours": 0.46,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-storefront": {
+          "commits": 2,
+          "additions": 14,
+          "deletions": 37,
+          "claude": 2,
+          "hours": 0.46,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 1,
+          "additions": 16,
+          "deletions": 42,
+          "claude": 1,
+          "hours": 0.23,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-09",
+      "by_project": {
+        "FG-CollectLabs/youtube-content": {
+          "commits": 3,
+          "additions": 1035,
+          "deletions": 366,
+          "claude": 3,
+          "hours": 0.43,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 4,
+          "additions": 5091,
+          "deletions": 14,
+          "claude": 3,
+          "hours": 0.58,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-10",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 11,
+          "additions": 4117,
+          "deletions": 397,
+          "claude": 11,
+          "hours": 4.87,
+          "prs": 0
+        },
+        "FG-CollectLabs/.github": {
+          "commits": 2,
+          "additions": 726,
+          "deletions": 3,
+          "claude": 2,
+          "hours": 0.91,
+          "prs": 0
+        },
+        "FG-CollectLabs/ws-set-analysis": {
+          "commits": 6,
+          "additions": 11270,
+          "deletions": 244,
+          "claude": 6,
+          "hours": 3.23,
+          "prs": 0
+        },
+        "FG-CollectLabs/fg-image-host": {
+          "commits": 3,
+          "additions": 856,
+          "deletions": 29,
+          "claude": 3,
+          "hours": 1.74,
+          "prs": 0
+        },
+        "FG-CollectLabs/ev-calculator": {
+          "commits": 2,
+          "additions": 5039,
+          "deletions": 2,
+          "claude": 2,
+          "hours": 1.16,
+          "prs": 0
+        },
+        "FG-CollectLabs/fg-collectlabs.github.io": {
+          "commits": 2,
+          "additions": 924,
+          "deletions": 2,
+          "claude": 0,
+          "hours": 1.16,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-12",
+      "by_project": {
+        "FG-CollectLabs/ev-calculator": {
+          "commits": 3,
+          "additions": 281,
+          "deletions": 1107,
+          "claude": 3,
+          "hours": 1.46,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-16",
+      "by_project": {
+        "FG-CollectLabs/ev-calculator": {
+          "commits": 4,
+          "additions": 5225,
+          "deletions": 200,
+          "claude": 4,
+          "hours": 2.33,
+          "prs": 0
+        },
+        "FG-CollectLabs/.github": {
+          "commits": 1,
+          "additions": 2839,
+          "deletions": 13,
+          "claude": 1,
+          "hours": 0.63,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-17",
+      "by_project": {
+        "FG-CollectLabs/card-inventory-backend": {
+          "commits": 1,
+          "additions": 3100,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.43,
+          "prs": 0
+        },
+        "FG-CollectLabs/card-inventory-frontend": {
+          "commits": 2,
+          "additions": 5006,
+          "deletions": 5000,
+          "claude": 0,
+          "hours": 0.86,
+          "prs": 0
+        },
+        "FG-CollectLabs/ev-calculator": {
+          "commits": 8,
+          "additions": 963,
+          "deletions": 677,
+          "claude": 8,
+          "hours": 3.44,
+          "prs": 0
+        },
+        "FG-CollectLabs/.github": {
+          "commits": 6,
+          "additions": 413,
+          "deletions": 243,
+          "claude": 5,
+          "hours": 2.58,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-18",
+      "by_project": {
+        "FG-CollectLabs/ev-calculator": {
+          "commits": 9,
+          "additions": 6278,
+          "deletions": 5702,
+          "claude": 9,
+          "hours": 3.49,
+          "prs": 0
+        },
+        "FG-CollectLabs/.github": {
+          "commits": 7,
+          "additions": 531,
+          "deletions": 129,
+          "claude": 7,
+          "hours": 2.0,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 10,
+          "additions": 695,
+          "deletions": 336,
+          "claude": 10,
+          "hours": 3.52,
+          "prs": 0
+        },
+        "FG-CollectLabs/tcgplayer-repricer": {
+          "commits": 1,
+          "additions": 3677,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.43,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-19",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 1,
+          "additions": 1,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.47,
+          "prs": 0
+        },
+        "FG-CollectLabs/ev-calculator": {
+          "commits": 6,
+          "additions": 168,
+          "deletions": 28,
+          "claude": 6,
+          "hours": 1.89,
+          "prs": 0
+        },
+        "FG-CollectLabs/.github": {
+          "commits": 8,
+          "additions": 1787,
+          "deletions": 117,
+          "claude": 8,
+          "hours": 1.88,
+          "prs": 0
+        },
+        "FG-CollectLabs/slab-cracker-backend": {
+          "commits": 3,
+          "additions": 927,
+          "deletions": 0,
+          "claude": 2,
+          "hours": 0.7,
+          "prs": 0
+        },
+        "FG-CollectLabs/slab-cracker-extension": {
+          "commits": 1,
+          "additions": 228,
+          "deletions": 8,
+          "claude": 1,
+          "hours": 0.23,
+          "prs": 0
+        },
+        "FG-CollectLabs/slab-cracker-frontend": {
+          "commits": 2,
+          "additions": 523,
+          "deletions": 8,
+          "claude": 2,
+          "hours": 0.47,
+          "prs": 0
+        },
+        "FG-CollectLabs/card-identifier-backend": {
+          "commits": 2,
+          "additions": 1053,
+          "deletions": 86,
+          "claude": 2,
+          "hours": 0.75,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-20",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 11,
+          "additions": 1607,
+          "deletions": 51,
+          "claude": 11,
+          "hours": 4.3,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 7,
+          "additions": 5255,
+          "deletions": 136,
+          "claude": 5,
+          "hours": 2.82,
+          "prs": 0
+        },
+        "FG-CollectLabs/binder-planner": {
+          "commits": 5,
+          "additions": 5271,
+          "deletions": 55,
+          "claude": 5,
+          "hours": 1.52,
+          "prs": 0
+        },
+        "FG-CollectLabs/sellthrough-analyzer": {
+          "commits": 4,
+          "additions": 1845,
+          "deletions": 72,
+          "claude": 4,
+          "hours": 1.14,
+          "prs": 0
+        },
+        "FG-CollectLabs/binder-companion": {
+          "commits": 1,
+          "additions": 1560,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.19,
+          "prs": 0
+        },
+        "FG-CollectLabs/.github": {
+          "commits": 2,
+          "additions": 54,
+          "deletions": 28,
+          "claude": 2,
+          "hours": 1.16,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-21",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 3,
+          "additions": 333,
+          "deletions": 137,
+          "claude": 3,
+          "hours": 1.12,
+          "prs": 0
+        },
+        "FG-CollectLabs/binder-planner": {
+          "commits": 4,
+          "additions": 237,
+          "deletions": 20,
+          "claude": 4,
+          "hours": 1.28,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 3,
+          "additions": 49,
+          "deletions": 13,
+          "claude": 3,
+          "hours": 0.93,
+          "prs": 0
+        },
+        "FG-CollectLabs/.github": {
+          "commits": 1,
+          "additions": 16,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.23,
+          "prs": 0
+        },
+        "FG-CollectLabs/sellthrough-analyzer": {
+          "commits": 3,
+          "additions": 354,
+          "deletions": 100,
+          "claude": 3,
+          "hours": 0.89,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-22",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 3,
+          "additions": 217,
+          "deletions": 35,
+          "claude": 3,
+          "hours": 0.62,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 2,
+          "additions": 299,
+          "deletions": 63,
+          "claude": 2,
+          "hours": 0.21,
+          "prs": 0
+        },
+        "FG-CollectLabs/ev-calculator": {
+          "commits": 1,
+          "additions": 4,
+          "deletions": 4,
+          "claude": 0,
+          "hours": 0.11,
+          "prs": 0
+        },
+        "FG-CollectLabs/sellthrough-analyzer": {
+          "commits": 4,
+          "additions": 549,
+          "deletions": 112,
+          "claude": 4,
+          "hours": 1.03,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-23",
+      "by_project": {
+        "FG-CollectLabs/ev-calculator": {
+          "commits": 2,
+          "additions": 961,
+          "deletions": 112,
+          "claude": 0,
+          "hours": 0.57,
+          "prs": 0
+        },
+        "FG-CryptoLabs/pendle-analyzer": {
+          "commits": 8,
+          "additions": 3713,
+          "deletions": 38,
+          "claude": 1,
+          "hours": 1.54,
+          "prs": 0
+        },
+        "FG-CryptoLabs/fg-labs-hub": {
+          "commits": 1,
+          "additions": 959,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.07,
+          "prs": 0
+        },
+        "FG-CryptoLabs/.github": {
+          "commits": 1,
+          "additions": 63,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.07,
+          "prs": 0
+        },
+        "FG-CollectLabs/graded-lister": {
+          "commits": 5,
+          "additions": 6538,
+          "deletions": 3302,
+          "claude": 5,
+          "hours": 2.03,
+          "prs": 0
+        },
+        "FG-CollectLabs/graded-lister-backend": {
+          "commits": 5,
+          "additions": 2261,
+          "deletions": 7,
+          "claude": 5,
+          "hours": 1.78,
+          "prs": 0
+        },
+        "FG-CollectLabs/.github": {
+          "commits": 2,
+          "additions": 599,
+          "deletions": 96,
+          "claude": 2,
+          "hours": 0.61,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 2,
+          "additions": 762,
+          "deletions": 0,
+          "claude": 2,
+          "hours": 0.61,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-24",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 3,
+          "additions": 16,
+          "deletions": 11,
+          "claude": 3,
+          "hours": 0.92,
+          "prs": 0
+        },
+        "FG-CollectLabs/ev-calculator": {
+          "commits": 1,
+          "additions": 76,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.31,
+          "prs": 0
+        },
+        "FG-CollectLabs/graded-lister": {
+          "commits": 1,
+          "additions": 42,
+          "deletions": 21,
+          "claude": 1,
+          "hours": 0.5,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-25",
+      "by_project": {
+        "FG-CryptoLabs/pendle-analyzer": {
+          "commits": 1,
+          "additions": 359,
+          "deletions": 3,
+          "claude": 1,
+          "hours": 0.5,
+          "prs": 0
+        },
+        "FG-PolyLabs/market-maker-backend": {
+          "commits": 1,
+          "additions": 3242,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.34,
+          "prs": 0
+        },
+        "FG-PolyLabs/fg-polylabs-infra": {
+          "commits": 1,
+          "additions": 292,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.34,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-core": {
+          "commits": 5,
+          "additions": 2722,
+          "deletions": 4,
+          "claude": 5,
+          "hours": 1.75,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-mcp": {
+          "commits": 1,
+          "additions": 2095,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.34,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics-market-edge": {
+          "commits": 5,
+          "additions": 1058,
+          "deletions": 19,
+          "claude": 4,
+          "hours": 1.81,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics": {
+          "commits": 2,
+          "additions": 647,
+          "deletions": 3,
+          "claude": 2,
+          "hours": 0.69,
+          "prs": 0
+        },
+        "FG-CollectLabs/box-break-app": {
+          "commits": 17,
+          "additions": 4311,
+          "deletions": 1349,
+          "claude": 17,
+          "hours": 6.13,
+          "prs": 0
+        },
+        "FG-CollectLabs/.github": {
+          "commits": 2,
+          "additions": 107,
+          "deletions": 4,
+          "claude": 2,
+          "hours": 0.69,
+          "prs": 0
+        },
+        "FG-PersonalCashFlow/fg-cash-flow": {
+          "commits": 1,
+          "additions": 5000,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.37,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-26",
+      "by_project": {
+        "FG-PersonalCashFlow/fg-cash-flow": {
+          "commits": 6,
+          "additions": 287,
+          "deletions": 52,
+          "claude": 4,
+          "hours": 1.65,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics-market-edge": {
+          "commits": 2,
+          "additions": 77,
+          "deletions": 405,
+          "claude": 2,
+          "hours": 0.6,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-analytics": {
+          "commits": 2,
+          "additions": 50,
+          "deletions": 14,
+          "claude": 2,
+          "hours": 0.6,
+          "prs": 0
+        },
+        "FG-CollectLabs/box-break-app": {
+          "commits": 3,
+          "additions": 24,
+          "deletions": 5,
+          "claude": 3,
+          "hours": 0.83,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-core": {
+          "commits": 10,
+          "additions": 3178,
+          "deletions": 118,
+          "claude": 10,
+          "hours": 2.27,
+          "prs": 0
+        },
+        "FG-PolyLabs/cloud-predict-mcp": {
+          "commits": 3,
+          "additions": 72,
+          "deletions": 0,
+          "claude": 3,
+          "hours": 0.68,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-28",
+      "by_project": {
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 2,
+          "additions": 1392,
+          "deletions": 45,
+          "claude": 1,
+          "hours": 0.25,
+          "prs": 0
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 5,
+          "additions": 5599,
+          "deletions": 5113,
+          "claude": 2,
+          "hours": 0.66,
+          "prs": 0
+        },
+        "FG-CollectLabs/.github": {
+          "commits": 3,
+          "additions": 296,
+          "deletions": 5,
+          "claude": 2,
+          "hours": 0.79,
+          "prs": 0
+        },
+        "FG-CollectLabs/box-break-app": {
+          "commits": 4,
+          "additions": 38,
+          "deletions": 16,
+          "claude": 4,
+          "hours": 0.8,
+          "prs": 0
+        },
+        "FG-CollectLabs/card-identifier-backend": {
+          "commits": 1,
+          "additions": 176,
+          "deletions": 54,
+          "claude": 1,
+          "hours": 0.1,
+          "prs": 0
+        },
+        "FG-CollectLabs/ev-calculator": {
+          "commits": 1,
+          "additions": 24,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.1,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 3,
+          "additions": 352,
+          "deletions": 25,
+          "claude": 3,
+          "hours": 0.5,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 2,
+          "additions": 81,
+          "deletions": 2,
+          "claude": 2,
+          "hours": 0.37,
+          "prs": 0
+        },
+        "FG-CollectLabs/graded-lister": {
+          "commits": 1,
+          "additions": 2,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.14,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-29",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 2,
+          "additions": 424,
+          "deletions": 23,
+          "claude": 2,
+          "hours": 0.5,
+          "prs": 0
+        },
+        "FG-CollectLabs/box-break-app": {
+          "commits": 5,
+          "additions": 543,
+          "deletions": 63,
+          "claude": 5,
+          "hours": 1.24,
+          "prs": 0
+        },
+        "FG-CollectLabs/ev-calculator": {
+          "commits": 4,
+          "additions": 5718,
+          "deletions": 826,
+          "claude": 4,
+          "hours": 1.19,
+          "prs": 0
+        },
+        "FG-CollectLabs/card-identifier-backend": {
+          "commits": 1,
+          "additions": 68,
+          "deletions": 20,
+          "claude": 1,
+          "hours": 0.17,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 1,
+          "additions": 73,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.17,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-30",
+      "by_project": {
+        "FG-CollectLabs/bulk-lot-analyzer": {
+          "commits": 3,
+          "additions": 6059,
+          "deletions": 20,
+          "claude": 0,
+          "hours": 1.2,
+          "prs": 0
+        },
+        "FG-CollectLabs/.github": {
+          "commits": 1,
+          "additions": 95,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.33,
+          "prs": 0
+        },
+        "FG-CollectLabs/box-break-app": {
+          "commits": 4,
+          "additions": 632,
+          "deletions": 245,
+          "claude": 4,
+          "hours": 1.37,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 1,
+          "additions": 984,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.35,
+          "prs": 0
+        },
+        "FG-CollectLabs/ev-calculator": {
+          "commits": 21,
+          "additions": 909,
+          "deletions": 415,
+          "claude": 19,
+          "hours": 7.31,
+          "prs": 0
+        },
+        "FG-CollectLabs/tcg-shipping-labels": {
+          "commits": 5,
+          "additions": 3645,
+          "deletions": 40,
+          "claude": 0,
+          "hours": 1.74,
+          "prs": 0
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 2,
+          "additions": 613,
+          "deletions": 146,
+          "claude": 2,
+          "hours": 0.7,
+          "prs": 0
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 1,
+          "additions": 57,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.35,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-05-31",
+      "by_project": {
+        "FG-CollectLabs/ev-calculator": {
+          "commits": 17,
+          "additions": 7042,
+          "deletions": 125,
+          "claude": 16,
+          "hours": 3.87,
+          "prs": 0
+        },
+        "FG-CollectLabs/.github": {
+          "commits": 1,
+          "additions": 18,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.14,
+          "prs": 0
+        },
+        "FG-CollectLabs/fg-collectlabs.github.io": {
+          "commits": 1,
+          "additions": 18,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.14,
+          "prs": 0
+        },
+        "FG-CollectLabs/box-break-app": {
+          "commits": 15,
+          "additions": 1026,
+          "deletions": 512,
+          "claude": 12,
+          "hours": 3.83,
+          "prs": 0
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 11,
+          "additions": 2922,
+          "deletions": 1329,
+          "claude": 10,
+          "hours": 2.56,
+          "prs": 0
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 9,
+          "additions": 462,
+          "deletions": 79,
+          "claude": 9,
+          "hours": 2.28,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-06-01",
+      "by_project": {
+        "FG-CollectLabs/box-break-app": {
+          "commits": 3,
+          "additions": 208,
+          "deletions": 152,
+          "claude": 3,
+          "hours": 1.04,
+          "prs": 0
+        },
+        "FG-CollectLabs/ev-calculator": {
+          "commits": 1,
+          "additions": 8,
+          "deletions": 6,
+          "claude": 1,
+          "hours": 0.5,
+          "prs": 0
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 2,
+          "additions": 7,
+          "deletions": 0,
+          "claude": 2,
+          "hours": 0.66,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-06-05",
+      "by_project": {
+        "FG-InvestmentLabs/options-copilot": {
+          "commits": 1,
+          "additions": 989,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.5,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-06-07",
+      "by_project": {
+        "FG-CollectLabs/pack-price-finder": {
+          "commits": 1,
+          "additions": 4083,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.5,
+          "prs": 0
+        },
+        "FG-CollectLabs/.github": {
+          "commits": 1,
+          "additions": 3,
+          "deletions": 2,
+          "claude": 1,
+          "hours": 0.5,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-06-10",
+      "by_project": {
+        "FG-CollectLabs/box-break-app": {
+          "commits": 1,
+          "additions": 1335,
+          "deletions": 66,
+          "claude": 0,
+          "hours": 0.5,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-06-13",
+      "by_project": {
+        "FG-CollectLabs/.github": {
+          "commits": 2,
+          "additions": 1024,
+          "deletions": 38,
+          "claude": 1,
+          "hours": 0.76,
+          "prs": 0
+        },
+        "FG-CollectLabs/platform-listing-tool": {
+          "commits": 2,
+          "additions": 5001,
+          "deletions": 1,
+          "claude": 0,
+          "hours": 1.93,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-06-14",
+      "by_project": {
+        "FG-CollectLabs/platform-listing-tool": {
+          "commits": 11,
+          "additions": 582,
+          "deletions": 297,
+          "claude": 9,
+          "hours": 5.25,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 2,
+          "additions": 148,
+          "deletions": 44,
+          "claude": 1,
+          "hours": 0.76,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 1,
+          "additions": 16,
+          "deletions": 5,
+          "claude": 0,
+          "hours": 0.38,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-06-15",
+      "by_project": {
+        "FG-CollectLabs/platform-listing-tool": {
+          "commits": 1,
+          "additions": 83,
+          "deletions": 8,
+          "claude": 1,
+          "hours": 0.5,
+          "prs": 0
+        },
+        "FG-CollectLabs/card-identifier-frontend": {
+          "commits": 1,
+          "additions": 680,
+          "deletions": 58,
+          "claude": 1,
+          "hours": 0.5,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-06-16",
+      "by_project": {
+        "FG-CollectLabs/platform-listing-tool": {
+          "commits": 2,
+          "additions": 165,
+          "deletions": 43,
+          "claude": 2,
+          "hours": 1.14,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-06-18",
+      "by_project": {
+        "FG-CollectLabs/platform-listing-tool": {
+          "commits": 9,
+          "additions": 1415,
+          "deletions": 368,
+          "claude": 9,
+          "hours": 3.86,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-06-19",
+      "by_project": {
+        "FG-CollectLabs/platform-listing-tool": {
+          "commits": 8,
+          "additions": 579,
+          "deletions": 194,
+          "claude": 8,
+          "hours": 4.17,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 1,
+          "additions": 131,
+          "deletions": 104,
+          "claude": 1,
+          "hours": 0.5,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-06-20",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 2,
+          "additions": 394,
+          "deletions": 8,
+          "claude": 2,
+          "hours": 1.39,
+          "prs": 0
+        },
+        "FG-CollectLabs/platform-listing-tool": {
+          "commits": 1,
+          "additions": 756,
+          "deletions": 244,
+          "claude": 1,
+          "hours": 0.69,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 1,
+          "additions": 2,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.69,
+          "prs": 0
+        },
+        "FG-CollectLabs/graded-lister": {
+          "commits": 3,
+          "additions": 647,
+          "deletions": 298,
+          "claude": 3,
+          "hours": 1.35,
+          "prs": 0
+        },
+        "FG-CollectLabs/graded-lister-backend": {
+          "commits": 3,
+          "additions": 141,
+          "deletions": 6,
+          "claude": 3,
+          "hours": 1.35,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-06-21",
+      "by_project": {
+        "FG-CollectLabs/graded-lister": {
+          "commits": 1,
+          "additions": 45,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.5,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-06-26",
+      "by_project": {
+        "FG-CollectLabs/graded-lister-backend": {
+          "commits": 1,
+          "additions": 46,
+          "deletions": 22,
+          "claude": 1,
+          "hours": 0.5,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-07-01",
+      "by_project": {
+        "FG-CollectLabs/sealed-arb-analyzer": {
+          "commits": 1,
+          "additions": 4043,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.5,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-07-02",
+      "by_project": {
+        "FG-CollectLabs/sealed-arb-analyzer": {
+          "commits": 1,
+          "additions": 276,
           "deletions": 60,
-          "active_repos": 1,
-          "est_hours": 2.5
+          "claude": 1,
+          "hours": 0.5,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-07-03",
+      "by_project": {
+        "FG-CollectLabs/pack-ev": {
+          "commits": 1,
+          "additions": 3082,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.19,
+          "prs": 0
+        },
+        "FG-CollectLabs/sealed-arb-analyzer": {
+          "commits": 2,
+          "additions": 246,
+          "deletions": 2,
+          "claude": 2,
+          "hours": 0.38,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-07-11",
+      "by_project": {
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 4,
+          "additions": 1245,
+          "deletions": 183,
+          "claude": 1,
+          "hours": 0.74,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 1,
+          "additions": 100,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.18,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-07-25",
+      "by_project": {
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 9,
+          "additions": 3329,
+          "deletions": 132,
+          "claude": 1,
+          "hours": 2.08,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 4,
+          "additions": 364,
+          "deletions": 66,
+          "claude": 1,
+          "hours": 0.92,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-07-26",
+      "by_project": {
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 3,
+          "additions": 33,
+          "deletions": 21,
+          "claude": 0,
+          "hours": 0.69,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-07-27",
+      "by_project": {
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 1,
+          "additions": 149,
+          "deletions": 7,
+          "claude": 1,
+          "hours": 0.22,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 1,
+          "additions": 7,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.22,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-07-28",
+      "by_project": {
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 1,
+          "additions": 3,
+          "deletions": 3,
+          "claude": 1,
+          "hours": 0.22,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-01",
+      "by_project": {
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 3,
+          "additions": 40,
+          "deletions": 15,
+          "claude": 2,
+          "hours": 0.5,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 1,
+          "additions": 60,
+          "deletions": 29,
+          "claude": 1,
+          "hours": 0.17,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-04",
+      "by_project": {
+        "FG-CollectLabs/tcg-10k-challenge-backend": {
+          "commits": 2,
+          "additions": 971,
+          "deletions": 9,
+          "claude": 2,
+          "hours": 0.38,
+          "prs": 0
+        },
+        "FG-CollectLabs/tcg-10k-challenge-frontend": {
+          "commits": 5,
+          "additions": 4958,
+          "deletions": 53,
+          "claude": 5,
+          "hours": 0.77,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-05",
+      "by_project": {
+        "FG-CollectLabs/tcg-10k-challenge-backend": {
+          "commits": 1,
+          "additions": 360,
+          "deletions": 20,
+          "claude": 1,
+          "hours": 0.59,
+          "prs": 0
+        },
+        "FG-CollectLabs/tcg-10k-challenge-frontend": {
+          "commits": 2,
+          "additions": 248,
+          "deletions": 16,
+          "claude": 2,
+          "hours": 1.18,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 3,
+          "additions": 16,
+          "deletions": 20,
+          "claude": 3,
+          "hours": 1.77,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-06",
+      "by_project": {
+        "FG-CollectShop/.github": {
+          "commits": 1,
+          "additions": 73,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.81,
+          "prs": 0
+        },
+        "FG-CollectShop/hub": {
+          "commits": 3,
+          "additions": 373,
+          "deletions": 13,
+          "claude": 3,
+          "hours": 2.42,
+          "prs": 0
+        },
+        "FG-CollectLabs/box-break-app": {
+          "commits": 1,
+          "additions": 1,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.81,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-08",
+      "by_project": {
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 2,
+          "additions": 621,
+          "deletions": 1,
+          "claude": 2,
+          "hours": 0.69,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 2,
+          "additions": 714,
+          "deletions": 2,
+          "claude": 1,
+          "hours": 0.69,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-10",
+      "by_project": {
+        "FG-CollectLabs/hub": {
+          "commits": 2,
+          "additions": 589,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.66,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 1,
+          "additions": 1,
+          "deletions": 7,
+          "claude": 1,
+          "hours": 0.33,
+          "prs": 0
+        },
+        "FG-CollectLabs/box-break-audit": {
+          "commits": 2,
+          "additions": 3077,
+          "deletions": 1,
+          "claude": 0,
+          "hours": 0.66,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-11",
+      "by_project": {
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 1,
+          "additions": 136,
+          "deletions": 6,
+          "claude": 1,
+          "hours": 0.25,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 1,
+          "additions": 181,
+          "deletions": 116,
+          "claude": 1,
+          "hours": 0.25,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-12",
+      "by_project": {
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 1,
+          "additions": 221,
+          "deletions": 7,
+          "claude": 1,
+          "hours": 0.24,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 1,
+          "additions": 8,
+          "deletions": 2,
+          "claude": 1,
+          "hours": 0.24,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-price-scout": {
+          "commits": 2,
+          "additions": 304,
+          "deletions": 82,
+          "claude": 2,
+          "hours": 0.74,
+          "prs": 0
+        },
+        "FG-CollectShop/hub": {
+          "commits": 1,
+          "additions": 42,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.24,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-13",
+      "by_project": {
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 2,
+          "additions": 311,
+          "deletions": 54,
+          "claude": 2,
+          "hours": 0.49,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 4,
+          "additions": 538,
+          "deletions": 23,
+          "claude": 4,
+          "hours": 0.98,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-15",
+      "by_project": {
+        "FG-CollectShop/fg-collect-portfolio": {
+          "commits": 1,
+          "additions": 226,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.13,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 5,
+          "additions": 803,
+          "deletions": 31,
+          "claude": 5,
+          "hours": 0.64,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 5,
+          "additions": 635,
+          "deletions": 28,
+          "claude": 5,
+          "hours": 0.64,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-price-scout": {
+          "commits": 1,
+          "additions": 45,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.13,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-17",
+      "by_project": {
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 4,
+          "additions": 181,
+          "deletions": 79,
+          "claude": 4,
+          "hours": 0.99,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 7,
+          "additions": 634,
+          "deletions": 193,
+          "claude": 7,
+          "hours": 1.79,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-portfolio": {
+          "commits": 2,
+          "additions": 115,
+          "deletions": 79,
+          "claude": 2,
+          "hours": 0.38,
+          "prs": 0
+        },
+        "FG-CollectShop/hub": {
+          "commits": 2,
+          "additions": 18,
+          "deletions": 5,
+          "claude": 2,
+          "hours": 0.38,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-18",
+      "by_project": {
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 6,
+          "additions": 1408,
+          "deletions": 109,
+          "claude": 6,
+          "hours": 2.97,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 7,
+          "additions": 724,
+          "deletions": 31,
+          "claude": 6,
+          "hours": 3.68,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-19",
+      "by_project": {
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 3,
+          "additions": 493,
+          "deletions": 82,
+          "claude": 3,
+          "hours": 1.04,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-20",
+      "by_project": {
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 5,
+          "additions": 358,
+          "deletions": 1098,
+          "claude": 5,
+          "hours": 1.41,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 2,
+          "additions": 131,
+          "deletions": 7,
+          "claude": 2,
+          "hours": 0.27,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-29",
+      "by_project": {
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 1,
+          "additions": 124,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.25,
+          "prs": 0
+        },
+        "FG-CollectLabs/infra": {
+          "commits": 2,
+          "additions": 907,
+          "deletions": 2,
+          "claude": 2,
+          "hours": 0.75,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-30",
+      "by_project": {
+        "FG-CollectLabs/infra": {
+          "commits": 1,
+          "additions": 180,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.5,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-08-31",
+      "by_project": {
+        "FG-CollectLabs/infra": {
+          "commits": 2,
+          "additions": 83,
+          "deletions": 56,
+          "claude": 2,
+          "hours": 0.81,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 1,
+          "additions": 7,
+          "deletions": 8,
+          "claude": 1,
+          "hours": 0.41,
+          "prs": 1
+        }
+      }
+    },
+    {
+      "date": "2026-09-05",
+      "by_project": {
+        "FG-CollectLabs/hub": {
+          "commits": 1,
+          "additions": 236,
+          "deletions": 5,
+          "claude": 1,
+          "hours": 0.5,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 1,
+          "additions": 74,
+          "deletions": 4,
+          "claude": 1,
+          "hours": 0.18,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 1,
+          "additions": 46,
+          "deletions": 9,
+          "claude": 1,
+          "hours": 0.18,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 2,
+          "additions": 104,
+          "deletions": 5,
+          "claude": 2,
+          "hours": 0.35,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 3,
+          "additions": 1184,
+          "deletions": 27,
+          "claude": 3,
+          "hours": 0.53,
+          "prs": 0
+        },
+        "FG-CollectLabs/.github": {
+          "commits": 1,
+          "additions": 425,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.5,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-09-14",
+      "by_project": {
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 5,
+          "additions": 336,
+          "deletions": 106,
+          "claude": 5,
+          "hours": 2.0,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 1,
+          "additions": 4,
+          "deletions": 4,
+          "claude": 1,
+          "hours": 0.4,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-09-17",
+      "by_project": {
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 1,
+          "additions": 1,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.45,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 1,
+          "additions": 591,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.45,
+          "prs": 0
+        },
+        "FG-Liquidator/infra": {
+          "commits": 1,
+          "additions": 304,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.55,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-09-18",
+      "by_project": {
+        "FG-Liquidator/infra": {
+          "commits": 4,
+          "additions": 1068,
+          "deletions": 46,
+          "claude": 2,
+          "hours": 1.37,
+          "prs": 0
+        },
+        "FG-Liquidator/lot-eval": {
+          "commits": 13,
+          "additions": 2400,
+          "deletions": 263,
+          "claude": 1,
+          "hours": 2.12,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "by_project": {
+        "FG-Liquidator/lot-eval": {
+          "commits": 15,
+          "additions": 1965,
+          "deletions": 190,
+          "claude": 13,
+          "hours": 2.28,
+          "prs": 0
+        },
+        "FG-Liquidator/sheets": {
+          "commits": 17,
+          "additions": 12754,
+          "deletions": 3925,
+          "claude": 0,
+          "hours": 2.96,
+          "prs": 0
+        },
+        "FG-Liquidator/infra": {
+          "commits": 4,
+          "additions": 225,
+          "deletions": 18,
+          "claude": 3,
+          "hours": 0.56,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-09-20",
+      "by_project": {
+        "FG-Liquidator/sheets": {
+          "commits": 4,
+          "additions": 1180,
+          "deletions": 20,
+          "claude": 0,
+          "hours": 1.02,
+          "prs": 0
+        },
+        "FG-Liquidator/lot-eval": {
+          "commits": 6,
+          "additions": 816,
+          "deletions": 226,
+          "claude": 6,
+          "hours": 2.17,
+          "prs": 0
+        },
+        "FG-Liquidator/infra": {
+          "commits": 3,
+          "additions": 93,
+          "deletions": 31,
+          "claude": 3,
+          "hours": 1.03,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-09-21",
+      "by_project": {
+        "FG-Liquidator/sheets": {
+          "commits": 2,
+          "additions": 492,
+          "deletions": 452,
+          "claude": 0,
+          "hours": 1.0,
+          "prs": 0
+        },
+        "FG-Liquidator/lot-eval": {
+          "commits": 4,
+          "additions": 28,
+          "deletions": 11,
+          "claude": 4,
+          "hours": 0.53,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-09-22",
+      "by_project": {
+        "FG-Liquidator/lot-eval": {
+          "commits": 3,
+          "additions": 80,
+          "deletions": 10,
+          "claude": 3,
+          "hours": 0.65,
+          "prs": 0
+        },
+        "FG-Liquidator/infra": {
+          "commits": 5,
+          "additions": 248,
+          "deletions": 12,
+          "claude": 5,
+          "hours": 1.08,
+          "prs": 0
+        },
+        "FG-Liquidator/sheets": {
+          "commits": 8,
+          "additions": 3655,
+          "deletions": 436,
+          "claude": 0,
+          "hours": 1.73,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-09-23",
+      "by_project": {
+        "FG-Liquidator/sheets": {
+          "commits": 3,
+          "additions": 742,
+          "deletions": 741,
+          "claude": 0,
+          "hours": 0.98,
+          "prs": 0
+        },
+        "FG-Liquidator/infra": {
+          "commits": 1,
+          "additions": 95,
+          "deletions": 50,
+          "claude": 1,
+          "hours": 0.7,
+          "prs": 0
+        },
+        "FG-Liquidator/lot-eval": {
+          "commits": 1,
+          "additions": 212,
+          "deletions": 13,
+          "claude": 1,
+          "hours": 0.7,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-09-24",
+      "by_project": {
+        "FG-Liquidator/sheets": {
+          "commits": 4,
+          "additions": 1220,
+          "deletions": 10,
+          "claude": 0,
+          "hours": 1.71,
+          "prs": 0
+        },
+        "FG-Liquidator/lot-eval": {
+          "commits": 7,
+          "additions": 555,
+          "deletions": 9,
+          "claude": 7,
+          "hours": 1.47,
+          "prs": 0
+        },
+        "FG-Liquidator/infra": {
+          "commits": 5,
+          "additions": 244,
+          "deletions": 0,
+          "claude": 5,
+          "hours": 1.65,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-09-25",
+      "by_project": {
+        "FG-Liquidator/lot-eval": {
+          "commits": 1,
+          "additions": 132,
+          "deletions": 33,
+          "claude": 1,
+          "hours": 0.25,
+          "prs": 0
+        },
+        "FG-Liquidator/infra": {
+          "commits": 1,
+          "additions": 48,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.25,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-09-26",
+      "by_project": {
+        "FG-Liquidator/sheets": {
+          "commits": 1,
+          "additions": 481,
+          "deletions": 143,
+          "claude": 0,
+          "hours": 0.25,
+          "prs": 0
+        },
+        "FG-Liquidator/lot-eval": {
+          "commits": 1,
+          "additions": 123,
+          "deletions": 27,
+          "claude": 1,
+          "hours": 0.25,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-09-27",
+      "by_project": {
+        "FG-Liquidator/infra": {
+          "commits": 6,
+          "additions": 114,
+          "deletions": 16,
+          "claude": 6,
+          "hours": 1.5,
+          "prs": 0
+        },
+        "FG-Liquidator/sheets": {
+          "commits": 3,
+          "additions": 652,
+          "deletions": 48,
+          "claude": 0,
+          "hours": 0.75,
+          "prs": 0
+        },
+        "FG-Liquidator/lot-eval": {
+          "commits": 1,
+          "additions": 28,
+          "deletions": 9,
+          "claude": 1,
+          "hours": 0.38,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-09-28",
+      "by_project": {
+        "FG-Liquidator/sheets": {
+          "commits": 15,
+          "additions": 4564,
+          "deletions": 581,
+          "claude": 0,
+          "hours": 2.34,
+          "prs": 0
+        },
+        "FG-Liquidator/infra": {
+          "commits": 5,
+          "additions": 160,
+          "deletions": 8,
+          "claude": 5,
+          "hours": 0.78,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-09-29",
+      "by_project": {
+        "FG-Liquidator/sheets": {
+          "commits": 5,
+          "additions": 967,
+          "deletions": 68,
+          "claude": 0,
+          "hours": 0.5,
+          "prs": 0
+        },
+        "FG-Liquidator/infra": {
+          "commits": 4,
+          "additions": 202,
+          "deletions": 0,
+          "claude": 4,
+          "hours": 0.8,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 1,
+          "additions": 116,
+          "deletions": 9,
+          "claude": 1,
+          "hours": 0.1,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 1,
+          "additions": 144,
+          "deletions": 25,
+          "claude": 1,
+          "hours": 0.1,
+          "prs": 0
+        },
+        "FG-Liquidator/lot-eval": {
+          "commits": 1,
+          "additions": 215,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.1,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-09-30",
+      "by_project": {
+        "FG-Liquidator/sheets": {
+          "commits": 7,
+          "additions": 432,
+          "deletions": 384,
+          "claude": 0,
+          "hours": 1.36,
+          "prs": 0
+        },
+        "FG-Liquidator/lot-eval": {
+          "commits": 2,
+          "additions": 72,
+          "deletions": 10,
+          "claude": 2,
+          "hours": 0.39,
+          "prs": 0
+        },
+        "FG-Liquidator/infra": {
+          "commits": 1,
+          "additions": 19,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.19,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-10-02",
+      "by_project": {
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 3,
+          "additions": 886,
+          "deletions": 13,
+          "claude": 3,
+          "hours": 0.91,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 2,
+          "additions": 1095,
+          "deletions": 11,
+          "claude": 2,
+          "hours": 0.6,
+          "prs": 0
+        },
+        "FG-CollectLabs/sellthrough-analyzer": {
+          "commits": 1,
+          "additions": 92,
+          "deletions": 34,
+          "claude": 1,
+          "hours": 0.3,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 1,
+          "additions": 2803,
+          "deletions": 83,
+          "claude": 1,
+          "hours": 0.3,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 1,
+          "additions": 665,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.3,
+          "prs": 0
+        },
+        "FG-Liquidator/lot-eval": {
+          "commits": 1,
+          "additions": 85,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.3,
+          "prs": 0
+        },
+        "FG-Liquidator/infra": {
+          "commits": 1,
+          "additions": 43,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.3,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-10-03",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 6,
+          "additions": 191,
+          "deletions": 107,
+          "claude": 6,
+          "hours": 0.49,
+          "prs": 4
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 4,
+          "additions": 514,
+          "deletions": 43,
+          "claude": 4,
+          "hours": 0.35,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 4,
+          "additions": 720,
+          "deletions": 12,
+          "claude": 4,
+          "hours": 0.35,
+          "prs": 0
+        },
+        "FG-Liquidator/sheets": {
+          "commits": 7,
+          "additions": 380,
+          "deletions": 75,
+          "claude": 0,
+          "hours": 0.62,
+          "prs": 0
+        },
+        "FG-Liquidator/lot-eval": {
+          "commits": 4,
+          "additions": 770,
+          "deletions": 20,
+          "claude": 4,
+          "hours": 0.35,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 1,
+          "additions": 0,
+          "deletions": 1,
+          "claude": 0,
+          "hours": 0.1,
+          "prs": 1
+        }
+      }
+    },
+    {
+      "date": "2026-10-04",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 3,
+          "additions": 3460,
+          "deletions": 18,
+          "claude": 3,
+          "hours": 1.31,
+          "prs": 2
+        },
+        "FG-CollectLabs/sellthrough-analyzer": {
+          "commits": 2,
+          "additions": 26,
+          "deletions": 12,
+          "claude": 2,
+          "hours": 0.68,
+          "prs": 2
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 1,
+          "additions": 39,
+          "deletions": 2,
+          "claude": 1,
+          "hours": 0.4,
+          "prs": 1
+        }
+      }
+    },
+    {
+      "date": "2026-10-05",
+      "by_project": {
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 5,
+          "additions": 2795,
+          "deletions": 313,
+          "claude": 5,
+          "hours": 1.38,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 6,
+          "additions": 1226,
+          "deletions": 87,
+          "claude": 6,
+          "hours": 1.65,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 1,
+          "additions": 816,
+          "deletions": 12,
+          "claude": 1,
+          "hours": 0.28,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-10-06",
+      "by_project": {
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 7,
+          "additions": 6216,
+          "deletions": 68,
+          "claude": 7,
+          "hours": 1.73,
+          "prs": 4
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 5,
+          "additions": 566,
+          "deletions": 258,
+          "claude": 5,
+          "hours": 1.51,
+          "prs": 3
+        },
+        "FG-CollectLabs/sellthrough-analyzer": {
+          "commits": 2,
+          "additions": 507,
+          "deletions": 281,
+          "claude": 2,
+          "hours": 0.48,
+          "prs": 1
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 2,
+          "additions": 253,
+          "deletions": 52,
+          "claude": 2,
+          "hours": 0.42,
+          "prs": 4
+        },
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 1,
+          "additions": 13,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.27,
+          "prs": 1
+        },
+        "FG-CollectShop/fg-collect-storefront": {
+          "commits": 0,
+          "additions": 0,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.0,
+          "prs": 1
+        }
+      }
+    },
+    {
+      "date": "2026-10-07",
+      "by_project": {
+        "FG-CollectLabs/sellthrough-analyzer": {
+          "commits": 2,
+          "additions": 76,
+          "deletions": 12,
+          "claude": 2,
+          "hours": 0.38,
+          "prs": 3
+        },
+        "FG-Liquidator/infra": {
+          "commits": 2,
+          "additions": 178,
+          "deletions": 15,
+          "claude": 2,
+          "hours": 0.38,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 2,
+          "additions": 86,
+          "deletions": 17,
+          "claude": 2,
+          "hours": 0.38,
+          "prs": 1
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 2,
+          "additions": 543,
+          "deletions": 70,
+          "claude": 2,
+          "hours": 0.38,
+          "prs": 1
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 3,
+          "additions": 2907,
+          "deletions": 102,
+          "claude": 3,
+          "hours": 1.22,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-10-08",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 14,
+          "additions": 9104,
+          "deletions": 211,
+          "claude": 14,
+          "hours": 3.71,
+          "prs": 13
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 10,
+          "additions": 3311,
+          "deletions": 508,
+          "claude": 10,
+          "hours": 2.63,
+          "prs": 10
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 2,
+          "additions": 94,
+          "deletions": 20,
+          "claude": 2,
+          "hours": 0.54,
+          "prs": 2
+        },
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 2,
+          "additions": 31,
+          "deletions": 15,
+          "claude": 2,
+          "hours": 0.54,
+          "prs": 2
+        },
+        "FG-CollectLabs/sellthrough-analyzer": {
+          "commits": 2,
+          "additions": 95,
+          "deletions": 27,
+          "claude": 2,
+          "hours": 0.5,
+          "prs": 2
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 1,
+          "additions": 20,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.23,
+          "prs": 1
+        }
+      }
+    },
+    {
+      "date": "2026-10-09",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 6,
+          "additions": 3883,
+          "deletions": 210,
+          "claude": 6,
+          "hours": 1.18,
+          "prs": 3
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 4,
+          "additions": 1410,
+          "deletions": 51,
+          "claude": 4,
+          "hours": 0.82,
+          "prs": 3
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 7,
+          "additions": 2763,
+          "deletions": 254,
+          "claude": 7,
+          "hours": 1.25,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 1,
+          "additions": 3,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.18,
+          "prs": 1
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 1,
+          "additions": 530,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.18,
+          "prs": 1
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 1,
+          "additions": 686,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.18,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-10-10",
+      "by_project": {
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 2,
+          "additions": 1266,
+          "deletions": 34,
+          "claude": 2,
+          "hours": 0.23,
+          "prs": 2
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 8,
+          "additions": 2444,
+          "deletions": 176,
+          "claude": 8,
+          "hours": 1.06,
+          "prs": 8
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 5,
+          "additions": 481,
+          "deletions": 122,
+          "claude": 5,
+          "hours": 0.6,
+          "prs": 5
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 29,
+          "additions": 3946,
+          "deletions": 328,
+          "claude": 29,
+          "hours": 6.01,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 3,
+          "additions": 730,
+          "deletions": 30,
+          "claude": 3,
+          "hours": 0.52,
+          "prs": 4
+        },
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 1,
+          "additions": 3,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.11,
+          "prs": 1
+        }
+      }
+    },
+    {
+      "date": "2026-10-12",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 8,
+          "additions": 4151,
+          "deletions": 375,
+          "claude": 8,
+          "hours": 1.32,
+          "prs": 7
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 3,
+          "additions": 1476,
+          "deletions": 36,
+          "claude": 3,
+          "hours": 0.48,
+          "prs": 3
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 8,
+          "additions": 1467,
+          "deletions": 64,
+          "claude": 8,
+          "hours": 1.32,
+          "prs": 8
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 43,
+          "additions": 4785,
+          "deletions": 524,
+          "claude": 43,
+          "hours": 7.15,
+          "prs": 2
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 8,
+          "additions": 5699,
+          "deletions": 331,
+          "claude": 8,
+          "hours": 1.34,
+          "prs": 8
+        },
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 4,
+          "additions": 62,
+          "deletions": 1,
+          "claude": 4,
+          "hours": 0.67,
+          "prs": 4
+        },
+        "FG-CollectLabs/sellthrough-analyzer": {
+          "commits": 1,
+          "additions": 15,
+          "deletions": 3,
+          "claude": 1,
+          "hours": 0.17,
+          "prs": 1
+        }
+      }
+    },
+    {
+      "date": "2026-10-13",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 18,
+          "additions": 4875,
+          "deletions": 309,
+          "claude": 18,
+          "hours": 4.63,
+          "prs": 16
+        },
+        "FG-CollectLabs/sellthrough-analyzer": {
+          "commits": 1,
+          "additions": 39,
+          "deletions": 8,
+          "claude": 1,
+          "hours": 0.19,
+          "prs": 1
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 8,
+          "additions": 567,
+          "deletions": 22,
+          "claude": 8,
+          "hours": 1.53,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 10,
+          "additions": 2037,
+          "deletions": 158,
+          "claude": 10,
+          "hours": 2.49,
+          "prs": 10
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 8,
+          "additions": 362,
+          "deletions": 87,
+          "claude": 8,
+          "hours": 1.63,
+          "prs": 8
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 2,
+          "additions": 201,
+          "deletions": 24,
+          "claude": 2,
+          "hours": 0.48,
+          "prs": 2
+        }
+      }
+    },
+    {
+      "date": "2026-10-14",
+      "by_project": {
+        "FG-PolyLabs/polyedge": {
+          "commits": 14,
+          "additions": 1439,
+          "deletions": 183,
+          "claude": 14,
+          "hours": 1.72,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 4,
+          "additions": 509,
+          "deletions": 32,
+          "claude": 4,
+          "hours": 0.6,
+          "prs": 2
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 2,
+          "additions": 193,
+          "deletions": 27,
+          "claude": 2,
+          "hours": 0.25,
+          "prs": 2
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 2,
+          "additions": 442,
+          "deletions": 34,
+          "claude": 2,
+          "hours": 0.36,
+          "prs": 2
+        },
+        "FG-InvestmentLabs/infra": {
+          "commits": 1,
+          "additions": 309,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.12,
+          "prs": 0
+        },
+        "FG-Kitchen/infra": {
+          "commits": 1,
+          "additions": 276,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.12,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 1,
+          "additions": 701,
+          "deletions": 39,
+          "claude": 1,
+          "hours": 0.12,
+          "prs": 1
+        }
+      }
+    },
+    {
+      "date": "2026-10-15",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 6,
+          "additions": 1493,
+          "deletions": 45,
+          "claude": 6,
+          "hours": 1.41,
+          "prs": 3
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 3,
+          "additions": 1174,
+          "deletions": 88,
+          "claude": 3,
+          "hours": 0.71,
+          "prs": 3
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 18,
+          "additions": 1350,
+          "deletions": 237,
+          "claude": 18,
+          "hours": 3.88,
+          "prs": 2
+        },
+        "FG-InvestmentLabs/infra": {
+          "commits": 3,
+          "additions": 684,
+          "deletions": 65,
+          "claude": 3,
+          "hours": 0.38,
+          "prs": 0
+        },
+        "FG-InvestmentLabs/greeks": {
+          "commits": 3,
+          "additions": 5048,
+          "deletions": 21,
+          "claude": 3,
+          "hours": 0.38,
+          "prs": 0
+        },
+        "FG-Kitchen/infra": {
+          "commits": 1,
+          "additions": 1604,
+          "deletions": 111,
+          "claude": 1,
+          "hours": 0.13,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-10-16",
+      "by_project": {
+        "FG-PolyLabs/polyedge": {
+          "commits": 12,
+          "additions": 1299,
+          "deletions": 245,
+          "claude": 12,
+          "hours": 3.35,
+          "prs": 6
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 3,
+          "additions": 340,
+          "deletions": 68,
+          "claude": 3,
+          "hours": 1.07,
+          "prs": 3
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 4,
+          "additions": 1470,
+          "deletions": 92,
+          "claude": 4,
+          "hours": 1.43,
+          "prs": 4
+        }
+      }
+    },
+    {
+      "date": "2026-10-19",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 11,
+          "additions": 3344,
+          "deletions": 110,
+          "claude": 11,
+          "hours": 2.35,
+          "prs": 8
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 14,
+          "additions": 6292,
+          "deletions": 181,
+          "claude": 14,
+          "hours": 2.99,
+          "prs": 5
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 10,
+          "additions": 1079,
+          "deletions": 92,
+          "claude": 7,
+          "hours": 2.14,
+          "prs": 10
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 9,
+          "additions": 2751,
+          "deletions": 242,
+          "claude": 6,
+          "hours": 1.92,
+          "prs": 9
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 9,
+          "additions": 2238,
+          "deletions": 206,
+          "claude": 9,
+          "hours": 1.92,
+          "prs": 9
+        },
+        "FG-Kitchen/infra": {
+          "commits": 6,
+          "additions": 993,
+          "deletions": 283,
+          "claude": 6,
+          "hours": 1.28,
+          "prs": 0
+        },
+        "FG-Kitchen/kitchen": {
+          "commits": 3,
+          "additions": 704,
+          "deletions": 0,
+          "claude": 2,
+          "hours": 0.64,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-10-20",
+      "by_project": {
+        "FG-PolyLabs/polyedge": {
+          "commits": 7,
+          "additions": 1378,
+          "deletions": 113,
+          "claude": 7,
+          "hours": 1.06,
+          "prs": 4
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 2,
+          "additions": 560,
+          "deletions": 56,
+          "claude": 2,
+          "hours": 0.25,
+          "prs": 1
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 9,
+          "additions": 766,
+          "deletions": 92,
+          "claude": 3,
+          "hours": 1.14,
+          "prs": 8
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 2,
+          "additions": 98,
+          "deletions": 10,
+          "claude": 2,
+          "hours": 0.25,
+          "prs": 1
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 2,
+          "additions": 799,
+          "deletions": 26,
+          "claude": 2,
+          "hours": 0.25,
+          "prs": 2
+        },
+        "FG-Kitchen/infra": {
+          "commits": 8,
+          "additions": 294,
+          "deletions": 29,
+          "claude": 8,
+          "hours": 1.01,
+          "prs": 0
+        },
+        "FG-InvestmentLabs/infra": {
+          "commits": 1,
+          "additions": 678,
+          "deletions": 211,
+          "claude": 1,
+          "hours": 0.13,
+          "prs": 0
+        },
+        "FG-InvestmentLabs/greeks": {
+          "commits": 1,
+          "additions": 644,
+          "deletions": 30,
+          "claude": 1,
+          "hours": 0.13,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-10-21",
+      "by_project": {
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 4,
+          "additions": 1305,
+          "deletions": 20,
+          "claude": 4,
+          "hours": 0.66,
+          "prs": 4
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 4,
+          "additions": 4324,
+          "deletions": 10,
+          "claude": 4,
+          "hours": 0.66,
+          "prs": 4
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 5,
+          "additions": 168,
+          "deletions": 28,
+          "claude": 5,
+          "hours": 0.83,
+          "prs": 2
+        },
+        "FG-InvestmentLabs/infra": {
+          "commits": 4,
+          "additions": 89,
+          "deletions": 43,
+          "claude": 4,
+          "hours": 0.37,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 5,
+          "additions": 1179,
+          "deletions": 52,
+          "claude": 5,
+          "hours": 0.98,
+          "prs": 4
+        },
+        "FG-InvestmentLabs/greeks": {
+          "commits": 2,
+          "additions": 40,
+          "deletions": 13,
+          "claude": 2,
+          "hours": 0.21,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 2,
+          "additions": 411,
+          "deletions": 106,
+          "claude": 2,
+          "hours": 0.3,
+          "prs": 2
+        },
+        "FG-Kitchen/kitchen": {
+          "commits": 2,
+          "additions": 3992,
+          "deletions": 20,
+          "claude": 2,
+          "hours": 0.26,
+          "prs": 2
+        },
+        "FG-Kitchen/infra": {
+          "commits": 1,
+          "additions": 132,
+          "deletions": 132,
+          "claude": 1,
+          "hours": 0.13,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-10-22",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 1,
+          "additions": 334,
+          "deletions": 4,
+          "claude": 1,
+          "hours": 0.1,
+          "prs": 1
+        },
+        "FG-InvestmentLabs/greeks": {
+          "commits": 2,
+          "additions": 829,
+          "deletions": 641,
+          "claude": 2,
+          "hours": 0.21,
+          "prs": 0
+        },
+        "FG-InvestmentLabs/infra": {
+          "commits": 1,
+          "additions": 1,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.1,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 4,
+          "additions": 366,
+          "deletions": 176,
+          "claude": 4,
+          "hours": 0.55,
+          "prs": 4
+        },
+        "FG-Kitchen/kitchen": {
+          "commits": 2,
+          "additions": 806,
+          "deletions": 75,
+          "claude": 1,
+          "hours": 0.21,
+          "prs": 2
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 2,
+          "additions": 186,
+          "deletions": 12,
+          "claude": 2,
+          "hours": 0.21,
+          "prs": 2
+        },
+        "FG-Kitchen/infra": {
+          "commits": 4,
+          "additions": 791,
+          "deletions": 17,
+          "claude": 4,
+          "hours": 0.42,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 3,
+          "additions": 1185,
+          "deletions": 752,
+          "claude": 3,
+          "hours": 0.45,
+          "prs": 3
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 5,
+          "additions": 1267,
+          "deletions": 21,
+          "claude": 5,
+          "hours": 0.66,
+          "prs": 2
+        }
+      }
+    },
+    {
+      "date": "2026-10-23",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 4,
+          "additions": 2057,
+          "deletions": 157,
+          "claude": 4,
+          "hours": 0.82,
+          "prs": 4
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 3,
+          "additions": 717,
+          "deletions": 103,
+          "claude": 3,
+          "hours": 0.68,
+          "prs": 3
+        },
+        "FG-InvestmentLabs/greeks": {
+          "commits": 3,
+          "additions": 253,
+          "deletions": 4,
+          "claude": 3,
+          "hours": 0.51,
+          "prs": 0
+        },
+        "FG-InvestmentLabs/infra": {
+          "commits": 3,
+          "additions": 385,
+          "deletions": 8,
+          "claude": 3,
+          "hours": 0.51,
+          "prs": 0
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 1,
+          "additions": 1,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.24,
+          "prs": 0
+        },
+        "FG-Kitchen/kitchen": {
+          "commits": 1,
+          "additions": 372,
+          "deletions": 5,
+          "claude": 0,
+          "hours": 0.14,
+          "prs": 1
+        },
+        "FG-Kitchen/infra": {
+          "commits": 1,
+          "additions": 60,
+          "deletions": 6,
+          "claude": 1,
+          "hours": 0.14,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-10-24",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 3,
+          "additions": 152,
+          "deletions": 52,
+          "claude": 1,
+          "hours": 0.39,
+          "prs": 0
+        },
+        "FG-InvestmentLabs/infra": {
+          "commits": 1,
+          "additions": 64,
+          "deletions": 2,
+          "claude": 1,
+          "hours": 0.13,
+          "prs": 0
+        },
+        "FG-Kitchen/kitchen": {
+          "commits": 1,
+          "additions": 148,
+          "deletions": 24,
+          "claude": 0,
+          "hours": 0.13,
+          "prs": 1
+        }
+      }
+    },
+    {
+      "date": "2026-10-26",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 5,
+          "additions": 1315,
+          "deletions": 196,
+          "claude": 5,
+          "hours": 0.59,
+          "prs": 5
+        },
+        "FG-CryptoLabs/fg-crypto-portfolio": {
+          "commits": 1,
+          "additions": 23,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.13,
+          "prs": 18
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 2,
+          "additions": 623,
+          "deletions": 156,
+          "claude": 2,
+          "hours": 0.23,
+          "prs": 3
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 2,
+          "additions": 2021,
+          "deletions": 224,
+          "claude": 2,
+          "hours": 0.25,
+          "prs": 2
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 7,
+          "additions": 561,
+          "deletions": 126,
+          "claude": 7,
+          "hours": 1.04,
+          "prs": 3
+        },
+        "FG-Kitchen/infra": {
+          "commits": 7,
+          "additions": 273,
+          "deletions": 56,
+          "claude": 7,
+          "hours": 1.04,
+          "prs": 0
+        },
+        "FG-CollectLabs/sellthrough-analyzer": {
+          "commits": 1,
+          "additions": 6,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.11,
+          "prs": 1
+        },
+        "FG-Kitchen/kitchen": {
+          "commits": 1,
+          "additions": 1155,
+          "deletions": 39,
+          "claude": 0,
+          "hours": 0.25,
+          "prs": 1
+        }
+      }
+    },
+    {
+      "date": "2026-10-27",
+      "by_project": {
+        "FG-Kitchen/kitchen": {
+          "commits": 7,
+          "additions": 8169,
+          "deletions": 21,
+          "claude": 6,
+          "hours": 1.19,
+          "prs": 7
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 3,
+          "additions": 1348,
+          "deletions": 303,
+          "claude": 3,
+          "hours": 0.47,
+          "prs": 3
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 8,
+          "additions": 1853,
+          "deletions": 188,
+          "claude": 8,
+          "hours": 1.81,
+          "prs": 8
+        },
+        "FG-Kitchen/infra": {
+          "commits": 13,
+          "additions": 737,
+          "deletions": 37,
+          "claude": 13,
+          "hours": 2.23,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 7,
+          "additions": 2177,
+          "deletions": 74,
+          "claude": 7,
+          "hours": 1.38,
+          "prs": 6
+        },
+        "FG-InvestmentLabs/greeks": {
+          "commits": 7,
+          "additions": 5644,
+          "deletions": 76,
+          "claude": 7,
+          "hours": 1.19,
+          "prs": 6
+        },
+        "FG-InvestmentLabs/infra": {
+          "commits": 5,
+          "additions": 23,
+          "deletions": 12,
+          "claude": 5,
+          "hours": 1.0,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 3,
+          "additions": 1986,
+          "deletions": 291,
+          "claude": 3,
+          "hours": 0.29,
+          "prs": 4
+        },
+        "FG-CryptoLabs/fg-crypto-portfolio": {
+          "commits": 0,
+          "additions": 0,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.0,
+          "prs": 5
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 0,
+          "additions": 0,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.0,
+          "prs": 1
+        }
+      }
+    },
+    {
+      "date": "2026-10-28",
+      "by_project": {
+        "FG-PolyLabs/polyarbs": {
+          "commits": 2,
+          "additions": 3967,
+          "deletions": 22,
+          "claude": 2,
+          "hours": 0.67,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 15,
+          "additions": 3980,
+          "deletions": 331,
+          "claude": 15,
+          "hours": 2.52,
+          "prs": 14
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 12,
+          "additions": 1197,
+          "deletions": 179,
+          "claude": 12,
+          "hours": 2.06,
+          "prs": 9
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 6,
+          "additions": 1047,
+          "deletions": 61,
+          "claude": 6,
+          "hours": 1.01,
+          "prs": 6
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 3,
+          "additions": 53,
+          "deletions": 13,
+          "claude": 3,
+          "hours": 0.5,
+          "prs": 0
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 12,
+          "additions": 3444,
+          "deletions": 159,
+          "claude": 12,
+          "hours": 2.02,
+          "prs": 12
+        }
+      }
+    },
+    {
+      "date": "2026-10-29",
+      "by_project": {
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 5,
+          "additions": 1481,
+          "deletions": 195,
+          "claude": 5,
+          "hours": 0.94,
+          "prs": 6
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 12,
+          "additions": 1765,
+          "deletions": 91,
+          "claude": 12,
+          "hours": 2.2,
+          "prs": 12
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 7,
+          "additions": 625,
+          "deletions": 137,
+          "claude": 7,
+          "hours": 1.26,
+          "prs": 7
+        },
+        "FG-CollectLabs/sellthrough-analyzer": {
+          "commits": 2,
+          "additions": 133,
+          "deletions": 20,
+          "claude": 2,
+          "hours": 0.38,
+          "prs": 1
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 2,
+          "additions": 253,
+          "deletions": 7,
+          "claude": 2,
+          "hours": 0.38,
+          "prs": 1
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 3,
+          "additions": 113,
+          "deletions": 11,
+          "claude": 3,
+          "hours": 0.56,
+          "prs": 5
+        }
+      }
+    },
+    {
+      "date": "2026-11-02",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 16,
+          "additions": 2082,
+          "deletions": 114,
+          "claude": 16,
+          "hours": 1.67,
+          "prs": 15
+        },
+        "FG-Kitchen/kitchen": {
+          "commits": 3,
+          "additions": 7037,
+          "deletions": 6,
+          "claude": 2,
+          "hours": 0.29,
+          "prs": 3
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 7,
+          "additions": 781,
+          "deletions": 33,
+          "claude": 7,
+          "hours": 0.56,
+          "prs": 7
+        },
+        "FG-Kitchen/infra": {
+          "commits": 9,
+          "additions": 775,
+          "deletions": 91,
+          "claude": 9,
+          "hours": 0.65,
+          "prs": 0
+        },
+        "FG-InvestmentLabs/backtester": {
+          "commits": 1,
+          "additions": 98,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.08,
+          "prs": 0
+        },
+        "FG-InvestmentLabs/infra": {
+          "commits": 8,
+          "additions": 1325,
+          "deletions": 24,
+          "claude": 8,
+          "hours": 0.78,
+          "prs": 0
+        },
+        "FG-PolyLabs/polyarbs": {
+          "commits": 5,
+          "additions": 1980,
+          "deletions": 206,
+          "claude": 5,
+          "hours": 0.67,
+          "prs": 3
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 4,
+          "additions": 456,
+          "deletions": 52,
+          "claude": 4,
+          "hours": 0.48,
+          "prs": 4
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 4,
+          "additions": 1721,
+          "deletions": 95,
+          "claude": 4,
+          "hours": 0.48,
+          "prs": 4
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 4,
+          "additions": 1714,
+          "deletions": 238,
+          "claude": 4,
+          "hours": 0.6,
+          "prs": 3
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 2,
+          "additions": 519,
+          "deletions": 9,
+          "claude": 2,
+          "hours": 0.27,
+          "prs": 2
+        }
+      }
+    },
+    {
+      "date": "2026-11-03",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 1,
+          "additions": 167,
+          "deletions": 7,
+          "claude": 1,
+          "hours": 0.2,
+          "prs": 1
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 1,
+          "additions": 199,
+          "deletions": 70,
+          "claude": 1,
+          "hours": 0.2,
+          "prs": 1
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 1,
+          "additions": 572,
+          "deletions": 364,
+          "claude": 1,
+          "hours": 0.2,
+          "prs": 1
+        },
+        "FG-PolyLabs/polyarbs": {
+          "commits": 8,
+          "additions": 1056,
+          "deletions": 261,
+          "claude": 8,
+          "hours": 1.96,
+          "prs": 3
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 13,
+          "additions": 4585,
+          "deletions": 255,
+          "claude": 13,
+          "hours": 2.24,
+          "prs": 11
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 2,
+          "additions": 40,
+          "deletions": 5,
+          "claude": 2,
+          "hours": 0.42,
+          "prs": 1
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 8,
+          "additions": 3215,
+          "deletions": 1263,
+          "claude": 8,
+          "hours": 1.38,
+          "prs": 8
+        },
+        "FG-InvestmentLabs/infra": {
+          "commits": 9,
+          "additions": 115,
+          "deletions": 60,
+          "claude": 9,
+          "hours": 1.2,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 1,
+          "additions": 901,
+          "deletions": 7,
+          "claude": 1,
+          "hours": 0.13,
+          "prs": 1
+        },
+        "FG-InvestmentLabs/backtester": {
+          "commits": 3,
+          "additions": 7446,
+          "deletions": 503,
+          "claude": 3,
+          "hours": 0.4,
+          "prs": 3
+        }
+      }
+    },
+    {
+      "date": "2026-11-04",
+      "by_project": {
+        "FG-PolyLabs/polyarbs": {
+          "commits": 1,
+          "additions": 19,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.29,
+          "prs": 0
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 14,
+          "additions": 3592,
+          "deletions": 144,
+          "claude": 14,
+          "hours": 2.51,
+          "prs": 12
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 14,
+          "additions": 1537,
+          "deletions": 357,
+          "claude": 14,
+          "hours": 2.51,
+          "prs": 13
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 1,
+          "additions": 254,
+          "deletions": 176,
+          "claude": 1,
+          "hours": 0.14,
+          "prs": 1
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 2,
+          "additions": 586,
+          "deletions": 213,
+          "claude": 2,
+          "hours": 0.27,
+          "prs": 2
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 5,
+          "additions": 2450,
+          "deletions": 34,
+          "claude": 5,
+          "hours": 0.68,
+          "prs": 4
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 2,
+          "additions": 698,
+          "deletions": 3,
+          "claude": 2,
+          "hours": 0.28,
+          "prs": 2
+        }
+      }
+    },
+    {
+      "date": "2026-11-05",
+      "by_project": {
+        "FG-InvestmentLabs/infra": {
+          "commits": 3,
+          "additions": 114,
+          "deletions": 11,
+          "claude": 3,
+          "hours": 0.44,
+          "prs": 0
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 17,
+          "additions": 2833,
+          "deletions": 297,
+          "claude": 17,
+          "hours": 3.54,
+          "prs": 15
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 15,
+          "additions": 1317,
+          "deletions": 126,
+          "claude": 15,
+          "hours": 3.6,
+          "prs": 14
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 3,
+          "additions": 1708,
+          "deletions": 45,
+          "claude": 3,
+          "hours": 0.67,
+          "prs": 3
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 2,
+          "additions": 1161,
+          "deletions": 14,
+          "claude": 2,
+          "hours": 0.52,
+          "prs": 2
+        }
+      }
+    },
+    {
+      "date": "2026-11-06",
+      "by_project": {
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 16,
+          "additions": 2029,
+          "deletions": 150,
+          "claude": 16,
+          "hours": 3.44,
+          "prs": 10
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 3,
+          "additions": 942,
+          "deletions": 11,
+          "claude": 3,
+          "hours": 0.67,
+          "prs": 3
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 3,
+          "additions": 706,
+          "deletions": 51,
+          "claude": 3,
+          "hours": 0.67,
+          "prs": 3
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 8,
+          "additions": 1206,
+          "deletions": 132,
+          "claude": 8,
+          "hours": 2.2,
+          "prs": 8
+        }
+      }
+    },
+    {
+      "date": "2026-11-07",
+      "by_project": {
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 9,
+          "additions": 2802,
+          "deletions": 110,
+          "claude": 9,
+          "hours": 1.68,
+          "prs": 10
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 6,
+          "additions": 2104,
+          "deletions": 194,
+          "claude": 6,
+          "hours": 1.07,
+          "prs": 4
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 7,
+          "additions": 795,
+          "deletions": 24,
+          "claude": 7,
+          "hours": 1.19,
+          "prs": 6
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 5,
+          "additions": 683,
+          "deletions": 32,
+          "claude": 5,
+          "hours": 0.95,
+          "prs": 5
+        }
+      }
+    },
+    {
+      "date": "2026-11-08",
+      "by_project": {
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 6,
+          "additions": 1693,
+          "deletions": 79,
+          "claude": 6,
+          "hours": 1.02,
+          "prs": 6
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 12,
+          "additions": 3843,
+          "deletions": 147,
+          "claude": 12,
+          "hours": 1.8,
+          "prs": 13
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 5,
+          "additions": 1515,
+          "deletions": 57,
+          "claude": 5,
+          "hours": 0.82,
+          "prs": 5
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 3,
+          "additions": 270,
+          "deletions": 5,
+          "claude": 3,
+          "hours": 0.32,
+          "prs": 3
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 5,
+          "additions": 3074,
+          "deletions": 6,
+          "claude": 5,
+          "hours": 0.64,
+          "prs": 5
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 3,
+          "additions": 878,
+          "deletions": 10,
+          "claude": 3,
+          "hours": 0.43,
+          "prs": 3
+        },
+        "FG-CollectLabs/sellthrough-analyzer": {
+          "commits": 1,
+          "additions": 68,
+          "deletions": 7,
+          "claude": 1,
+          "hours": 0.14,
+          "prs": 1
+        }
+      }
+    },
+    {
+      "date": "2026-11-09",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 5,
+          "additions": 869,
+          "deletions": 30,
+          "claude": 5,
+          "hours": 1.68,
+          "prs": 5
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 4,
+          "additions": 392,
+          "deletions": 211,
+          "claude": 4,
+          "hours": 1.35,
+          "prs": 4
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 4,
+          "additions": 256,
+          "deletions": 24,
+          "claude": 4,
+          "hours": 1.4,
+          "prs": 3
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 6,
+          "additions": 873,
+          "deletions": 39,
+          "claude": 6,
+          "hours": 2.02,
+          "prs": 6
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 7,
+          "additions": 4327,
+          "deletions": 88,
+          "claude": 7,
+          "hours": 2.36,
+          "prs": 7
+        },
+        "FG-CollectShop/fg-collect-infra": {
+          "commits": 1,
+          "additions": 5,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.34,
+          "prs": 1
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 3,
+          "additions": 1983,
+          "deletions": 24,
+          "claude": 3,
+          "hours": 1.07,
+          "prs": 2
+        }
+      }
+    },
+    {
+      "date": "2026-11-10",
+      "by_project": {
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 3,
+          "additions": 622,
+          "deletions": 20,
+          "claude": 3,
+          "hours": 0.96,
+          "prs": 4
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 5,
+          "additions": 976,
+          "deletions": 78,
+          "claude": 5,
+          "hours": 1.95,
+          "prs": 5
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 2,
+          "additions": 319,
+          "deletions": 24,
+          "claude": 2,
+          "hours": 0.7,
+          "prs": 2
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 2,
+          "additions": 165,
+          "deletions": 7,
+          "claude": 2,
+          "hours": 0.7,
+          "prs": 2
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 5,
+          "additions": 807,
+          "deletions": 64,
+          "claude": 5,
+          "hours": 2.2,
+          "prs": 4
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 2,
+          "additions": 290,
+          "deletions": 21,
+          "claude": 2,
+          "hours": 0.7,
+          "prs": 2
+        },
+        "FG-CryptoLabs/fg-crypto-portfolio": {
+          "commits": 0,
+          "additions": 0,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.0,
+          "prs": 5
+        }
+      }
+    },
+    {
+      "date": "2026-11-11",
+      "by_project": {
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 5,
+          "additions": 745,
+          "deletions": 51,
+          "claude": 5,
+          "hours": 1.37,
+          "prs": 5
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 5,
+          "additions": 2935,
+          "deletions": 75,
+          "claude": 5,
+          "hours": 1.37,
+          "prs": 5
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 2,
+          "additions": 464,
+          "deletions": 26,
+          "claude": 2,
+          "hours": 0.55,
+          "prs": 2
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 1,
+          "additions": 345,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.27,
+          "prs": 1
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 10,
+          "additions": 6269,
+          "deletions": 31,
+          "claude": 10,
+          "hours": 2.66,
+          "prs": 6
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 1,
+          "additions": 308,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.27,
+          "prs": 1
+        },
+        "FG-CryptoLabs/fg-crypto-portfolio": {
+          "commits": 0,
+          "additions": 0,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.0,
+          "prs": 8
+        }
+      }
+    },
+    {
+      "date": "2026-11-12",
+      "by_project": {
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 1,
+          "additions": 333,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.21,
+          "prs": 1
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 4,
+          "additions": 1946,
+          "deletions": 122,
+          "claude": 4,
+          "hours": 1.24,
+          "prs": 4
+        },
+        "FG-PolyLabs/polyweather": {
+          "commits": 6,
+          "additions": 7186,
+          "deletions": 48,
+          "claude": 6,
+          "hours": 1.08,
+          "prs": 3
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 3,
+          "additions": 263,
+          "deletions": 20,
+          "claude": 3,
+          "hours": 0.54,
+          "prs": 1
+        },
+        "FG-PolyLabs/polyarbs": {
+          "commits": 1,
+          "additions": 41,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.18,
+          "prs": 0
+        },
+        "FG-PolyLabs/polyesports": {
+          "commits": 3,
+          "additions": 5069,
+          "deletions": 1,
+          "claude": 3,
+          "hours": 0.71,
+          "prs": 1
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 11,
+          "additions": 413,
+          "deletions": 122,
+          "claude": 11,
+          "hours": 3.8,
+          "prs": 11
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 8,
+          "additions": 1323,
+          "deletions": 109,
+          "claude": 8,
+          "hours": 2.76,
+          "prs": 8
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 5,
+          "additions": 1719,
+          "deletions": 29,
+          "claude": 5,
+          "hours": 1.73,
+          "prs": 6
+        },
+        "FG-CryptoLabs/fg-crypto-portfolio": {
+          "commits": 0,
+          "additions": 0,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.0,
+          "prs": 2
+        }
+      }
+    },
+    {
+      "date": "2026-11-13",
+      "by_project": {
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 8,
+          "additions": 283,
+          "deletions": 69,
+          "claude": 8,
+          "hours": 2.44,
+          "prs": 8
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 7,
+          "additions": 948,
+          "deletions": 63,
+          "claude": 7,
+          "hours": 2.1,
+          "prs": 7
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 13,
+          "additions": 2727,
+          "deletions": 147,
+          "claude": 13,
+          "hours": 4.11,
+          "prs": 13
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 3,
+          "additions": 1463,
+          "deletions": 71,
+          "claude": 3,
+          "hours": 0.88,
+          "prs": 3
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 1,
+          "additions": 1320,
+          "deletions": 27,
+          "claude": 1,
+          "hours": 0.21,
+          "prs": 1
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 9,
+          "additions": 1134,
+          "deletions": 45,
+          "claude": 9,
+          "hours": 3.02,
+          "prs": 9
+        },
+        "FG-CollectLabs/sellthrough-analyzer": {
+          "commits": 1,
+          "additions": 72,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.34,
+          "prs": 1
+        }
+      }
+    },
+    {
+      "date": "2026-11-14",
+      "by_project": {
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 4,
+          "additions": 1802,
+          "deletions": 36,
+          "claude": 4,
+          "hours": 0.68,
+          "prs": 4
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 2,
+          "additions": 552,
+          "deletions": 39,
+          "claude": 2,
+          "hours": 0.34,
+          "prs": 2
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 1,
+          "additions": 9,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.17,
+          "prs": 1
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 2,
+          "additions": 447,
+          "deletions": 42,
+          "claude": 2,
+          "hours": 0.34,
+          "prs": 2
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 1,
+          "additions": 58,
+          "deletions": 26,
+          "claude": 1,
+          "hours": 0.17,
+          "prs": 1
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 1,
+          "additions": 145,
+          "deletions": 36,
+          "claude": 1,
+          "hours": 0.17,
+          "prs": 1
+        }
+      }
+    },
+    {
+      "date": "2026-11-15",
+      "by_project": {
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 1,
+          "additions": 27,
+          "deletions": 4,
+          "claude": 1,
+          "hours": 0.31,
+          "prs": 1
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 10,
+          "additions": 3284,
+          "deletions": 189,
+          "claude": 10,
+          "hours": 3.69,
+          "prs": 9
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 1,
+          "additions": 435,
+          "deletions": 124,
+          "claude": 1,
+          "hours": 0.31,
+          "prs": 1
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 6,
+          "additions": 1128,
+          "deletions": 221,
+          "claude": 6,
+          "hours": 2.29,
+          "prs": 6
+        }
+      }
+    },
+    {
+      "date": "2026-11-16",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 16,
+          "additions": 3561,
+          "deletions": 422,
+          "claude": 16,
+          "hours": 2.32,
+          "prs": 13
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 7,
+          "additions": 1192,
+          "deletions": 63,
+          "claude": 7,
+          "hours": 0.99,
+          "prs": 6
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 7,
+          "additions": 1997,
+          "deletions": 124,
+          "claude": 7,
+          "hours": 1.24,
+          "prs": 6
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 2,
+          "additions": 398,
+          "deletions": 67,
+          "claude": 2,
+          "hours": 0.29,
+          "prs": 2
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 5,
+          "additions": 331,
+          "deletions": 48,
+          "claude": 5,
+          "hours": 0.92,
+          "prs": 5
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 6,
+          "additions": 731,
+          "deletions": 53,
+          "claude": 6,
+          "hours": 1.19,
+          "prs": 6
+        }
+      }
+    },
+    {
+      "date": "2026-11-17",
+      "by_project": {
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 11,
+          "additions": 765,
+          "deletions": 95,
+          "claude": 11,
+          "hours": 2.12,
+          "prs": 10
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 7,
+          "additions": 679,
+          "deletions": 37,
+          "claude": 7,
+          "hours": 1.13,
+          "prs": 7
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 13,
+          "additions": 3734,
+          "deletions": 130,
+          "claude": 13,
+          "hours": 3.16,
+          "prs": 11
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 12,
+          "additions": 1665,
+          "deletions": 450,
+          "claude": 12,
+          "hours": 2.91,
+          "prs": 11
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 1,
+          "additions": 53,
+          "deletions": 8,
+          "claude": 1,
+          "hours": 0.25,
+          "prs": 1
+        }
+      }
+    },
+    {
+      "date": "2026-11-18",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 15,
+          "additions": 1868,
+          "deletions": 92,
+          "claude": 15,
+          "hours": 3.1,
+          "prs": 12
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 2,
+          "additions": 38,
+          "deletions": 5,
+          "claude": 2,
+          "hours": 0.17,
+          "prs": 1
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 3,
+          "additions": 1592,
+          "deletions": 55,
+          "claude": 3,
+          "hours": 0.51,
+          "prs": 3
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 16,
+          "additions": 5718,
+          "deletions": 201,
+          "claude": 16,
+          "hours": 3.44,
+          "prs": 15
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 3,
+          "additions": 188,
+          "deletions": 3,
+          "claude": 3,
+          "hours": 0.42,
+          "prs": 3
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 4,
+          "additions": 1072,
+          "deletions": 67,
+          "claude": 4,
+          "hours": 0.67,
+          "prs": 4
+        }
+      }
+    },
+    {
+      "date": "2026-11-19",
+      "by_project": {
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 7,
+          "additions": 1195,
+          "deletions": 83,
+          "claude": 7,
+          "hours": 1.49,
+          "prs": 7
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 8,
+          "additions": 3690,
+          "deletions": 102,
+          "claude": 8,
+          "hours": 1.63,
+          "prs": 8
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 6,
+          "additions": 1433,
+          "deletions": 391,
+          "claude": 6,
+          "hours": 1.88,
+          "prs": 9
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 1,
+          "additions": 136,
+          "deletions": 30,
+          "claude": 1,
+          "hours": 0.51,
+          "prs": 5
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 2,
+          "additions": 937,
+          "deletions": 31,
+          "claude": 2,
+          "hours": 1.03,
+          "prs": 0
+        }
+      }
+    },
+    {
+      "date": "2026-11-20",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 3,
+          "additions": 363,
+          "deletions": 29,
+          "claude": 3,
+          "hours": 0.55,
+          "prs": 2
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 3,
+          "additions": 102,
+          "deletions": 30,
+          "claude": 3,
+          "hours": 0.55,
+          "prs": 2
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 4,
+          "additions": 240,
+          "deletions": 28,
+          "claude": 4,
+          "hours": 0.68,
+          "prs": 2
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 1,
+          "additions": 525,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.16,
+          "prs": 0
+        },
+        "FG-InvestmentLabs/infra": {
+          "commits": 6,
+          "additions": 142,
+          "deletions": 36,
+          "claude": 6,
+          "hours": 0.97,
+          "prs": 0
+        },
+        "FG-InvestmentLabs/backtester": {
+          "commits": 4,
+          "additions": 3286,
+          "deletions": 10,
+          "claude": 4,
+          "hours": 0.64,
+          "prs": 1
+        },
+        "FG-CryptoLabs/fg-crypto-portfolio": {
+          "commits": 0,
+          "additions": 0,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.0,
+          "prs": 2
+        }
+      }
+    },
+    {
+      "date": "2026-11-21",
+      "by_project": {
+        "FG-InvestmentLabs/backtester": {
+          "commits": 5,
+          "additions": 1977,
+          "deletions": 39,
+          "claude": 5,
+          "hours": 0.5,
+          "prs": 7
+        },
+        "FG-InvestmentLabs/infra": {
+          "commits": 6,
+          "additions": 115,
+          "deletions": 21,
+          "claude": 6,
+          "hours": 0.6,
+          "prs": 0
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 3,
+          "additions": 276,
+          "deletions": 167,
+          "claude": 3,
+          "hours": 0.3,
+          "prs": 4
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 3,
+          "additions": 354,
+          "deletions": 17,
+          "claude": 3,
+          "hours": 0.3,
+          "prs": 3
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 2,
+          "additions": 130,
+          "deletions": 5,
+          "claude": 2,
+          "hours": 0.2,
+          "prs": 3
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 3,
+          "additions": 702,
+          "deletions": 21,
+          "claude": 3,
+          "hours": 0.3,
+          "prs": 3
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 3,
+          "additions": 3374,
+          "deletions": 103,
+          "claude": 3,
+          "hours": 0.3,
+          "prs": 3
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 2,
+          "additions": 357,
+          "deletions": 34,
+          "claude": 2,
+          "hours": 0.2,
+          "prs": 2
+        }
+      }
+    },
+    {
+      "date": "2026-11-22",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 4,
+          "additions": 424,
+          "deletions": 33,
+          "claude": 4,
+          "hours": 0.76,
+          "prs": 4
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 4,
+          "additions": 1334,
+          "deletions": 77,
+          "claude": 4,
+          "hours": 0.89,
+          "prs": 5
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 3,
+          "additions": 556,
+          "deletions": 31,
+          "claude": 3,
+          "hours": 0.77,
+          "prs": 4
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 3,
+          "additions": 299,
+          "deletions": 27,
+          "claude": 3,
+          "hours": 0.77,
+          "prs": 3
+        },
+        "FG-CryptoLabs/fg-crypto-portfolio": {
+          "commits": 4,
+          "additions": 6121,
+          "deletions": 158,
+          "claude": 4,
+          "hours": 1.02,
+          "prs": 11
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 2,
+          "additions": 286,
+          "deletions": 13,
+          "claude": 2,
+          "hours": 0.25,
+          "prs": 1
+        },
+        "FG-CollectShop/fg-collect-core": {
+          "commits": 1,
+          "additions": 252,
+          "deletions": 1,
+          "claude": 1,
+          "hours": 0.5,
+          "prs": 1
+        }
+      }
+    },
+    {
+      "date": "2026-11-23",
+      "by_project": {
+        "FG-CryptoLabs/fg-crypto-portfolio": {
+          "commits": 15,
+          "additions": 5554,
+          "deletions": 166,
+          "claude": 15,
+          "hours": 4.07,
+          "prs": 20
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 3,
+          "additions": 249,
+          "deletions": 2,
+          "claude": 3,
+          "hours": 0.38,
+          "prs": 3
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 5,
+          "additions": 1553,
+          "deletions": 75,
+          "claude": 5,
+          "hours": 0.95,
+          "prs": 5
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 2,
+          "additions": 287,
+          "deletions": 44,
+          "claude": 2,
+          "hours": 0.26,
+          "prs": 2
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 4,
+          "additions": 328,
+          "deletions": 34,
+          "claude": 4,
+          "hours": 0.8,
+          "prs": 4
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 3,
+          "additions": 617,
+          "deletions": 49,
+          "claude": 3,
+          "hours": 1.27,
+          "prs": 1
+        },
+        "FG-CollectShop/fg-collect-admin": {
+          "commits": 0,
+          "additions": 0,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.0,
+          "prs": 1
+        }
+      }
+    },
+    {
+      "date": "2026-11-24",
+      "by_project": {
+        "FG-PolyLabs/polyedge": {
+          "commits": 22,
+          "additions": 3500,
+          "deletions": 340,
+          "claude": 22,
+          "hours": 6.38,
+          "prs": 9
+        },
+        "FG-PolyLabs/polyweather-bot": {
+          "commits": 4,
+          "additions": 2580,
+          "deletions": 77,
+          "claude": 4,
+          "hours": 0.58,
+          "prs": 2
+        },
+        "FG-PolyLabs/polyweather": {
+          "commits": 3,
+          "additions": 340,
+          "deletions": 45,
+          "claude": 3,
+          "hours": 0.44,
+          "prs": 1
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 1,
+          "additions": 12,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.15,
+          "prs": 0
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 1,
+          "additions": 132,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.15,
+          "prs": 0
+        },
+        "FG-CryptoLabs/fg-crypto-portfolio": {
+          "commits": 0,
+          "additions": 0,
+          "deletions": 0,
+          "claude": 0,
+          "hours": 0.0,
+          "prs": 2
+        }
+      }
+    },
+    {
+      "date": "2026-11-25",
+      "by_project": {
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 18,
+          "additions": 1505,
+          "deletions": 146,
+          "claude": 18,
+          "hours": 4.25,
+          "prs": 18
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 2,
+          "additions": 239,
+          "deletions": 17,
+          "claude": 2,
+          "hours": 0.81,
+          "prs": 2
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 15,
+          "additions": 1269,
+          "deletions": 446,
+          "claude": 15,
+          "hours": 3.35,
+          "prs": 16
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 6,
+          "additions": 1074,
+          "deletions": 227,
+          "claude": 6,
+          "hours": 1.42,
+          "prs": 5
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 3,
+          "additions": 381,
+          "deletions": 33,
+          "claude": 3,
+          "hours": 0.56,
+          "prs": 2
+        },
+        "FG-PolyLabs/polyweather": {
+          "commits": 1,
+          "additions": 185,
+          "deletions": 27,
+          "claude": 1,
+          "hours": 0.15,
+          "prs": 1
+        },
+        "FG-PolyLabs/polyweather-bot": {
+          "commits": 1,
+          "additions": 898,
+          "deletions": 20,
+          "claude": 1,
+          "hours": 0.15,
+          "prs": 1
+        }
+      }
+    },
+    {
+      "date": "2026-11-26",
+      "by_project": {
+        "FutureGadgetLabs-Watchtower/futuregadgetlabs-watchtower.github.io": {
+          "commits": 3,
+          "additions": 5115,
+          "deletions": 44,
+          "claude": 3,
+          "hours": 0.33,
+          "prs": 0
+        },
+        "FG-CollectLabs/grading-predictor-frontend": {
+          "commits": 2,
+          "additions": 137,
+          "deletions": 10,
+          "claude": 2,
+          "hours": 0.19,
+          "prs": 1
+        },
+        "FG-CollectLabs/grading-predictor-backend": {
+          "commits": 1,
+          "additions": 558,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.09,
+          "prs": 1
+        },
+        "FG-CollectLabs/market-tracker-backend": {
+          "commits": 1,
+          "additions": 125,
+          "deletions": 0,
+          "claude": 1,
+          "hours": 0.09,
+          "prs": 1
+        },
+        "FG-CollectLabs/market-tracker-frontend": {
+          "commits": 1,
+          "additions": 131,
+          "deletions": 40,
+          "claude": 1,
+          "hours": 0.09,
+          "prs": 1
+        },
+        "FG-PolyLabs/polyedge": {
+          "commits": 11,
+          "additions": 1647,
+          "deletions": 167,
+          "claude": 11,
+          "hours": 1.24,
+          "prs": 5
+        },
+        "FG-PolyLabs/polyweather": {
+          "commits": 14,
+          "additions": 6656,
+          "deletions": 274,
+          "claude": 14,
+          "hours": 1.63,
+          "prs": 12
+        },
+        "FG-PolyLabs/polyweather-bot": {
+          "commits": 11,
+          "additions": 9289,
+          "deletions": 327,
+          "claude": 11,
+          "hours": 1.4,
+          "prs": 11
         }
       }
     }
   ],
-  "sprints": [
-    {
-      "name": "S21",
-      "start": "2026-09-07",
-      "end": "2026-09-20",
-      "goal": "Pricing agents on worker pool",
-      "points_committed": 31,
-      "points_done": 26,
-      "status": "closed"
-    },
-    {
-      "name": "S22",
-      "start": "2026-09-21",
-      "end": "2026-10-04",
-      "goal": "Admin orders + receipts",
-      "points_committed": 40,
-      "points_done": 33,
-      "status": "closed"
-    },
-    {
-      "name": "S23",
-      "start": "2026-10-05",
-      "end": "2026-10-18",
-      "goal": "PolyEdge live arbs",
-      "points_committed": 31,
-      "points_done": 28,
-      "status": "closed"
-    },
-    {
-      "name": "S24",
-      "start": "2026-10-19",
-      "end": "2026-11-01",
-      "goal": "COGS month-end close",
-      "points_committed": 30,
-      "points_done": 28,
-      "status": "closed"
-    },
-    {
-      "name": "S25",
-      "start": "2026-11-02",
-      "end": "2026-11-15",
-      "goal": "PolyWeather calibration",
-      "points_committed": 29,
-      "points_done": 25,
-      "status": "closed"
-    },
-    {
-      "name": "S26",
-      "start": "2026-11-16",
-      "end": "2026-11-29",
-      "goal": "Watchtower v0.1 + collector",
-      "points_committed": 40,
-      "points_done": 22,
-      "status": "active"
-    }
-  ]
+  "sprints": []
 }

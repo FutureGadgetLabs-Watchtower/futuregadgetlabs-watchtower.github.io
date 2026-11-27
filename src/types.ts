@@ -67,29 +67,37 @@ export interface HealthData extends Envelope {
   services: Service[]
 }
 
-export interface WeekMetrics {
+/** One project's activity on one local day (velocity.json schema_version 2). */
+export interface DayMetrics {
   commits: number
-  prs_merged: number
   additions: number
   deletions: number
-  active_repos: number
-  est_hours: number
+  /** commits with a Co-Authored-By: Claude trailer */
+  claude: number
+  /** "your hours": this project's share of session time that day */
+  hours: number
+  prs: number
+}
+
+export interface Sprint {
+  name: string
+  start: string
+  end: string
+  goal: string
+  points_committed: number
+  points_done: number
+  status: 'active' | 'closed'
 }
 
 export interface VelocityData extends Envelope {
-  method: { est_hours: string; sources: string }
+  method: { timezone: string; your_hours: string; lines: string; sources: string }
+  excluded: { merge_commits: number; bot_commits: number; automated_commits: number; repos: string[] }
   orgs: Org[]
-  projects: { id: string; org: string; repo: string }[]
-  weeks: { week_start: string; by_project: Record<string, WeekMetrics> }[]
-  sprints: {
-    name: string
-    start: string
-    end: string
-    goal: string
-    points_committed: number
-    points_done: number
-    status: 'active' | 'closed'
-  }[]
+  /** id is "Org/repo": repo names repeat across orgs */
+  projects: { id: string; org: string; name: string; private: boolean; archived: boolean }[]
+  /** active days only, in method.timezone, ascending */
+  days: { date: string; by_project: Record<string, DayMetrics> }[]
+  sprints: Sprint[]
 }
 
 export type ChangeType = 'feature' | 'fix' | 'perf' | 'infra' | 'security' | 'docs' | 'breaking'

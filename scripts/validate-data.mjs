@@ -17,16 +17,18 @@ const isIso = (s) => typeof s === 'string' && !Number.isNaN(Date.parse(s))
 
 const files = {
   'health.json': ['orgs', 'nodes', 'services'],
-  'velocity.json': ['orgs', 'projects', 'weeks', 'sprints', 'method'],
+  'velocity.json': ['orgs', 'projects', 'days', 'sprints', 'method', 'excluded'],
   'changelog.json': ['orgs', 'entries'],
   'roadmap.json': ['orgs', 'milestones', 'items'],
   'ai_usage.json': ['period', 'production', 'engineering'],
 }
+const SCHEMA = { 'velocity.json': 2 }
 for (const [f, keys] of Object.entries(files)) {
   const d = read(f)
   if (!d) continue
   need(f, d, ['schema_version', 'generated_at', 'collector', ...keys])
-  if (d.schema_version !== 1) errors.push(`${f}: schema_version ${d.schema_version}, site expects 1`)
+  const want = SCHEMA[f] ?? 1
+  if (d.schema_version !== want) errors.push(`${f}: schema_version ${d.schema_version}, site expects ${want}`)
   if (!isIso(d.generated_at)) errors.push(`${f}: generated_at is not a timestamp`)
 }
 
@@ -39,12 +41,27 @@ h?.services?.forEach((s, i) => {
   if (JSON.stringify(s).match(/\b(10|192\.168|172\.(1[6-9]|2\d|3[01]))\.\d+\.\d+/)) errors.push(`health.json ${s.id}: contains a private IP`)
 })
 const v = read('velocity.json')
-if (v && !v.weeks?.length) errors.push('velocity.json: no weeks')
+if (v && !v.days?.length) errors.push('velocity.json: no days')
+v?.days?.forEach((d) => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(d.date)) errors.push(`velocity.json: bad day ${d.date}`)
+})
 const r = read('roadmap.json')
 r?.items?.forEach((it) => {
   if (!['in_progress', 'planned', 'shipped'].includes(it.status)) errors.push(`roadmap.json ${it.id}: bad status ${it.status}`)
 })
 if (!fs.existsSync(new URL('architecture.md', dir))) errors.push('architecture.md missing')
+
+// Everything in data/ is public (and so is its git history). Fail closed on anything that looks private.
+const PRIVATE = [
+  [/\b(10\.\d{1,3}|192\.168|172\.(1[6-9]|2\d|3[01]))\.\d{1,3}\.\d{1,3}\b/, 'a private IP address'],
+  [/[A-Za-z0-9._%+-]+@(?!users\.noreply\.github\.com)[A-Za-z0-9.-]+\.[A-Za-z]{2,}/, 'an email address'],
+  [/\b(gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9-]{20,}|AKIA[0-9A-Z]{16})\b/, 'a token or key'],
+  [/-----BEGIN [A-Z ]*PRIVATE KEY-----/, 'a private key'],
+]
+for (const f of fs.readdirSync(dir)) {
+  const text = fs.readFileSync(new URL(f, dir), 'utf8')
+  for (const [rx, what] of PRIVATE) if (rx.test(text)) errors.push(`${f}: contains ${what}; refusing to publish`)
+}
 
 if (errors.length) {
   console.error('data validation failed:\n  ' + errors.join('\n  '))

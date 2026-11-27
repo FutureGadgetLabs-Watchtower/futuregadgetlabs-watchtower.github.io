@@ -34,12 +34,14 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any, Callable
+from zoneinfo import ZoneInfo
 
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 SCHEMA_VERSION = 1
+VELOCITY_SCHEMA_VERSION = 2
 HERE = Path(__file__).resolve().parent
 log = logging.getLogger("watchtower")
 
@@ -95,7 +97,10 @@ class Config:
         self.targets: dict[str, Any] = json.loads(cfg_path.read_text())
 
         self.github_api = os.environ.get("GITHUB_API_URL", "https://api.github.com")
-        self.velocity_weeks = int(os.environ.get("VELOCITY_WEEKS", "12"))
+        # GitHub App (preferred): one app installed on every org; short-lived per-org tokens are minted on demand.
+        self.github_app_id = os.environ.get("GITHUB_APP_ID", "")
+        self.github_app_key = os.path.expanduser(os.environ.get("GITHUB_APP_KEY", ""))
+        self.app = GitHubApp(self)
         self.http_timeout = float(os.environ.get("HEALTH_HTTP_TIMEOUT", "8"))
         self.degraded_ms = int(os.environ.get("HEALTH_DEGRADED_MS", "800"))
         self.history_len = int(os.environ.get("HEALTH_HISTORY_LEN", "48"))
@@ -119,10 +124,13 @@ class Config:
         return self.targets.get("projects", [])
 
     def github_token(self, org: str) -> str:
-        """Fine-grained PATs are scoped to one owner, so allow one token per org.
+        """The GitHub App's installation token for this org when the App is configured.
 
-        GITHUB_TOKEN__FG_POLYLABS overrides GITHUB_TOKEN for org FG-PolyLabs.
+        Otherwise a PAT: fine-grained PATs are scoped to one owner, so GITHUB_TOKEN__FG_POLYLABS
+        overrides GITHUB_TOKEN for org FG-PolyLabs.
         """
+        if self.app.enabled:
+            return self.app.token(org)
         key = "GITHUB_TOKEN__" + re.sub(r"[^A-Z0-9]", "_", org.upper())
         return os.environ.get(key) or os.environ.get("GITHUB_TOKEN", "")
 
@@ -157,7 +165,22 @@ def write_json_atomic(path: Path, obj: Any) -> None:
 
 
 def http_json(url: str, *, method: str = "GET", headers: dict | None = None, body: Any = None,
-              timeout: float = 20, context: ssl.SSLContext | None = None) -> Any:
+              timeout: float = 20, context: ssl.SSLContext | None = None, retries: int = 3) -> Any:
+    """JSON request. Retries 5xx and network errors with backoff (GitHub GraphQL 502s on heavy pages)."""
+    for attempt in range(retries + 1):
+        try:
+            return _http_json(url, method=method, headers=headers, body=body, timeout=timeout, context=context)
+        except urllib.error.HTTPError as e:
+            if e.code < 500 or attempt == retries:
+                raise
+        except (urllib.error.URLError, TimeoutError):
+            if attempt == retries:
+                raise
+        time.sleep(2 * (attempt + 1))
+
+
+def _http_json(url: str, *, method: str, headers: dict | None, body: Any, timeout: float,
+               context: ssl.SSLContext | None) -> Any:
     data = json.dumps(body).encode() if body is not None else None
     req = urllib.request.Request(url, data=data, method=method, headers={
         "Accept": "application/json",
@@ -167,6 +190,77 @@ def http_json(url: str, *, method: str = "GET", headers: dict | None = None, bod
     })
     with urllib.request.urlopen(req, timeout=timeout, context=context) as r:
         return json.loads(r.read().decode())
+
+
+# ---------------------------------------------------------------------------------------------
+# GitHub App auth: JWT signed with openssl (keeps the collector stdlib-only), per-org install tokens
+# ---------------------------------------------------------------------------------------------
+
+
+def _b64url(b: bytes) -> str:
+    import base64
+    return base64.urlsafe_b64encode(b).rstrip(b"=").decode()
+
+
+class GitHubApp:
+    """Read-only access to every org the Watchtower GitHub App is installed on.
+
+    Tokens live in memory only and expire within the hour; nothing is written to disk.
+    """
+
+    def __init__(self, cfg: "Config"):
+        self.cfg = cfg
+        self._installs: dict[str, int] | None = None
+        self._tokens: dict[str, tuple[str, float]] = {}
+
+    @property
+    def enabled(self) -> bool:
+        return bool(self.cfg.github_app_id and self.cfg.github_app_key)
+
+    def _jwt(self) -> str:
+        now = int(time.time())
+        head = _b64url(b'{"alg":"RS256","typ":"JWT"}')
+        body = _b64url(json.dumps({"iat": now - 60, "exp": now + 540, "iss": self.cfg.github_app_id}).encode())
+        sig = subprocess.run(["openssl", "dgst", "-sha256", "-sign", self.cfg.github_app_key, "-binary"],
+                             input=f"{head}.{body}".encode(), capture_output=True, check=True).stdout
+        return f"{head}.{body}.{_b64url(sig)}"
+
+    def _api(self, path: str, auth: str, **kw: Any) -> Any:
+        return http_json(self.cfg.github_api.rstrip("/") + path,
+                         headers={"Authorization": auth, "X-GitHub-Api-Version": "2022-11-28"}, **kw)
+
+    def installations(self) -> dict[str, int]:
+        if self._installs is None:
+            self._installs = {}
+            page = 1
+            while True:
+                batch = self._api(f"/app/installations?per_page=100&page={page}", f"Bearer {self._jwt()}")
+                for i in batch:
+                    self._installs[i["account"]["login"]] = i["id"]
+                if len(batch) < 100:
+                    break
+                page += 1
+        return self._installs
+
+    def token(self, org: str) -> str:
+        tok, exp = self._tokens.get(org, ("", 0.0))
+        if tok and exp - time.time() > 300:
+            return tok
+        inst = self.installations().get(org)
+        if not inst:
+            raise RuntimeError(f"the GitHub App is not installed on {org}")
+        res = self._api(f"/app/installations/{inst}/access_tokens", f"Bearer {self._jwt()}", method="POST", body={})
+        self._tokens[org] = (res["token"], parse_iso(res["expires_at"]).timestamp())
+        return res["token"]
+
+    def repos(self, org: str) -> list[dict]:
+        out, page = [], 1
+        while True:
+            batch = self._api(f"/installation/repositories?per_page=100&page={page}", f"token {self.token(org)}")
+            out += batch["repositories"]
+            if len(out) >= batch["total_count"] or not batch["repositories"]:
+                return out
+            page += 1
 
 
 # ---------------------------------------------------------------------------------------------
@@ -195,41 +289,38 @@ class GitHub:
         qs = ("?" + urllib.parse.urlencode(params)) if params else ""
         return http_json(self.cfg.github_api.rstrip("/") + path + qs, headers=self._headers(org))
 
-    # -- commits on the default branch, bucketed by ISO week --------------------------------
-    COMMITS_Q = """
-    query($owner:String!, $name:String!, $since:GitTimestamp!, $cursor:String) {
+    # -- default-branch history, newest first, stopping at commits already cached ---------------
+    HISTORY_Q = """
+    query($owner:String!, $name:String!, $cursor:String, $n:Int!) {
       repository(owner:$owner, name:$name) {
         defaultBranchRef { target { ... on Commit {
-          history(since:$since, first:100, after:$cursor) {
+          history(first:$n, after:$cursor) {
             pageInfo { hasNextPage endCursor }
-            nodes { committedDate additions deletions author { user { login } } }
+            nodes { oid authoredDate additions deletions message parents { totalCount } author { name user { login } } }
           }
         } } }
       }
     }"""
 
-    def commits_by_week(self, org: str, repo: str, since: dt.datetime, bots: set[str]) -> dict[str, dict]:
-        weeks: dict[str, dict] = defaultdict(lambda: {"commits": 0, "additions": 0, "deletions": 0})
-        cursor = None
+    def commit_history(self, org: str, repo: str, known: set[str]) -> list[dict]:
+        """New default-branch commits (not in `known`), newest first. Pages are kept small because
+        GraphQL times out (502) on 100-commit pages that carry diff stats."""
+        out, cursor = [], None
         while True:
-            d = self.graphql(org, self.COMMITS_Q, {"owner": org, "name": repo, "since": iso(since), "cursor": cursor})
+            d = self.graphql(org, self.HISTORY_Q, {"owner": org, "name": repo, "cursor": cursor, "n": 40})
             ref = (d.get("repository") or {}).get("defaultBranchRef")
             if not ref:
-                return {}
+                return out  # empty repo
             hist = ref["target"]["history"]
             for n in hist["nodes"]:
-                login = ((n.get("author") or {}).get("user") or {}).get("login") or ""
-                if login in bots or login.endswith("[bot]"):
-                    continue
-                wk = monday(parse_iso(n["committedDate"]).date()).isoformat()
-                weeks[wk]["commits"] += 1
-                weeks[wk]["additions"] += n["additions"]
-                weeks[wk]["deletions"] += n["deletions"]
+                if n["oid"] in known:
+                    return out
+                out.append(n)
             if not hist["pageInfo"]["hasNextPage"]:
-                return dict(weeks)
+                return out
             cursor = hist["pageInfo"]["endCursor"]
 
-    # -- merged PRs across the whole org in one search, bucketed by repo + week --------------
+    # -- merged PRs for one org in a date range (search caps at 1000 hits, so callers go month by month)
     PRS_Q = """
     query($q:String!, $cursor:String) {
       search(query:$q, type:ISSUE, first:100, after:$cursor) {
@@ -238,18 +329,15 @@ class GitHub:
       }
     }"""
 
-    def merged_prs(self, org: str, since: dt.date) -> dict[tuple[str, str], int]:
-        out: dict[tuple[str, str], int] = defaultdict(int)
-        q = f"org:{org} is:pr is:merged merged:>={since.isoformat()}"
-        cursor = None
+    def merged_prs(self, org: str, start: dt.date, end: dt.date) -> list[tuple[str, str]]:
+        """[(repo name, mergedAt iso)] for PRs merged in [start, end]."""
+        out, cursor = [], None
+        q = f"org:{org} is:pr is:merged merged:{start.isoformat()}..{end.isoformat()}"
         while True:
             d = self.graphql(org, self.PRS_Q, {"q": q, "cursor": cursor})["search"]
-            for n in d["nodes"]:
-                if n and n.get("mergedAt"):
-                    wk = monday(parse_iso(n["mergedAt"]).date()).isoformat()
-                    out[(n["repository"]["name"], wk)] += 1
+            out += [(n["repository"]["name"], n["mergedAt"]) for n in d["nodes"] if n and n.get("mergedAt")]
             if not d["pageInfo"]["hasNextPage"]:
-                return dict(out)
+                return out
             cursor = d["pageInfo"]["endCursor"]
 
     def releases(self, org: str, repo: str, limit: int = 20) -> list[dict]:
@@ -259,48 +347,209 @@ class GitHub:
         return self.rest(org, f"/repos/{org}/{repo}/issues", {"labels": label, "state": "all", "per_page": 100})
 
 
-def est_hours(m: dict) -> float:
-    # Rough proxy, documented in velocity.json "method". Tune here, not in the UI.
-    return round(m["commits"] * 0.55 + m["prs_merged"] * 1.5 + (m["additions"] + m["deletions"]) / 900, 1)
+# ---------------------------------------------------------------------------------------------
+# Velocity: every commit the GitHub App can see, cached per repo, published as daily totals
+# ---------------------------------------------------------------------------------------------
+
+# Defaults for watchtower.config.json "velocity"; every key can be overridden there.
+VELOCITY_DEFAULTS: dict[str, Any] = {
+    "timezone": "UTC",
+    "include_orgs": [],               # empty = every org the App is installed on
+    "exclude_orgs": [],
+    "exclude_repos": [],              # "Org/repo"; e.g. data repos that a bot commits to under a human login
+    "exclude_forks": True,
+    "session_gap_minutes": 120,       # commits closer than this belong to one working session
+    "session_lead_minutes": 30,       # work before a session's first commit
+    "max_lines_per_commit": 5000,     # caps generated / vendored commits so they can't swamp the totals
+    "automated_message_patterns": [r"^auto[ -]?update\b", r"^chore\(data\)", r"^data: sync\b", r"\[skip ci\]"],
+}
+ORG_PALETTE = ["#338ced", "#e76624", "#00a888", "#d28e05", "#e24d8b", "#0aac23", "#9887ef",
+               "#5ab4c4", "#c46a3a", "#8fa83a", "#b45fb0", "#6f86d6"]
+CLAUDE_TRAILER = re.compile(r"^co-authored-by:\s*claude\b", re.I | re.M)
 
 
-def collect_velocity(cfg: Config, started: float) -> dict:
+def _commit_record(n: dict) -> dict:
+    """What the collector keeps per commit (on the collector host only; never published)."""
+    msg = n.get("message") or ""
+    return {
+        "oid": n["oid"], "t": n["authoredDate"],
+        "login": ((n.get("author") or {}).get("user") or {}).get("login") or "",
+        "add": n.get("additions") or 0, "del": n.get("deletions") or 0,
+        "merge": (n.get("parents") or {}).get("totalCount", 1) > 1,
+        "claude": bool(CLAUDE_TRAILER.search(msg)),
+        "subj": msg.splitlines()[0][:200] if msg else "",
+    }
+
+
+def _read_jsonl(path: Path) -> list[dict]:
+    if not path.exists():
+        return []
+    return [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
+
+
+def _write_jsonl(path: Path, rows: list[dict]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(".tmp")
+    tmp.write_text("".join(json.dumps(r, separators=(",", ":")) + "\n" for r in rows))
+    tmp.replace(path)
+
+
+def sync_commit_cache(cfg: Config, vcfg: dict, full: bool = False) -> tuple[list[dict], list[dict]]:
+    """Refresh the per-repo commit cache from GitHub. Returns (repos, commits).
+
+    A repo is only queried when its pushed_at moved since the last run, so a 15-minute timer costs a
+    handful of API calls. `full` re-reads every repo from scratch (after a force-push or a pattern change).
+    """
     gh = GitHub(cfg)
+    store = cfg.state_dir / "velocity"
+    meta_path = store / "repos.json"
+    meta = {} if full else (read_json(meta_path, {}) or {})
+    include, exclude_orgs = set(vcfg["include_orgs"]), set(vcfg["exclude_orgs"])
+    exclude_repos = set(vcfg["exclude_repos"])
+    repos, commits = [], []
+    for org in sorted(cfg.app.installations()):
+        if (include and org not in include) or org in exclude_orgs:
+            continue
+        for r in cfg.app.repos(org):
+            full_name = f"{org}/{r['name']}"
+            if full_name in exclude_repos or (r.get("fork") and vcfg["exclude_forks"]):
+                continue
+            path = store / "commits" / (full_name.replace("/", "__") + ".jsonl")
+            cached = [] if full else _read_jsonl(path)
+            if full or not path.exists() or meta.get(full_name, {}).get("pushed_at") != r.get("pushed_at"):
+                try:
+                    new = gh.commit_history(org, r["name"], {c["oid"] for c in cached})
+                except Exception as e:  # noqa: BLE001 - keep what we had for this repo, carry on
+                    log.warning("velocity: %s failed, keeping cached history: %s", full_name, e)
+                else:
+                    if new:
+                        cached = [_commit_record(n) for n in new] + cached
+                        _write_jsonl(path, cached)
+                        log.info("velocity: %s +%d commits", full_name, len(new))
+                    elif not path.exists():
+                        _write_jsonl(path, [])
+                    meta[full_name] = {"pushed_at": r.get("pushed_at")}
+            repos.append({"id": full_name, "org": org, "name": r["name"], "private": bool(r.get("private")),
+                          "archived": bool(r.get("archived"))})
+            commits += [{**c, "project": full_name} for c in cached]
+    write_json_atomic(meta_path, meta)
+    return repos, commits
+
+
+def merged_pr_days(cfg: Config, orgs: list[str], first: dt.date, tz: ZoneInfo) -> Counter:
+    """{(Org/repo, local date): merged PRs}. Closed months are cached; only the last two are re-queried."""
+    gh = GitHub(cfg)
+    cache_path = cfg.state_dir / "velocity" / "prs.json"
+    cache = read_json(cache_path, {}) or {}
     today = now_utc().date()
-    first_week = monday(today) - dt.timedelta(weeks=cfg.velocity_weeks - 1)
-    since = dt.datetime.combine(first_week, dt.time(), UTC)
-    week_keys = [(first_week + dt.timedelta(weeks=i)).isoformat() for i in range(cfg.velocity_weeks)]
-    bots = set(cfg.targets.get("bot_logins", []))
+    recent = {(today.replace(day=1) - dt.timedelta(days=1)).strftime("%Y-%m"), today.strftime("%Y-%m")}
+    out: Counter = Counter()
+    for org in orgs:
+        m = first.replace(day=1)
+        while m <= today:
+            key = f"{org}:{m:%Y-%m}"
+            nxt = (m.replace(day=28) + dt.timedelta(days=4)).replace(day=1)
+            if key not in cache or m.strftime("%Y-%m") in recent:
+                try:
+                    cache[key] = gh.merged_prs(org, m, nxt - dt.timedelta(days=1))
+                except Exception as e:  # noqa: BLE001
+                    log.warning("velocity: PR search %s failed: %s", key, e)
+            for repo, merged_at in cache.get(key, []):
+                out[(f"{org}/{repo}", parse_iso(merged_at).astimezone(tz).date().isoformat())] += 1
+            m = nxt
+    write_json_atomic(cache_path, cache)
+    return out
 
-    by_week: dict[str, dict[str, dict]] = {w: {} for w in week_keys}
-    prs_cache: dict[str, dict] = {}
-    for p in cfg.projects:
-        org, repo = p["repo"].split("/", 1)
-        if org not in prs_cache:
-            prs_cache[org] = gh.merged_prs(org, first_week)
-        commits = gh.commits_by_week(org, repo, since, bots)
-        for w in week_keys:
-            c = commits.get(w, {"commits": 0, "additions": 0, "deletions": 0})
-            m = {**c, "prs_merged": prs_cache[org].get((repo, w), 0)}
-            m["active_repos"] = 1 if (m["commits"] or m["prs_merged"]) else 0
-            m["est_hours"] = est_hours(m)
-            by_week[w][p["id"]] = {k: m[k] for k in ("commits", "prs_merged", "additions", "deletions", "active_repos", "est_hours")}
-        log.info("velocity: %s ok", p["repo"])
 
+def collect_velocity(cfg: Config, started: float, full: bool = False) -> dict:
+    if not cfg.app.enabled:
+        raise RuntimeError("velocity needs the GitHub App: set GITHUB_APP_ID and GITHUB_APP_KEY")
+    vcfg = {**VELOCITY_DEFAULTS, **cfg.targets.get("velocity", {})}
+    tz = ZoneInfo(vcfg["timezone"])
+    repos, commits = sync_commit_cache(cfg, vcfg, full=full)
+
+    bots = {b.lower() for b in cfg.targets.get("bot_logins", [])}
+    auto_rx = re.compile("|".join(vcfg["automated_message_patterns"]), re.I) if vcfg["automated_message_patterns"] else None
+    excluded: Counter = Counter()
+    work = []
+    for c in commits:
+        login = c["login"].lower()
+        if c["merge"]:
+            excluded["merge_commits"] += 1
+        elif login.endswith("[bot]") or login in bots:
+            excluded["bot_commits"] += 1
+        elif auto_rx and auto_rx.search(c["subj"]):
+            excluded["automated_commits"] += 1
+        else:
+            work.append(c)
+    for c in work:
+        c["_t"] = parse_iso(c["t"])
+    work.sort(key=lambda c: c["_t"])
+
+    # "Your hours": one timeline for everything (one person directing every agent). A session is a run of
+    # commits with gaps under session_gap_minutes; its span plus a lead-in is split evenly across its commits.
+    gap = dt.timedelta(minutes=vcfg["session_gap_minutes"])
+    lead = dt.timedelta(minutes=vcfg["session_lead_minutes"])
+    sessions: list[list[dict]] = []
+    for c in work:
+        if not sessions or c["_t"] - sessions[-1][-1]["_t"] > gap:
+            sessions.append([])
+        sessions[-1].append(c)
+    for s in sessions:
+        share = ((s[-1]["_t"] - s[0]["_t"]) + lead).total_seconds() / 3600 / len(s)
+        for c in s:
+            c["_h"] = share
+
+    cap = vcfg["max_lines_per_commit"]
+    days: dict[str, dict[str, dict]] = defaultdict(dict)
+    for c in work:
+        d = c["_t"].astimezone(tz).date().isoformat()
+        m = days[d].setdefault(c["project"], {"commits": 0, "additions": 0, "deletions": 0, "claude": 0, "hours": 0.0, "prs": 0})
+        m["commits"] += 1
+        m["additions"] += min(c["add"], cap)
+        m["deletions"] += min(c["del"], cap)
+        m["claude"] += 1 if c["claude"] else 0
+        m["hours"] += c["_h"]
+
+    active_orgs = sorted({r["org"] for r in repos})
+    if work:
+        first_day = work[0]["_t"].astimezone(tz).date()
+        tracked = {r["id"] for r in repos}
+        for (proj, d), n in merged_pr_days(cfg, active_orgs, first_day, tz).items():
+            if proj in tracked:
+                days[d].setdefault(proj, {"commits": 0, "additions": 0, "deletions": 0, "claude": 0, "hours": 0.0, "prs": 0})["prs"] += n
+    for by in days.values():
+        for m in by.values():
+            m["hours"] = round(m["hours"], 2)
+
+    with_work = {p for by in days.values() for p in by}  # commits or merged PRs
+    org_cfg = {o["id"]: o for o in cfg.orgs}
+    orgs_out = []
+    for i, org in enumerate(active_orgs):
+        o = org_cfg.get(org, {})
+        orgs_out.append({"id": org, "name": o.get("name", org), "color": o.get("color", ORG_PALETTE[i % len(ORG_PALETTE)]),
+                         **({"description": o["description"]} if o.get("description") else {})})
     prev = read_json(cfg.data_dir / "velocity.json", {}) or {}
     return {
-        "schema_version": SCHEMA_VERSION,
+        "schema_version": VELOCITY_SCHEMA_VERSION,
         "generated_at": iso(now_utc()),
         "collector": collector_meta(cfg, started),
         "method": {
-            "est_hours": "0.55 h per commit + 1.5 h per merged PR + 1 h per 900 lines changed. A rough proxy, not a timesheet.",
-            "sources": "GitHub GraphQL default-branch history + merged-PR search per org; bots excluded",
+            "timezone": vcfg["timezone"],
+            "your_hours": (f"Session-based: commits less than {vcfg['session_gap_minutes']} min apart form one working session; "
+                           f"a session counts its span plus {vcfg['session_lead_minutes']} min of lead-in. One timeline for "
+                           "everything, since one person directs every agent."),
+            "lines": f"Lines added and deleted per commit, capped at {cap:,} each so generated or vendored commits can't swamp the totals.",
+            "sources": "Default-branch history of every repo the Watchtower GitHub App can read; merge, bot and automated "
+                       "data commits excluded; merged PRs from GitHub search.",
         },
-        "orgs": cfg.orgs,
-        "projects": [{"id": p["id"], "org": p["repo"].split("/")[0], "repo": p["repo"]} for p in cfg.projects],
-        "weeks": [{"week_start": w, "by_project": by_week[w]} for w in week_keys],
-        # Sprints are planned by hand; keep whatever is in the file (or the config) untouched.
-        "sprints": cfg.targets.get("sprints") or prev.get("sprints", []),
+        "excluded": {**{k: excluded.get(k, 0) for k in ("merge_commits", "bot_commits", "automated_commits")},
+                     "repos": sorted(vcfg["exclude_repos"])},
+        "orgs": orgs_out,
+        "projects": [r for r in repos if r["id"] in with_work],
+        "days": [{"date": d, "by_project": days[d]} for d in sorted(days)],
+        # Sprints are planned by hand: from the config, or kept from the last real (non-mock) file.
+        "sprints": cfg.targets.get("sprints") or ([] if (prev.get("collector") or {}).get("mock") else prev.get("sprints", [])),
     }
 
 
@@ -790,6 +1039,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--dry-run", action="store_true", help="collect and print a summary; write nothing")
     ap.add_argument("--no-push", action="store_true", help="commit locally but do not push")
     ap.add_argument("--no-git", action="store_true", help="write data files only")
+    ap.add_argument("--full-resync", action="store_true", help="velocity: re-read every repo's history from scratch")
     ap.add_argument("-v", "--verbose", action="store_true")
     args = ap.parse_args(argv)
     logging.basicConfig(level=logging.DEBUG if args.verbose else logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -804,7 +1054,7 @@ def main(argv: list[str] | None = None) -> int:
         fname, fn = MODULES[name]
         started = time.monotonic()
         try:
-            new = fn(cfg, started)
+            new = collect_velocity(cfg, started, full=True) if (name == "velocity" and args.full_resync) else fn(cfg, started)
         except Exception as e:  # noqa: BLE001 - keep the old file, carry on with the rest
             log.error("%s failed, keeping previous %s: %s", name, fname, e)
             failures.append(name)
