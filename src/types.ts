@@ -77,6 +77,13 @@ export interface DayMetrics {
   /** "your hours": this project's share of session time that day */
   hours: number
   prs: number
+  /** source + tests + config lines (added + deleted); lockfiles, generated, data and binaries left out */
+  code: number
+  docs: number
+  /** change sets (one repo's commits within one working session) that started this day */
+  sets: number
+  /** commits whose per-file stats haven't been fetched yet */
+  unclassified: number
 }
 
 export interface Sprint {
@@ -90,7 +97,9 @@ export interface Sprint {
 }
 
 export interface VelocityData extends Envelope {
-  method: { timezone: string; your_hours: string; lines: string; sources: string }
+  method: { timezone: string; your_hours: string; lines: string; code_lines: string; change_sets: string; sources: string }
+  /** share of counted commits with per-file stats (code lines are complete at 1) */
+  file_coverage: number
   excluded: { merge_commits: number; bot_commits: number; automated_commits: number; repos: string[] }
   orgs: Org[]
   /** id is "Org/repo": repo names repeat across orgs */

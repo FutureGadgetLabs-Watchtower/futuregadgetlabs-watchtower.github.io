@@ -362,9 +362,46 @@ VELOCITY_DEFAULTS: dict[str, Any] = {
     "session_lead_minutes": 30,       # work before a session's first commit
     "max_lines_per_commit": 5000,     # caps generated / vendored commits so they can't swamp the totals
     "automated_message_patterns": [r"^auto[ -]?update\b", r"^chore\(data\)", r"^data: sync\b", r"\[skip ci\]"],
+    "file_fetch_budget": 600,         # per-commit file stats fetched per run; --backfill-files lifts the cap
+    "file_rules": {},                 # extra regexes per category, tried before the built-in ones
 }
+
+# File classification for code-only line counts and the judge's diffs. First match wins, in this order.
+FILE_RULES: list[tuple[str, list[str]]] = [
+    ("excluded", [
+        r"(^|/)(package-lock\.json|npm-shrinkwrap\.json|yarn\.lock|pnpm-lock\.yaml|bun\.lockb?|poetry\.lock|uv\.lock|Pipfile\.lock"
+        r"|Cargo\.lock|go\.sum|Gemfile\.lock|composer\.lock|flake\.lock)$",
+        r"(^|/)(dist|build|out|node_modules|vendor|\.next|\.nuxt|coverage|__snapshots__|__pycache__|\.venv|site-packages)/",
+        r"\.(min\.js|min\.css|map|lock|snap)$", r"(_pb2(_grpc)?\.py|\.pb\.go|\.generated\.[a-z]+)$",
+        r"\.(csv|tsv|jsonl|ndjson|parquet|xlsx?|sqlite3?|db|pkl|npy|h5)$",
+        r"(^|/)(data|datasets|fixtures|snapshots|samples|seeds?|seed-data|testdata|mock-data)/.*\.(json|ya?ml|xml|txt|html|csv)$",
+        r"\.(png|jpe?g|gif|webp|avif|ico|icns|svg|pdf|woff2?|ttf|otf|eot|mp[34]|wav|mov|webm|zip|gz|tgz|tar|7z|wasm|bin|exe|dll|so|dylib)$",
+    ]),
+    ("test", [r"(^|/)(tests?|__tests__|specs?|e2e|cypress|playwright)/",
+              r"(_test\.(go|py|rs)|\.(test|spec)\.[cm]?[jt]sx?|(^|/)test_[^/]*\.py|(^|/)conftest\.py)$"]),
+    ("docs", [r"\.(md|mdx|rst|adoc|txt)$", r"(^|/)(LICENSE|CHANGELOG|AUTHORS)[^/]*$"]),
+    ("config", [r"\.(ya?ml|toml|ini|cfg|conf|properties|env\.example|tf|tfvars|hcl|nix)$",
+                r"(^|/)(Dockerfile[^/]*|Containerfile|Makefile|Procfile|Caddyfile|docker-compose[^/]*|\.[a-z]+rc|\.gitignore|\.dockerignore)$",
+                r"(^|/)\.github/", r"\.json$"]),
+]
+CODE_CATS = ("code", "test", "config")  # what the judge reads and "code lines" counts; docs are tallied apart
+
+
+def file_classifier(vcfg: dict) -> Callable[[str], str]:
+    extra = vcfg.get("file_rules") or {}
+    rules = [(cat, [re.compile(rx, re.I) for rx in extra.get(cat, []) + rxs]) for cat, rxs in FILE_RULES]
+    rules += [(cat, [re.compile(rx, re.I) for rx in rxs]) for cat, rxs in extra.items() if cat not in dict(FILE_RULES)]
+
+    def classify(path: str) -> str:
+        for cat, rxs in rules:
+            if any(rx.search(path) for rx in rxs):
+                return cat
+        return "code"
+    return classify
 ORG_PALETTE = ["#338ced", "#e76624", "#00a888", "#d28e05", "#e24d8b", "#0aac23", "#9887ef",
                "#5ab4c4", "#c46a3a", "#8fa83a", "#b45fb0", "#6f86d6"]
+EMPTY_DAY = {"commits": 0, "additions": 0, "deletions": 0, "claude": 0, "hours": 0.0, "prs": 0,
+             "code": 0, "docs": 0, "sets": 0, "unclassified": 0}
 CLAUDE_TRAILER = re.compile(r"^co-authored-by:\s*claude\b", re.I | re.M)
 
 
@@ -461,7 +498,97 @@ def merged_pr_days(cfg: Config, orgs: list[str], first: dt.date, tz: ZoneInfo) -
     return out
 
 
-def collect_velocity(cfg: Config, started: float, full: bool = False) -> dict:
+PATCH_LINES_PER_FILE = 400
+PATCH_LINES_PER_COMMIT = 4000
+
+
+def sync_commit_files(cfg: Config, vcfg: dict, work: list[dict], budget: int | None) -> dict[str, list]:
+    """Per-file stats for every counted commit: {oid: [[path, status, additions, deletions], ...]}.
+
+    Fetched once per commit (REST /commits/{sha}) and cached under state/velocity/files. The diff text of
+    non-excluded files is kept too (state/velocity/diffs, gzip, truncated) for the change-set judge; it
+    never leaves the collector host. `budget` caps fetches per run so a 15-minute timer stays quick.
+    """
+    import concurrent.futures as cf
+    import gzip
+
+    store = cfg.state_dir / "velocity"
+    classify = file_classifier(vcfg)
+    known: dict[str, list] = {}
+    for proj in {c["project"] for c in work}:
+        for row in _read_jsonl(store / "files" / (proj.replace("/", "__") + ".jsonl")):
+            known[row["oid"]] = row["files"]
+    todo = [c for c in reversed(work) if c["oid"] not in known]  # newest first, so recent weeks fill in first
+    if budget is not None:
+        todo = todo[:budget]
+    if not todo:
+        return known
+    for org in {c["project"].split("/")[0] for c in todo}:
+        cfg.app.token(org)  # mint tokens up front; the workers only read them
+
+    gh = GitHub(cfg)
+
+    def fetch(c: dict) -> tuple[dict, list, dict] | None:
+        org, repo = c["project"].split("/", 1)
+        try:
+            res = gh.rest(org, f"/repos/{org}/{repo}/commits/{c['oid']}")
+        except Exception as e:  # noqa: BLE001
+            log.warning("velocity: files for %s@%s failed: %s", c["project"], c["oid"][:10], e)
+            return None
+        files, patches, budget_lines = [], {}, PATCH_LINES_PER_COMMIT
+        for f in res.get("files") or []:
+            files.append([f["filename"], f.get("status", ""), f.get("additions", 0), f.get("deletions", 0)])
+            patch = f.get("patch")
+            if patch and budget_lines > 0 and classify(f["filename"]) != "excluded":
+                lines = patch.splitlines()[:min(PATCH_LINES_PER_FILE, budget_lines)]
+                budget_lines -= len(lines)
+                patches[f["filename"]] = "\n".join(lines)
+        return c, files, patches
+
+    fetched: dict[str, list[dict]] = defaultdict(list)
+    with cf.ThreadPoolExecutor(max_workers=6) as pool:
+        for res in pool.map(fetch, todo):
+            if not res:
+                continue
+            c, files, patches = res
+            known[c["oid"]] = files
+            fetched[c["project"]].append({"oid": c["oid"], "files": files})
+            if patches:
+                d = store / "diffs" / c["project"].replace("/", "__")
+                d.mkdir(parents=True, exist_ok=True)
+                (d / f"{c['oid']}.json.gz").write_bytes(gzip.compress(json.dumps(patches).encode()))
+    for proj, rows in fetched.items():
+        path = store / "files" / (proj.replace("/", "__") + ".jsonl")
+        _write_jsonl(path, _read_jsonl(path) + rows)
+    log.info("velocity: file stats for %d commits (%d still to fetch)", sum(map(len, fetched.values())),
+             sum(1 for c in work if c["oid"] not in known))
+    return known
+
+
+GENERATED_DATA_EXT = re.compile(r"\.(json|html?|xml)$", re.I)
+DATA_FILE_LINES = 1000       # a json / html / xml file changing this much in one commit is data or generated output
+GENERATED_FILE_LINES = 3000  # any file changing this much in one commit is almost certainly generated
+
+
+def classify_change(path: str, add: int, dele: int, classify: Callable[[str], str]) -> str:
+    """Path rules first, then size: hand-written files rarely change by thousands of lines in one commit."""
+    cat = classify(path)
+    if cat != "excluded" and (add + dele >= GENERATED_FILE_LINES
+                              or (GENERATED_DATA_EXT.search(path) and add + dele >= DATA_FILE_LINES)):
+        return "excluded"
+    return cat
+
+
+def commit_lines_by_category(files: list, classify: Callable[[str], str]) -> dict[str, list[int]]:
+    out: dict[str, list[int]] = {}
+    for path, _status, add, dele in files:
+        a = out.setdefault(classify_change(path, add, dele, classify), [0, 0])
+        a[0] += add
+        a[1] += dele
+    return out
+
+
+def collect_velocity(cfg: Config, started: float, full: bool = False, backfill_files: bool = False) -> dict:
     if not cfg.app.enabled:
         raise RuntimeError("velocity needs the GitHub App: set GITHUB_APP_ID and GITHUB_APP_KEY")
     vcfg = {**VELOCITY_DEFAULTS, **cfg.targets.get("velocity", {})}
@@ -495,21 +622,60 @@ def collect_velocity(cfg: Config, started: float, full: bool = False) -> dict:
         if not sessions or c["_t"] - sessions[-1][-1]["_t"] > gap:
             sessions.append([])
         sessions[-1].append(c)
-    for s in sessions:
+    for i, s in enumerate(sessions):
         share = ((s[-1]["_t"] - s[0]["_t"]) + lead).total_seconds() / 3600 / len(s)
         for c in s:
             c["_h"] = share
+            c["_s"] = i
+
+    # Per-file stats → lines by category (code / test / config / docs / excluded) per commit.
+    classify = file_classifier(vcfg)
+    files = sync_commit_files(cfg, vcfg, work, None if backfill_files else vcfg["file_fetch_budget"])
+    for c in work:
+        f = files.get(c["oid"])
+        c["_cats"] = commit_lines_by_category(f, classify) if f is not None else None
 
     cap = vcfg["max_lines_per_commit"]
     days: dict[str, dict[str, dict]] = defaultdict(dict)
     for c in work:
         d = c["_t"].astimezone(tz).date().isoformat()
-        m = days[d].setdefault(c["project"], {"commits": 0, "additions": 0, "deletions": 0, "claude": 0, "hours": 0.0, "prs": 0})
+        m = days[d].setdefault(c["project"], dict(EMPTY_DAY))
         m["commits"] += 1
         m["additions"] += min(c["add"], cap)
         m["deletions"] += min(c["del"], cap)
         m["claude"] += 1 if c["claude"] else 0
         m["hours"] += c["_h"]
+        if c["_cats"] is not None:
+            code = sum(sum(c["_cats"].get(k, [0, 0])) for k in CODE_CATS)
+            m["code"] += min(code, cap)
+            m["docs"] += min(sum(c["_cats"].get("docs", [0, 0])), cap)
+        else:
+            m["unclassified"] += 1
+
+    # Change sets: one repo's commits within one working session, roughly what a person would ship as one PR.
+    # This is the unit the senior-hours judge scores. Written to the collector host only (subjects are private).
+    groups: dict[tuple[int, str], list[dict]] = defaultdict(list)
+    for c in work:
+        groups[(c["_s"], c["project"])].append(c)
+    change_sets = []
+    for (_s, proj), cs in sorted(groups.items(), key=lambda kv: kv[1][0]["_t"]):
+        cats: dict[str, list[int]] = {}
+        for c in cs:
+            for k, (a, dl) in (c["_cats"] or {}).items():
+                cats.setdefault(k, [0, 0])
+                cats[k][0] += a
+                cats[k][1] += dl
+        local = cs[0]["_t"].astimezone(tz).date()
+        change_sets.append({
+            "id": f"{proj}@{cs[0]['oid'][:10]}", "project": proj, "date": local.isoformat(),
+            "week": monday(local).isoformat(), "start": cs[0]["t"], "end": cs[-1]["t"],
+            "commits": [c["oid"] for c in cs], "claude": sum(1 for c in cs if c["claude"]),
+            "lines": cats, "complete": all(c["_cats"] is not None for c in cs),
+            "subjects": [c["subj"] for c in cs],
+        })
+        days[local.isoformat()].setdefault(proj, dict(EMPTY_DAY))["sets"] += 1
+    _write_jsonl(cfg.state_dir / "velocity" / "change_sets.jsonl", change_sets)
+    classified = sum(1 for c in work if c["_cats"] is not None)
 
     active_orgs = sorted({r["org"] for r in repos})
     if work:
@@ -517,7 +683,7 @@ def collect_velocity(cfg: Config, started: float, full: bool = False) -> dict:
         tracked = {r["id"] for r in repos}
         for (proj, d), n in merged_pr_days(cfg, active_orgs, first_day, tz).items():
             if proj in tracked:
-                days[d].setdefault(proj, {"commits": 0, "additions": 0, "deletions": 0, "claude": 0, "hours": 0.0, "prs": 0})["prs"] += n
+                days[d].setdefault(proj, dict(EMPTY_DAY))["prs"] += n
     for by in days.values():
         for m in by.values():
             m["hours"] = round(m["hours"], 2)
@@ -540,9 +706,15 @@ def collect_velocity(cfg: Config, started: float, full: bool = False) -> dict:
                            f"a session counts its span plus {vcfg['session_lead_minutes']} min of lead-in. One timeline for "
                            "everything, since one person directs every agent."),
             "lines": f"Lines added and deleted per commit, capped at {cap:,} each so generated or vendored commits can't swamp the totals.",
+            "code_lines": ("Code lines count source, tests and config (added + deleted), from per-file stats. Lockfiles, generated "
+                           "and vendored files, data, fixtures and binaries are left out, as is any JSON/HTML/XML file changing by "
+                           f"{DATA_FILE_LINES:,}+ lines or any file changing by {GENERATED_FILE_LINES:,}+ lines in one commit; "
+                           "docs are counted separately."),
+            "change_sets": "A change set is one repo's commits within one working session: the unit the senior-hours judge scores.",
             "sources": "Default-branch history of every repo the Watchtower GitHub App can read; merge, bot and automated "
                        "data commits excluded; merged PRs from GitHub search.",
         },
+        "file_coverage": round(classified / len(work), 4) if work else 1.0,
         "excluded": {**{k: excluded.get(k, 0) for k in ("merge_commits", "bot_commits", "automated_commits")},
                      "repos": sorted(vcfg["exclude_repos"])},
         "orgs": orgs_out,
@@ -1040,6 +1212,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--no-push", action="store_true", help="commit locally but do not push")
     ap.add_argument("--no-git", action="store_true", help="write data files only")
     ap.add_argument("--full-resync", action="store_true", help="velocity: re-read every repo's history from scratch")
+    ap.add_argument("--backfill-files", action="store_true", help="velocity: fetch per-file stats for every commit (no per-run cap)")
     ap.add_argument("-v", "--verbose", action="store_true")
     args = ap.parse_args(argv)
     logging.basicConfig(level=logging.DEBUG if args.verbose else logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -1054,7 +1227,10 @@ def main(argv: list[str] | None = None) -> int:
         fname, fn = MODULES[name]
         started = time.monotonic()
         try:
-            new = collect_velocity(cfg, started, full=True) if (name == "velocity" and args.full_resync) else fn(cfg, started)
+            if name == "velocity":
+                new = collect_velocity(cfg, started, full=args.full_resync, backfill_files=args.backfill_files)
+            else:
+                new = fn(cfg, started)
         except Exception as e:  # noqa: BLE001 - keep the old file, carry on with the rest
             log.error("%s failed, keeping previous %s: %s", name, fname, e)
             failures.append(name)
