@@ -6,14 +6,16 @@ import type { DayMetrics } from '../types'
 import { axisProps, ChartTooltip, gridProps, Legend, SERIES } from '../components/charts'
 import { Bar, OrgTag, PageHead, Panel, Segmented, Select, Stat } from '../components/ui'
 
-type Metric = 'commits' | 'hours' | 'lines' | 'prs'
+type Metric = 'senior' | 'commits' | 'hours' | 'code' | 'sets' | 'prs'
 type Grain = 'day' | 'week'
 type Range = '28' | '84' | '182' | 'all'
 
 const METRICS: { value: Metric; label: string }[] = [
-  { value: 'commits', label: 'Commits' },
+  { value: 'senior', label: 'Senior hours' },
   { value: 'hours', label: 'Your hours' },
-  { value: 'lines', label: 'Lines' },
+  { value: 'sets', label: 'Change sets' },
+  { value: 'commits', label: 'Commits' },
+  { value: 'code', label: 'Code lines' },
   { value: 'prs', label: 'PRs' },
 ]
 const OTHER = '#6b7a90'
@@ -27,29 +29,43 @@ const mondayOf = (s: string) => addDays(s, -((toDate(s).getUTCDay() + 6) % 7))
 const localToday = (tz: string, iso: string) =>
   new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(iso))
 
-const metricOf = (m: DayMetrics, k: Metric) => (k === 'lines' ? m.additions + m.deletions : m[k])
+const metricOf = (m: DayMetrics, k: Metric) => m[k] ?? 0
 
 interface Totals {
+  senior: number
+  senior_low: number
+  senior_high: number
+  judged: number
   commits: number
   hours: number
-  additions: number
-  deletions: number
+  code: number
+  docs: number
+  sets: number
   prs: number
   claude: number
   days: number
 }
+const ZERO: Totals = { senior: 0, senior_low: 0, senior_high: 0, judged: 0, commits: 0, hours: 0, code: 0, docs: 0, sets: 0, prs: 0, claude: 0, days: 0 }
+function add(t: Totals, m: DayMetrics) {
+  t.senior += m.senior ?? 0
+  t.senior_low += m.senior_low ?? 0
+  t.senior_high += m.senior_high ?? 0
+  t.judged += m.judged ?? 0
+  t.commits += m.commits
+  t.hours += m.hours
+  t.code += m.code ?? 0
+  t.docs += m.docs ?? 0
+  t.sets += m.sets ?? 0
+  t.prs += m.prs
+  t.claude += m.claude
+}
 function totals(days: typeof velocity.days, inScope: (p: string) => boolean): Totals {
-  const t: Totals = { commits: 0, hours: 0, additions: 0, deletions: 0, prs: 0, claude: 0, days: 0 }
+  const t = { ...ZERO }
   for (const d of days) {
     let active = false
     for (const [p, m] of Object.entries(d.by_project)) {
       if (!inScope(p)) continue
-      t.commits += m.commits
-      t.hours += m.hours
-      t.additions += m.additions
-      t.deletions += m.deletions
-      t.prs += m.prs
-      t.claude += m.claude
+      add(t, m)
       active ||= m.commits > 0
     }
     if (active) t.days += 1
@@ -60,7 +76,7 @@ function totals(days: typeof velocity.days, inScope: (p: string) => boolean): To
 export function Velocity() {
   const [grain, setGrain] = useState<Grain>('week')
   const [range, setRange] = useState<Range>('84')
-  const [metric, setMetric] = useState<Metric>('hours')
+  const [metric, setMetric] = useState<Metric>(velocity.judge?.judged_sets ? 'senior' : 'hours')
   const [org, setOrg] = useState('all')
 
   const tz = velocity.method.timezone
@@ -76,7 +92,8 @@ export function Velocity() {
   const prevDays = range === 'all' ? [] : velocity.days.filter((d) => d.date >= prevStart && d.date < start)
   const cur = totals(windowDays, inScope)
   const prev = range === 'all' ? null : totals(prevDays, inScope)
-  const delta = (a: number, b?: number) => (b ? (a - b) / b : null)
+  // A % change against a near-empty prior period (1 PR → 1,179) says nothing; show it only from a real base.
+  const delta = (a: number, b?: number) => (b && b >= 5 ? (a - b) / b : null)
 
   // Series: the biggest orgs (or repos, inside one org) for this metric and window; the rest fold into "Other".
   const series = useMemo(() => {
@@ -124,13 +141,8 @@ export function Velocity() {
     for (const d of windowDays)
       for (const [p, m] of Object.entries(d.by_project)) {
         if (!inScope(p)) continue
-        const r = rows.get(p) ?? { id: p, commits: 0, hours: 0, additions: 0, deletions: 0, prs: 0, claude: 0, days: 0 }
-        r.commits += m.commits
-        r.hours += m.hours
-        r.additions += m.additions
-        r.deletions += m.deletions
-        r.prs += m.prs
-        r.claude += m.claude
+        const r = rows.get(p) ?? { id: p, ...ZERO }
+        add(r, m)
         r.days += m.commits > 0 ? 1 : 0
         rows.set(p, r)
       }
@@ -139,7 +151,12 @@ export function Velocity() {
   }, [org, start, today])
   const maxHours = Math.max(...table.map((t) => t.hours), 1)
 
-  const fmt = (v: number) => (metric === 'lines' ? compact(v) : metric === 'hours' ? `${v.toFixed(1)} h` : num(v))
+  const fmt = (v: number) => (metric === 'code' ? compact(v) : metric === 'hours' || metric === 'senior' ? `${v.toFixed(1)} h` : num(v))
+  // Leverage and team size only once (nearly) every change set in the window has been judged: a partial
+  // back-fill would understate senior hours against a complete count of your hours.
+  const coverage = cur.sets ? cur.judged / cur.sets : 0
+  const complete = coverage >= 0.95
+  const weeks = Math.max(1, (range === 'all' ? (toDate(today).getTime() - toDate(first).getTime()) / 864e5 + 1 : Number(range)) / 7)
   const rangeLabel = range === 'all' ? `since ${shortDate(first)}` : `last ${range === '28' ? '4' : range === '84' ? '12' : '26'} weeks`
   const ex = velocity.excluded
 
@@ -151,15 +168,43 @@ export function Velocity() {
         judge.
       </PageHead>
 
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
-        <Stat label="Your hours" value={cur.hours.toFixed(0)} delta={delta(cur.hours, prev?.hours)} sub={prev ? 'vs prior period' : rangeLabel} />
-        <Stat label="Commits" value={num(cur.commits)} delta={delta(cur.commits, prev?.commits)} sub={prev ? 'vs prior period' : rangeLabel} />
-        <Stat label="Active days" value={cur.days} sub={`of ${range === 'all' ? Math.round((toDate(today).getTime() - toDate(first).getTime()) / 864e5) + 1 : range}`} />
+      <div className="mb-3 grid gap-3 md:grid-cols-3">
         <Stat
-          label="Lines changed"
-          value={compact(cur.additions + cur.deletions)}
-          delta={delta(cur.additions + cur.deletions, prev ? prev.additions + prev.deletions : undefined)}
-          sub={`+${compact(cur.additions)} −${compact(cur.deletions)}`}
+          label="Senior-engineer-equivalent hours"
+          value={cur.judged ? cur.senior.toFixed(0) : '—'}
+          delta={complete ? delta(cur.senior, prev && prev.sets && prev.judged / prev.sets >= 0.95 ? prev.senior : undefined) : null}
+          sub={
+            cur.judged
+              ? `${cur.senior_low.toFixed(0)}–${cur.senior_high.toFixed(0)} h range${complete ? '' : ` · ${cur.judged} of ${cur.sets} change sets judged`}`
+              : 'judge not run for this period yet'
+          }
+        />
+        <Stat
+          label="Leverage"
+          value={complete && cur.hours ? `${(cur.senior / cur.hours).toFixed(1)}×` : '—'}
+          sub={complete ? 'senior-equivalent hours per hour of yours' : 'needs the back-fill for this period'}
+        />
+        <Stat
+          label="Team equivalent"
+          value={complete ? (cur.senior / weeks / 40).toFixed(1) : '—'}
+          sub={complete ? 'senior engineers at 40 h/week, averaged' : 'needs the back-fill for this period'}
+        />
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
+        <Stat
+          label="Your hours"
+          value={cur.hours.toFixed(0)}
+          delta={delta(cur.hours, prev?.hours)}
+          sub={`${cur.days} active days`}
+        />
+        <Stat label="Change sets" value={num(cur.sets)} delta={delta(cur.sets, prev?.sets)} sub={prev ? 'vs prior period' : rangeLabel} />
+        <Stat label="Commits" value={num(cur.commits)} delta={delta(cur.commits, prev?.commits)} sub={prev ? 'vs prior period' : rangeLabel} />
+        <Stat
+          label="Code lines"
+          value={compact(cur.code)}
+          delta={delta(cur.code, prev?.code)}
+          sub={velocity.file_coverage < 1 ? `${Math.round(velocity.file_coverage * 100)}% of commits classified` : `+ ${compact(cur.docs)} docs`}
         />
         <Stat label="PRs merged" value={num(cur.prs)} delta={delta(cur.prs, prev?.prs)} sub={prev ? 'vs prior period' : rangeLabel} />
         <Stat label="Claude co-authored" value={cur.commits ? `${Math.round((cur.claude / cur.commits) * 100)}%` : '—'} sub="of commits" />
@@ -238,7 +283,7 @@ export function Velocity() {
             <table className="w-full text-sm">
               <thead className="sticky top-0 bg-panel">
                 <tr className="border-b border-line text-left">
-                  {['Repository', 'Org', 'Your hours', 'Commits', 'PRs', 'Lines +/−', 'Active days', 'Claude'].map((h) => (
+                  {['Repository', 'Org', 'Your hours', 'Senior h', 'Change sets', 'Commits', 'PRs', 'Code lines', 'Active days', 'Claude'].map((h) => (
                     <th key={h} className="label whitespace-nowrap px-4 py-2 font-normal">
                       {h}
                     </th>
@@ -266,11 +311,13 @@ export function Velocity() {
                           </div>
                         </div>
                       </td>
+                      <td className="px-4 py-2 font-mono text-xs tnum" title={r.judged ? `${r.judged} of ${r.sets} change sets judged` : ''}>
+                        {r.judged ? `${r.senior.toFixed(0)}${r.judged < r.sets ? '*' : ''}` : '—'}
+                      </td>
+                      <td className="px-4 py-2 font-mono text-xs tnum">{num(r.sets)}</td>
                       <td className="px-4 py-2 font-mono text-xs tnum">{num(r.commits)}</td>
                       <td className="px-4 py-2 font-mono text-xs tnum">{r.prs}</td>
-                      <td className="whitespace-nowrap px-4 py-2 font-mono text-xs text-ink-2 tnum">
-                        +{compact(r.additions)} −{compact(r.deletions)}
-                      </td>
+                      <td className="whitespace-nowrap px-4 py-2 font-mono text-xs text-ink-2 tnum">{compact(r.code)}</td>
                       <td className="px-4 py-2 font-mono text-xs text-ink-2 tnum">{r.days}</td>
                       <td className="px-4 py-2 font-mono text-xs text-ink-2 tnum">{Math.round((r.claude / r.commits) * 100)}%</td>
                     </tr>
@@ -314,8 +361,18 @@ export function Velocity() {
           {velocity.method.your_hours}
         </p>
         <p>
-          <span className="label mr-2">lines</span>
-          {velocity.method.lines}
+          <span className="label mr-2">code lines</span>
+          {velocity.method.code_lines}
+        </p>
+        <p>
+          <span className="label mr-2">senior hours</span>
+          {velocity.method.senior_hours}
+          {velocity.judge &&
+            ` Judged so far: ${num(velocity.judge.judged_sets)} of ${num(velocity.judge.total_sets)} change sets (scoring guide ${velocity.judge.prompt_version}). * = some of that repo's change sets aren't judged yet.`}
+        </p>
+        <p>
+          <span className="label mr-2">change sets</span>
+          {velocity.method.change_sets}
         </p>
         <p>
           <span className="label mr-2">sources</span>
