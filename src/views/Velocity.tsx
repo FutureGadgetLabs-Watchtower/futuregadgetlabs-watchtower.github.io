@@ -12,7 +12,7 @@ type Grain = 'day' | 'week'
 type Range = '28' | '84' | '182' | 'all'
 
 const METRICS: { value: Metric; label: string }[] = [
-  { value: 'senior', label: 'Senior hours' },
+  { value: 'senior', label: 'Eng. hours delivered' },
   { value: 'hours', label: 'Your hours' },
   { value: 'sets', label: 'Change sets' },
   { value: 'commits', label: 'Commits' },
@@ -165,7 +165,7 @@ export function Velocity() {
 
   const fmt = (v: number) => (metric === 'code' ? compact(v) : metric === 'hours' || metric === 'senior' ? `${v.toFixed(1)} h` : num(v))
   // Leverage and team size only once (nearly) every change set in the window has been judged: a partial
-  // back-fill would understate senior hours against a complete count of your hours.
+  // back-fill would understate engineering hours delivered against a complete count of your hours.
   const coverage = cur.sets ? cur.judged / cur.sets : 0
   const complete = coverage >= 0.95
   const weeks = Math.max(1, (range === 'all' ? (toDate(today).getTime() - toDate(first).getTime()) / 864e5 + 1 : Number(range)) / 7)
@@ -176,30 +176,30 @@ export function Velocity() {
     <div>
       <PageHead code="02" title="Engineering velocity">
         Every commit across the orgs the Watchtower GitHub App can read, counted per day in {tz.replace('_', ' ')} time. "Your
-        hours" is time spent directing the work, from commit sessions. Senior-engineer-equivalent hours come from a judge
-        that reads each change and estimates what it would have taken one senior engineer before AI.
+        hours" is time spent directing the work, from commit sessions. "Engineering hours delivered" is how much engineering the
+        shipped code represents: a judge reads each change and estimates what it would have taken one senior engineer before AI.
       </PageHead>
 
       <div className="mb-3 grid gap-3 md:grid-cols-3">
         <Stat
-          label="Senior-engineer-equivalent hours"
+          label="Engineering hours delivered"
           value={cur.judged ? cur.senior.toFixed(0) : '—'}
           delta={complete ? delta(cur.senior, prev && prev.sets && prev.judged / prev.sets >= 0.95 ? prev.senior : undefined) : null}
           sub={
             cur.judged
-              ? `${cur.senior_low.toFixed(0)}–${cur.senior_high.toFixed(0)} h range${complete ? '' : ` · ${cur.judged} of ${cur.sets} change sets judged`}`
+              ? `${cur.senior_low.toFixed(0)}–${cur.senior_high.toFixed(0)} h range, senior pre-AI pace${complete ? '' : ` · ${cur.judged} of ${cur.sets} change sets judged`}`
               : 'judge not run for this period yet'
           }
         />
         <Stat
           label="Leverage"
           value={complete && cur.hours ? `${(cur.senior / cur.hours).toFixed(1)}×` : '—'}
-          sub={complete ? 'senior-equivalent hours per hour of yours' : 'needs the back-fill for this period'}
+          sub={complete ? 'engineering hours delivered per hour of yours' : 'needs the back-fill for this period'}
         />
         <Stat
           label="Team equivalent"
           value={complete ? (cur.senior / weeks / 40).toFixed(1) : '—'}
-          sub={complete ? 'senior engineers at 40 h/week, averaged' : 'needs the back-fill for this period'}
+          sub={complete ? 'engineers at 40 h/week of delivered work, averaged' : 'needs the back-fill for this period'}
         />
       </div>
 
@@ -299,7 +299,7 @@ export function Velocity() {
             <table className="w-full text-sm">
               <thead className="sticky top-0 bg-panel">
                 <tr className="border-b border-line text-left">
-                  {['Repository', 'Org', 'Your hours', 'Senior h', 'Change sets', 'Commits', 'PRs', 'Code lines', 'Rework', 'Active days', 'Claude'].map((h) => (
+                  {['Repository', 'Org', 'Your hours', 'Eng. hours', 'Change sets', 'Commits', 'PRs', 'Code lines', 'Rework', 'Active days', 'Claude'].map((h) => (
                     <th key={h} className="label whitespace-nowrap px-4 py-2 font-normal">
                       {h}
                     </th>
@@ -382,7 +382,7 @@ export function Velocity() {
           {velocity.method.code_lines}
         </p>
         <p>
-          <span className="label mr-2">senior hours</span>
+          <span className="label mr-2">engineering hours</span>
           {velocity.method.senior_hours}
           {velocity.judge &&
             ` Judged so far: ${num(velocity.judge.judged_sets)} of ${num(velocity.judge.total_sets)} change sets (scoring guide ${velocity.judge.prompt_version}). * = some of that repo's change sets aren't judged yet.`}
