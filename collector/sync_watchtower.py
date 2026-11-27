@@ -364,6 +364,7 @@ VELOCITY_DEFAULTS: dict[str, Any] = {
     "automated_message_patterns": [r"^auto[ -]?update\b", r"^chore\(data\)", r"^data: sync\b", r"\[skip ci\]"],
     "file_fetch_budget": 600,         # per-commit file stats fetched per run; --backfill-files lifts the cap
     "file_rules": {},                 # extra regexes per category, tried before the built-in ones
+    "publish_senior": True,           # off while calibrating, so the judge's numbers stay blind until you've scored
 }
 
 # File classification for code-only line counts and the judge's diffs. First match wins, in this order.
@@ -401,7 +402,8 @@ def file_classifier(vcfg: dict) -> Callable[[str], str]:
 ORG_PALETTE = ["#338ced", "#e76624", "#00a888", "#d28e05", "#e24d8b", "#0aac23", "#9887ef",
                "#5ab4c4", "#c46a3a", "#8fa83a", "#b45fb0", "#6f86d6"]
 EMPTY_DAY = {"commits": 0, "additions": 0, "deletions": 0, "claude": 0, "hours": 0.0, "prs": 0,
-             "code": 0, "docs": 0, "sets": 0, "unclassified": 0}
+             "code": 0, "docs": 0, "sets": 0, "unclassified": 0,
+             "senior": 0.0, "senior_low": 0.0, "senior_high": 0.0, "judged": 0}
 CLAUDE_TRAILER = re.compile(r"^co-authored-by:\s*claude\b", re.I | re.M)
 
 
@@ -677,6 +679,30 @@ def collect_velocity(cfg: Config, started: float, full: bool = False, backfill_f
     _write_jsonl(cfg.state_dir / "velocity" / "change_sets.jsonl", change_sets)
     classified = sum(1 for c in work if c["_cats"] is not None)
 
+    # Senior-engineer-equivalent hours from the judge (collector/judge.py), for sets judged under the current
+    # prompt version and with the same commits as now. Unjudged sets add nothing; "judged" shows coverage.
+    judge_meta = None
+    jpath = cfg.state_dir / "velocity" / "judgments.jsonl"
+    if jpath.exists() and vcfg["publish_senior"]:
+        if str(HERE) not in sys.path:  # judge.py sits next to this file; python -I leaves it off the path
+            sys.path.insert(0, str(HERE))
+        import judge as _judge  # imported lazily so the collector runs without it
+        by_id = {cs["id"]: cs for cs in change_sets}
+        judged = _judge.current(_read_jsonl(jpath), by_id)
+        for cs_id, j in judged.items():
+            m = days[by_id[cs_id]["date"]].setdefault(by_id[cs_id]["project"], dict(EMPTY_DAY))
+            m["senior"] += j["hours_likely"]
+            m["senior_low"] += j["hours_low"]
+            m["senior_high"] += j["hours_high"]
+            m["judged"] += 1
+        eligible = [cs for cs in change_sets if cs["complete"]]
+        judge_meta = {
+            "prompt_version": _judge.PROMPT_VERSION,
+            "models": sorted({mdl for j in judged.values() for mdl in j.get("models", [])}),
+            "judged_sets": len(judged), "total_sets": len(eligible),
+            "first_judged_date": min((by_id[i]["date"] for i in judged), default=None),
+        }
+
     active_orgs = sorted({r["org"] for r in repos})
     if work:
         first_day = work[0]["_t"].astimezone(tz).date()
@@ -686,7 +712,8 @@ def collect_velocity(cfg: Config, started: float, full: bool = False, backfill_f
                 days[d].setdefault(proj, dict(EMPTY_DAY))["prs"] += n
     for by in days.values():
         for m in by.values():
-            m["hours"] = round(m["hours"], 2)
+            for k in ("hours", "senior", "senior_low", "senior_high"):
+                m[k] = round(m[k], 2)
 
     with_work = {p for by in days.values() for p in by}  # commits or merged PRs
     org_cfg = {o["id"]: o for o in cfg.orgs}
@@ -711,10 +738,15 @@ def collect_velocity(cfg: Config, started: float, full: bool = False, backfill_f
                            f"{DATA_FILE_LINES:,}+ lines or any file changing by {GENERATED_FILE_LINES:,}+ lines in one commit; "
                            "docs are counted separately."),
             "change_sets": "A change set is one repo's commits within one working session: the unit the senior-hours judge scores.",
+            "senior_hours": ("Senior-engineer-equivalent hours: for each change set, Claude reads the commit messages, file list and "
+                             "code diff and estimates how long one senior engineer, familiar with the codebase, would have needed "
+                             "before AI coding tools (design, code, tests, debugging; not meetings or waiting). The median is shown "
+                             "with an 80% range. AI verbosity is credited at a senior's speed, not per line."),
             "sources": "Default-branch history of every repo the Watchtower GitHub App can read; merge, bot and automated "
                        "data commits excluded; merged PRs from GitHub search.",
         },
         "file_coverage": round(classified / len(work), 4) if work else 1.0,
+        "judge": judge_meta,
         "excluded": {**{k: excluded.get(k, 0) for k in ("merge_commits", "bot_commits", "automated_commits")},
                      "repos": sorted(vcfg["exclude_repos"])},
         "orgs": orgs_out,

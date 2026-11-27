@@ -141,7 +141,8 @@
       "^chore\\(data\\)",
       "^data: sync\\b",
       "\\[skip ci\\]"
-    ]
+    ],
+    "publish_senior": true
   },
   "roadmap_label": "watchtower:roadmap",
   "nodes": [
