@@ -49,7 +49,7 @@ export function DelegationPanel({ start, end, org, rangeLabel }: { start: string
     return { at: d.date, you: d.attention_h, agents: Math.round(dayBusy * 100) / 100 }
   })
 
-  // Tokens per senior-equivalent hour, over the days that have session data.
+  // Tokens per engineering hour delivered, over the days that have session data.
   const dates = new Set(days.map((d) => d.date))
   let senior = 0
   let sets = 0
@@ -82,7 +82,7 @@ export function DelegationPanel({ start, end, org, rangeLabel }: { start: string
           sub={`average while any worked · peak ${peak}`}
         />
         <Stat
-          label="Tokens per senior hour"
+          label="Tokens per eng. hour"
           value={senior ? compact(allTokens / senior) : '—'}
           sub={
             senior

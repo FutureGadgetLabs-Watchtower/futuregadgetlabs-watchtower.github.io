@@ -809,15 +809,16 @@ def collect_velocity(cfg: Config, started: float, full: bool = False, backfill_f
                            "and vendored files, data, fixtures and binaries are left out, as is any JSON/HTML/XML file changing by "
                            f"{DATA_FILE_LINES:,}+ lines or any file changing by {GENERATED_FILE_LINES:,}+ lines in one commit; "
                            "docs are counted separately."),
-            "change_sets": "A change set is one repo's commits within one working session: the unit the senior-hours judge scores.",
+            "change_sets": "A change set is one repo's commits within one working session: the unit the engineering-hours judge scores.",
             "rework": (f"Rework: of the non-trivial code, test and config lines written on a day, the share deleted again from the "
                        f"same file within {REWORK_WINDOW_DAYS} days (matched line by line in the diffs). Days younger than "
                        f"{REWORK_WINDOW_DAYS} days are still open and left out of the rate. Lower is better: code that stays."),
             "rework_window_days": REWORK_WINDOW_DAYS,
-            "senior_hours": ("Senior-engineer-equivalent hours: for each change set, Claude reads the commit messages, file list and "
-                             "code diff and estimates how long one senior engineer, familiar with the codebase, would have needed "
-                             "before AI coding tools (design, code, tests, debugging; not meetings or waiting). The median is shown "
-                             "with an 80% range. AI verbosity is credited at a senior's speed, not per line."),
+            "senior_hours": ("Engineering hours delivered: how much engineering work the shipped code represents. For each change "
+                             "set, Claude reads the commit messages, file list and code diff and estimates how long one senior "
+                             "engineer, familiar with the codebase, would have needed before AI coding tools (design, code, tests, "
+                             "debugging; not meetings or waiting). The median is shown with an 80% range. AI verbosity is credited "
+                             "at a senior's speed, not per line."),
             "sources": "Default-branch history of every repo the Watchtower GitHub App can read; merge, bot and automated "
                        "data commits excluded; merged PRs from GitHub search.",
         },
