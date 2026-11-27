@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-27T17:45:40Z",
+  "generated_at": "2026-11-27T18:00:39Z",
   "collector": {
     "host": "agent1",
     "version": "0.2.0",
-    "run_id": "2026-11-27T17:45:40Z",
-    "duration_ms": 5957,
+    "run_id": "2026-11-27T18:00:39Z",
+    "duration_ms": 5877,
     "mock": false
   },
   "method": {
@@ -19,12 +19,12 @@
   "hosts": [
     {
       "name": "agent1",
-      "scanned_at": "2026-11-27T17:45:34+00:00",
+      "scanned_at": "2026-11-27T18:00:33+00:00",
       "files": 17
     },
     {
       "name": "agent2",
-      "scanned_at": "2026-11-27T17:45:40+00:00",
+      "scanned_at": "2026-11-27T18:00:39+00:00",
       "files": 26042
     }
   ],
@@ -3057,12 +3057,12 @@
         "FG-PolyLabs/polyweather": {
           "sessions": 2,
           "prompts": 18,
-          "responses": 228,
+          "responses": 237,
           "attention_h": 1.65,
-          "busy_h": 1.88,
-          "tokens_in": 1866654,
-          "cache_read": 73357034,
-          "tokens_out": 324423
+          "busy_h": 2.12,
+          "tokens_in": 1887308,
+          "cache_read": 78614092,
+          "tokens_out": 339201
         }
       },
       "automated": {},
@@ -3073,7 +3073,7 @@
         "peak": 2
       },
       "models": {
-        "claude-opus-5-5": 340
+        "claude-opus-5-5": 349
       }
     }
   ]
