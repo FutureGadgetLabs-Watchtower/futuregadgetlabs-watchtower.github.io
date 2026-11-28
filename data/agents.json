@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-28T12:30:35Z",
+  "generated_at": "2026-11-28T12:45:33Z",
   "collector": {
     "host": "agent1",
     "version": "0.2.0",
-    "run_id": "2026-11-28T12:30:35Z",
-    "duration_ms": 5913,
+    "run_id": "2026-11-28T12:45:33Z",
+    "duration_ms": 5927,
     "mock": false
   },
   "method": {
@@ -19,12 +19,12 @@
   "hosts": [
     {
       "name": "agent1",
-      "scanned_at": "2026-11-28T12:30:29+00:00",
+      "scanned_at": "2026-11-28T12:45:27+00:00",
       "files": 17
     },
     {
       "name": "agent2",
-      "scanned_at": "2026-11-28T12:30:35+00:00",
+      "scanned_at": "2026-11-28T12:45:33+00:00",
       "files": 26042
     }
   ],
